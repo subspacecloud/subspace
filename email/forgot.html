@@ -1,0 +1,15 @@
+{{template "header.html" .}}
+
+<h3>
+    Password Reset Link
+</h3>
+
+<div class="buttonz">
+    <a href="https://{{$.HTTPHost}}/forgot?email={{$.Email | urlquery}}&secret={{$.Secret | urlquery}}">Reset Your Password</a>
+</div>
+
+<p>
+    NOTE: If you did not request a password reset, simply ignore this email.
+</p>
+
+{{template "footer.html" .}}

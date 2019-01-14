@@ -1,0 +1,56 @@
+body {
+    padding-bottom: 100px;
+    color: #222;
+    background-color: #fdfdfd;
+}
+
+.show-profile.card {
+    background-color: #fdfdfd !important;
+}
+
+.block.header {
+    background-color: #fdfdfd !important;
+}
+
+.center-aligned {
+    text-align: center;
+}
+
+.close-link {
+    color: #000 !important;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+.copylink {
+    color: yellow !important;
+    background-color: #444 !important;
+}
+.copylink::selection {
+    color: #fff !important;
+}
+
+.break-word {
+    overflow-wrap: break-word !important;
+}
+
+.borderless.menu {
+    border-radius: 0 !important;
+}
+
+.navmenu img {
+    max-width: 22px;
+}
+
+.centered-column {
+    max-width: 350px !important;
+}
+
+.page-text {
+    margin-top: 0.5em;
+    font-size: 1.4em;
+    line-height: 1.6em;
+    color: #555;
+    overflow-wrap: break-word;
+}

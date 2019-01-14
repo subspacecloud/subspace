@@ -1,0 +1,127 @@
+{{template "header.html" .}}
+
+<div class="ui container">
+
+    {{with $success := $.Request.FormValue "success"}}
+        <div class="ui info message">
+            <div class="header">
+                {{if eq $success "settings"}}
+                    Settings saved successfully
+                {{else if eq $success "removeprofile"}}
+                    Device removed successfully
+                {{end}}
+            </div>
+            <a class="close-link" href="/"><i class="close icon"></i></a>
+        </div>
+    {{end}}
+    {{with $error := $.Request.FormValue "error"}}
+        <div class="ui large negative message">
+            <div class="content">
+                <div class="header">
+                    {{if eq $error "addprofile"}}
+                        Adding device failed
+                    {{else if eq $error "removeprofile"}}
+                        Adding device failed
+                    {{else if eq $error "profilename"}}
+                        Device name is required
+                    {{else}}
+                        {{$error}}
+                    {{end}}
+                </div>
+                <a class="close-link" href="/"><i class="close icon"></i></a>
+            </div>
+        </div>
+        <div class="ui hidden divider"></div>
+    {{end}}
+
+    <div class="ui padded segment">
+        <div class="ui stackable two column grid">
+            <div class="column">
+                <div class="ui hidden divider"></div>
+                <div class="ui huge center aligned icon header">
+                    <i class="green clockwise rotated strikethrough icon"></i>
+                    <div class="content">Subspace is online</div>
+                </div>
+                <div class="ui hidden divider"></div>
+            </div>
+            <div class="column">
+                <form class="ui huge form" action="/profiles/add" method="POST">
+                    <div class="field">
+                        <input name="name" type="text" value="{{$.Request.FormValue "name"}}" placeholder="Device Name" autofocus>
+                    </div>
+                    <div class="field">
+                        <div id="add-profile-platform" class="ui fluid selection dropdown">
+                            <input type="hidden" name="platform" value="yes">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Select platform</div>
+                            <div class="menu">
+                                <div class="item" data-value="windows"><i class="green windows icon"></i>Windows</div>
+                                <div class="item" data-value="osx"><i class="green apple icon"></i>Mac OS X</div>
+                                <div class="item" data-value="ios"><i class="green apple icon"></i>iOS</div>
+                                <div class="item" data-value="android"><i class="green android icon"></i>Android</div>
+                                <div class="item" data-value="other"><i class="green asterisk dot icon"></i>Other</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <button type="submit" class="ui huge green fluid button">Add device</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui hidden divider"></div>
+
+    {{if $.Profiles}}
+        <div class="ui padded segment">
+            <div class="ui huge green dividing header">
+                Devices
+            </div>
+            <div class="ui hidden divider"></div>
+
+            <div class="ui three stackable cards">
+                {{range $n, $p := $.Profiles}}
+                    <div class="show-profile green card">
+                        <a href="/profiles/delete/{{$p.ID}}" class="ui right corner label "><i class="trash alternate icon"></i></a>
+                        <div class="content">
+                            <div class="header">
+                                <i class="large
+                                {{if eq $p.Platform "windows"}}
+                                    windows
+                                {{else if eq $p.Platform "osx"}}
+                                    apple
+                                {{else if eq $p.Platform "ios"}}
+                                    apple
+                                {{else if eq $p.Platform "android"}}
+                                    android
+                                {{else}}
+                                    asterisk
+                                {{end}}
+                                    icon"></i> {{$p.Name}}
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <div class="ui large list">
+                                <div class="item">
+                                    <i class="calendar icon"></i>
+                                    <div class="content">
+                                        <div class="header">
+                                            Added {{time $p.Created}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <a href="/profiles/connect/{{$p.ID}}" class="ui large basic green fluid button">Connect device</a>
+                        </div>
+                    </div>
+                {{end}}
+            </div>
+        </div>
+    {{end}}
+
+</div>
+
+{{template "footer.html" .}}

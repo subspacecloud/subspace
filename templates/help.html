@@ -1,0 +1,112 @@
+{{template "header.html" .}}
+
+<div class="ui container">
+
+    <div class="ui raised segment">
+        <h1 class="ui center aligned header">
+            Subspace
+            <div class="sub header">
+                Simple WireGuard VPN Server
+            </div>
+        </h1>
+
+        <div class="ui big list">
+            <div class="item">
+                <i class="large green check circle outline icon"></i>
+                <div class="content">
+                    <div class="header">
+                        Encrypt your connection
+                    </div>
+                    <div class="description">
+                        Securely access the internet, even on untrusted wifi connections
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <i class="large green check circle outline icon"></i>
+                <div class="content">
+                    <div class="header">
+                        Stop your internet provider from spying on you
+                    </div>
+                    <div class="description">
+                        Maintain your privacy rights by encrypting your home traffic
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <i class="large green check circle outline icon"></i>
+                <div class="content">
+                    <div class="header">
+                        Connect from any device
+                    </div>
+                    <div class="description">
+                        Use any VPN app that supports WireGuard, on desktop or mobile
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--div class="ui hidden section divider"></div>
+
+        <div class="ui one column grid">
+            <div class="center aligned one column row">
+                <div class="column">
+                    <video id="screencast" class="screencast ui bordered rounded image" controls="controls" preload="auto" loop="loop" muted="muted" autoplay="autoplay">
+                        <source src="/static/screencast1.mp4?updated=578923892">
+                    </video>
+
+                </div>
+            </div>
+        </div-->
+
+        <div class="ui hidden section divider"></div>
+
+        <h2 class="ui center aligned header">License</h2>
+        <p>
+            MIT License
+        </p>
+
+        <p>
+            Permission is hereby granted, free of charge, to any person obtaining a copy
+            of this software and associated documentation files (the "Software"), to deal
+            in the Software without restriction, including without limitation the rights
+            to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+            copies of the Software, and to permit persons to whom the Software is
+            furnished to do so, subject to the following conditions:
+        </p>
+
+        <p>
+            The above copyright notice and this permission notice shall be included in all
+            copies or substantial portions of the Software.
+        </p>
+
+        <p>
+            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+            IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+            FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+            AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+            LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+            OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+            SOFTWARE.
+        </p>
+    </div>
+
+    <div class="ui hidden section divider"></div>
+
+    <h2 class="ui center aligned header">Source Code</h2>
+
+    <a href="https://github.com/subspacecloud/subspace">Subspace on GitHub</a>
+
+
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#play-video').click(function() {
+            $('#screencast')[0].play();
+        });
+    });
+</script>
+
+{{template "footer.html" .}}
+

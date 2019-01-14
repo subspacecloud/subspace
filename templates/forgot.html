@@ -1,0 +1,70 @@
+{{template "header.html" .}}
+
+<div class="ui hidden divider"></div>
+
+<div class="ui container">
+    <div class="ui padded segment">
+        <div class="ui large dividing header">Reset Password</div>
+        <div class="ui hidden divider"></div>
+        {{with $error := $.Request.FormValue "error"}}
+            <div class="ui large negative message">
+                <div class="content">
+                    <div class="header">
+                        {{if eq $error "invalid"}}
+                            Reset password failed. Please try again.
+                        {{else}}
+                            Error. Please try again.
+                        {{end}}
+                    </div>
+                </div>
+            </div>
+            <div class="ui hidden divider"></div>
+        {{end}}
+        {{with $success := $.Request.FormValue "success"}}
+            <div class="ui large info message">
+                <div class="content">
+                    <div class="header">
+                        {{if eq $success "forgot"}}
+                            An email with your password reset link has been sent. Check your spam folder.
+                        {{else}}
+                            Success
+                        {{end}}
+                    </div>
+                    <a class="close-link" href="/patron"><i class="close icon"></i></a>
+                </div>
+            </div>
+            <div class="ui hidden divider"></div>
+        {{end}}
+
+        {{$email := $.Request.FormValue "email"}}
+        {{$secret := $.Request.FormValue "secret"}}
+        <form class="ui huge form" action="/forgot" method="POST" novalidate autocomplete="off">
+            {{if and $email $secret}}
+                <input type="hidden" name="email" value="{{$email}}">
+                <input type="hidden" name="secret" value="{{$secret}}">
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="key icon"></i>
+                        <input name="password" type="password" placeholder="New Password" autofocus>
+                    </div>
+                </div>
+                <div class="field">
+                    <button type="submit" class="ui huge fluid green button">Set Password</button>
+                </div>
+            {{else}}
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="mail icon"></i>
+                        <input title="email" name="email" type="email" value="{{$email}}" placeholder="Email address" autofocus required>
+                    </div>
+                </div>
+                <div class="field">
+                    <button type="submit" class="ui huge fluid green button">Reset Password</button>
+                </div>
+            {{end}}
+
+        </form>
+    </div>
+</div>
+
+{{template "footer.html" .}}

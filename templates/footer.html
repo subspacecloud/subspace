@@ -1,0 +1,25 @@
+
+        <div class="ui hidden divider"></div>
+        <div class="ui hidden divider"></div>
+        <div class="ui hidden divider"></div>
+
+        <script>
+            $(document).ready(function() {
+                $('.ui.dropdown').dropdown();
+                $('.ui.checkbox').checkbox();
+                $('.menu.item').tab();
+
+
+                {{if $.Request.FormValue "success"}}
+                    window.history.replaceState({}, document.title, window.location.href.split('?')[0]);
+                {{end}}
+
+                $('.confirm').on('click', function() {
+                    return confirm($(this).data('prompt'));
+                });
+            });
+
+        </script>
+
+    </body>
+</html>

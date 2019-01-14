@@ -1,0 +1,51 @@
+{{template "header.html" .}}
+
+<div class="ui hidden divider"></div>
+
+<div class="ui container">
+    <div class="ui padded segment">
+        <div class="ui huge green dividing header">Settings</div>
+        <div class="ui hidden divider"></div>
+
+        {{with $error := .Request.FormValue "error"}}
+            <div class="ui large negative message">
+                <div class="content">
+                    <div class="header">
+                        {{if eq $error "invalid"}}
+                            Invalid. Please try again.
+                        {{else}}
+                            Error. Please try again.
+                        {{end}}
+                    </div>
+                </div>
+            </div>
+            <div class="ui hidden divider"></div>
+        {{end}}
+
+        <form class="ui huge form" action="/settings" method="POST" novalidate autocomplete="off">
+            <div class="field">
+                <div class="ui small header">Email Address</div>
+                <input name="email" type="email" placeholder="Email Address" value="{{$.Info.Email}}">
+            </div>
+            <div class="field">
+                <div class="ui small header">Current Password</div>
+                <input name="current_password" type="password" placeholder="Current Password" value="">
+            </div>
+            <div class="field">
+                <div class="ui small header">New Password</div>
+                <input name="new_password" type="password" placeholder="New Password" value="">
+            </div>
+            <div class="equal width fields">
+                <div class="field mobile hidden">&nbsp;</div>
+                <div class="field mobile hidden">&nbsp;</div>
+                <div class="field">
+                    <button type="submit" class="ui huge fluid green button">Save Changes</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+{{template "footer.html" .}}
+

@@ -1,0 +1,48 @@
+{{template "header.html" .}}
+
+<div class="ui hidden divider"></div>
+
+<div class="ui container">
+    <div class="centered-block">
+        <div class="ui large center aligned dividing header">Sign In</div>
+        <div class="ui hidden divider"></div>
+
+        {{with $error := $.Request.FormValue "error"}}
+            <div class="ui large negative message">
+                <div class="content">
+                    <div class="header">
+                        {{if eq $error "invalid"}}
+                            Sign in failed. Please try again.
+                        {{else}}
+                            {{$error}}
+                        {{end}}
+                    </div>
+                </div>
+            </div>
+            <div class="ui hidden divider"></div>
+        {{end}}
+
+        <form class="ui huge form" action="/signin" method="POST">
+            <div class="field">
+                <div class="ui left icon input">
+                    <i class="mail icon"></i>
+                    <input title="email" name="email" type="email" value="{{$.Request.FormValue "email"}}" placeholder="Email address" autofocus required>
+                </div>
+            </div>
+            <div class="field">
+                <div class="ui left icon input">
+                    <i class="key icon"></i>
+                    <input name="password" type="password" placeholder="Password" autofocus>
+                </div>
+            </div>
+            <div class="center-aligned field">
+                <button type="submit" class="ui huge fluid green button">Sign In</button>
+                <div class="ui hidden divider"></div>
+                <a href="/forgot">Forgot password?</a>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+{{template "footer.html" .}}

@@ -1,0 +1,102 @@
+{{template "header.html" .}}
+
+<div class="ui container">
+    <a href="/" class="ui large basic button"><i class="long arrow alternate left icon"></i> Back</a>
+    <div class="ui hidden divider"></div>
+
+    {{with $success := $.Request.FormValue "success"}}
+        <div class="ui large info message">
+            <div class="content">
+                <div class="header">
+                    {{if eq $success "addprofile"}}
+                        Device added successfully
+                    {{else}}
+                        {{$success}}
+                    {{end}}
+                </div>
+                <a class="close-link" href="/profiles/connect/{{$.Profile.ID}}"><i class="close icon"></i></a>
+            </div>
+        </div>
+        <div class="ui hidden divider"></div>
+    {{end}}
+
+    <div class="ui very padded segment">
+        <div class="ui huge green dividing header">
+            How to connect {{$.Profile.Name}}
+        </div>
+        <div class="ui hidden divider"></div>
+
+        {{if eq $.Profile.Platform "windows"}}
+            <div class="ui large green header"><i class="windows icon"></i> Windows &mdash; Instructions</div>
+            <ol class="ui huge list">
+                <li>
+                    Download and install the WireGuard client <a href="https://tunsafe.com/downloads/TunSafe-1.4.exe">TunSafe</a>
+                </li>
+                <li>
+                    <a href="/profiles/config/wireguard/{{$.Profile.ID}}">Download your WireGuard config</a> and import it into TunSafe
+                </li>
+                <li>
+                    Run TunSafe <i class="angle right"></i> go to File <i class="angle right"></i> Import File and select your config
+                </li>
+                <li>
+                    Connect to your VPN server
+                </li>
+            </ol>
+        {{else if eq $.Profile.Platform "osx"}}
+            <div class="ui large blue header"><i class="apple icon"></i> Mac OS &mdash; Instructions</div>
+            <ol class="ui huge list">
+                <li>Install the <a target="_blank" href="https://brew.sh/">Homebrew</a> package manager</li>
+                <li>In your terminal, run <b>brew install wireguard-tools</b></li>
+                <li>Download your <a href="/profiles/config/wireguard/{{$.Profile.ID}}">WireGuard config</a> into your Downloads folder</li>
+                <li>In your terminal, run <b>wg-quick up ~/Downloads/wg0.conf</b></li>
+                <li>To disconnect, run <b>wg-quick down ~/Downloads/wg0.conf</b></li>
+            </ol>
+        {{else if eq $.Profile.Platform "ios"}}
+            <div class="ui large blue header"><i class="apple icon"></i> iOS (iPhone/iPad) &mdash; Instructions</div>
+            <ol class="ui huge list">
+                <li>
+                    Install <a target="_blank" href="https://itunes.apple.com/us/app/wireguard/id1441195209">WireGuard</a> from the App Store
+                </li>
+                <li>
+                    <a href="/profiles/config/wireguard/{{$.Profile.ID}}">Download your WireGuard config</a> and open with WireGuard
+                </li>
+                <li>
+                    Go to your iOS Settings
+                </li>
+                <li>
+                    Turn your VPN on
+                </li>
+            </ol>
+
+        {{else if eq $.Profile.Platform "android"}}
+            <div class="ui large blue header"><i class="android icon"></i> Android &mdash; Instructions</div>
+            <ol class="ui huge list">
+                <li>
+                    Install <a target="_blank" href="https://play.google.com/store/apps/details?id=com.wireguard.android">WireGuard for Android</a>
+                </li>
+                <li>
+                    <a href="/profiles/config/wireguard/{{$.Profile.ID}}">Download your WireGuard config</a>
+                </li>
+                <li>
+                    Connect to your VPN server
+                </li>
+            </ol>
+        {{else}}
+            <div class="ui large blue header"><i class="asterisk icon"></i> WireGuard</div>
+            <ol class="ui huge list">
+                <li>
+                    Install <a target="_blank" href="https://www.wireguard.com/install/">WireGuard</a>
+                </li>
+                <li>
+                    <a href="/profiles/config/wireguard/{{$.Profile.ID}}">Download your WireGuard config</a>
+                </li>
+                <li>
+                    Connect to your VPN server
+                </li>
+            </ol>
+
+        {{end}}
+    </div>
+</div>
+
+{{template "footer.html" .}}
