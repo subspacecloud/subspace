@@ -84,7 +84,7 @@ Usage:
 The container expects WireGuard to be installed on the host. The official image is `subspacecloud/subspace`.
 
 ```bash
-add-apt-repostory -y ppa:wireguard/wireguard
+add-apt-repository -y ppa:wireguard/wireguard
 apt-get update
 apt-get install -y wireguard
 
