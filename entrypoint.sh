@@ -132,7 +132,7 @@ if ip link show wg0 2>/dev/null; then
 fi
 ip link add wg0 type wireguard
 export SUBSPACE_IPV4_CIDR=$(echo ${SUBSPACE_IPV4_POOL-} |cut -d '/' -f2)
-ip addr add ${SUBSPACE_IPV4_GW}/${SUBSPACE_IPV4_CIDE} dev wg0
+ip addr add ${SUBSPACE_IPV4_GW}/${SUBSPACE_IPV4_CIDR} dev wg0
 export SUBSPACE_IPV6_CIDR=$(echo ${SUBSPACE_IPV6_POOL-} |cut -d '/' -f2)
 ip addr add ${SUBSPACE_IPV6_GW}/${SUBSPACE_IPV6_CIDR} dev wg0
 wg setconf wg0 /data/wireguard/server.conf
