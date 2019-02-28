@@ -121,7 +121,12 @@ docker create \
     --cap-add NET_ADMIN \
     --volume /usr/bin/wg:/usr/bin/wg \
     --volume /data:/data \
-    --env SUBSPACE_HTTP_HOST=subspace.example.com \
+    --env SUBSPACE_HTTP_HOST="subspace.example.com" \
+    --env SUBSPACE_NAMESERVER="1.1.1.1" \
+    # Optional variables to change IPv4/v6 prefixes
+    --env SUBSPACE_IPV4_POOL="10.99.97.0/24" \
+    --env SUBSPACE_IPV6_POOL="fd00::10:97:0/64" \
+    --env SUBSPACE_IPV6_NAT_ENABLED=1 \
     subspacecloud/subspace:latest
 
 $ sudo docker start subspace
