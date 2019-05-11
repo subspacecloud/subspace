@@ -3,6 +3,29 @@
         <div class="ui hidden divider"></div>
         <div class="ui hidden divider"></div>
 
+        {{if eq $.Section "index"}}
+            <div class="ui container">
+                <div class="ui centered grid">
+                    <div class="column">
+
+                        <div class="center-aligned">
+                            <div class="ui horizontal list">
+                                <div class="item">&copy; Copyright &mdash; All Rights Reserved</div>
+                            </div>
+
+                            <div class="ui hidden clearing divider"></div>
+                            
+                            <div class="ui horizontal divided list">
+                                <a class="item" target="_blank" href="https://github.com/subspacecloud/subspace">Powered by Subspace</a>
+                                <a class="item" target="_blank" href="https://portal.cloud/">Portal Cloud OpenSaaS application</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        {{end}}
+
         <script>
             $(document).ready(function() {
                 $('.ui.dropdown').dropdown();
@@ -11,6 +34,9 @@
 
 
                 {{if $.Request.FormValue "success"}}
+                    window.history.replaceState({}, document.title, window.location.href.split('?')[0]);
+                {{end}}
+                {{if $.Request.FormValue "error"}}
                     window.history.replaceState({}, document.title, window.location.href.split('?')[0]);
                 {{end}}
 

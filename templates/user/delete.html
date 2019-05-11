@@ -1,0 +1,27 @@
+{{template "header.html" .}}
+
+<div class="ui container">
+    <div class="ui center aligned one column grid">
+        <div class="column centered-column">
+            <div class="ui padded segment">
+                <div class="ui large center aligned header">
+                    Delete user &amp; devices
+                </div>
+                <div class="ui center aligned header">
+                    {{$.TargetUser.Email}}
+                </div>
+                <div class="ui hidden divider"></div>
+
+                <form action="/user/delete" method="POST">
+                    <input type="hidden" name="user" value="{{$.TargetUser.ID}}">
+                    <div class="two ui buttons">
+                        <a href="/user/edit/{{$.TargetUser.ID}}" class="ui large button">Cancel</a>
+                        <button type="submit" class="ui large green button confirm" data-prompt="Delete user?">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{template "footer.html" .}}

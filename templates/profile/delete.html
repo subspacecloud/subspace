@@ -1,0 +1,27 @@
+{{template "header.html" .}}
+
+<div class="ui container">
+    <div class="ui center aligned one column grid">
+        <div class="column centered-column">
+            <div class="ui padded segment">
+                <div class="ui large center aligned header">
+                    Delete device
+                </div>
+                <div class="ui center aligned header">
+                    {{$.Profile.Name}}
+                </div>
+                <div class="ui hidden divider"></div>
+
+                <form action="/profile/delete" method="POST">
+                    <input type="hidden" name="profile" value="{{$.Profile.ID}}">
+                    <div class="two ui buttons">
+                        <a href="/" class="ui large button">Cancel</a>
+                        <button type="submit" class="ui large green button confirm" data-prompt="Delete device?">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{template "footer.html" .}}

@@ -1,5 +1,5 @@
-FROM golang:1.11.4
-MAINTAINER github.com/soundscapecloud/soundscape
+FROM golang:1.11.5
+MAINTAINER github.com/subspacecloud/subspace
 
 RUN apt-get update \
     && apt-get install -y git \
@@ -17,7 +17,9 @@ RUN go get -v \
     golang.org/x/time/rate \
 	golang.org/x/crypto/bcrypt \
     go.uber.org/zap \
-	gopkg.in/gomail.v2
+	gopkg.in/gomail.v2 \
+    github.com/crewjam/saml \
+    github.com/dgrijalva/jwt-go
 
 COPY *.go ./
 COPY static ./static
