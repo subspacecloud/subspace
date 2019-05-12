@@ -4,15 +4,27 @@ set -o nounset
 set -o pipefail
 set -o xtrace
 
-# Require variables.
+# Require environment variables.
 if [ -z "${SUBSPACE_HTTP_HOST-}" ] ; then
     echo "Environment variable SUBSPACE_HTTP_HOST required. Exiting."
     exit 1
 fi
 
-# Allow optional variables.
+# Optional environment variables.
 if [ -z "${SUBSPACE_BACKLINK-}" ] ; then
     export SUBSPACE_BACKLINK=""
+fi
+
+if [ -z "${SUBSPACE_LETSENCRYPT-}" ] ; then
+    export SUBSPACE_LETSENCRYPT="true"
+fi
+
+if [ -z "${SUBSPACE_HTTP_ADDR-}" ] ; then
+    export SUBSPACE_HTTP_ADDR=":80"
+fi
+
+if [ -z "${SUBSPACE_HTTP_INSECURE-}" ] ; then
+    export SUBSPACE_HTTP_INSECURE="false"
 fi
 
 export NAMESERVER="1.1.1.1"
@@ -147,7 +159,12 @@ if ! test -d /etc/sv/subspace ; then
     mkdir /etc/sv/subspace
     cat <<RUNIT >/etc/sv/subspace/run
 #!/bin/sh
-exec /usr/bin/subspace --http-host "${SUBSPACE_HTTP_HOST}" --backlink "${SUBSPACE_BACKLINK}"
+exec /usr/bin/subspace \
+    "--http-host=${SUBSPACE_HTTP_HOST}" \
+    "--http-addr=${SUBSPACE_HTTP_ADDR}" \
+    "--http-insecure=${SUBSPACE_HTTP_INSECURE}" \
+    "--backlink=${SUBSPACE_BACKLINK}" \
+    "--letsencrypt=${SUBSPACE_LETSENCRYPT}"
 RUNIT
     chmod +x /etc/sv/subspace/run
 

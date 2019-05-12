@@ -121,7 +121,7 @@ func main() {
 
 	// http host
 	if httpHost == "" {
-		usage("the --http-host flag is required")
+		usage("--http-host flag is required")
 		os.Exit(1)
 	}
 
