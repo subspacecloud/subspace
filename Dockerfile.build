@@ -19,7 +19,8 @@ RUN go get -v \
     go.uber.org/zap \
 	gopkg.in/gomail.v2 \
     github.com/crewjam/saml \
-    github.com/dgrijalva/jwt-go
+    github.com/dgrijalva/jwt-go \
+    github.com/skip2/go-qrcode
 
 COPY *.go ./
 COPY static ./static

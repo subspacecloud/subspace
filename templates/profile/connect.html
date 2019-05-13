@@ -31,7 +31,7 @@
                     <i class="right triangle icon"></i>
                     <div class="content">
                         <div class="description">
-                            Download and install the <a href="https://www.wireguard.com/install/?downloadwindowsprealpha=1">WireGuard client for Windows</a>.
+                            Download and install the <a href="https://www.wireguard.com/install/?downloadwindowsprealpha=1">WireGuard client for Windows</a>
                         </div>
                     </div>
                 </div>
@@ -119,7 +119,7 @@
                     <i class="right triangle icon"></i>
                     <div class="content">
                         <div class="description">
-                            <a href="/profile/config/wireguard/{{$.Profile.ID}}">Download your WireGuard config</a> and open with WireGuard
+                            <a href="/profile/config/wireguard/{{$.Profile.ID}}">Download your WireGuard config</a> and open with WireGuard or use the QR code below
                         </div>
                     </div>
                 </div>
@@ -141,6 +141,9 @@
                 </div>
             </div>
 
+            <div class="ui hidden divider"></div>
+            <img class="ui centered medium image" src="/profile/qrconfig/wireguard/{{$.Profile.ID}}">
+
         {{else if eq $.Profile.Platform "android"}}
             <div class="ui large header"><i class="android icon"></i> Android &mdash; Instructions</div>
             <div class="ui massive list">
@@ -156,7 +159,7 @@
                     <i class="right triangle icon"></i>
                     <div class="content">
                         <div class="description">
-                            <a href="/profile/config/wireguard/{{$.Profile.ID}}">Download your WireGuard config</a>
+                            <a href="/profile/config/wireguard/{{$.Profile.ID}}">Download your WireGuard config</a> or use the QR code below
                         </div>
                     </div>
                 </div>
@@ -169,6 +172,10 @@
                     </div>
                 </div>
             </div>
+
+            <div class="ui hidden divider"></div>
+            <img class="ui centered medium image" src="/profile/qrconfig/wireguard/{{$.Profile.ID}}">
+
         {{else if eq $.Profile.Platform "linux"}}
             <div class="ui large header"><i class="linux icon"></i> Linux &mdash; Instructions</div>
             <div class="ui massive list">

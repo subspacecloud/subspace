@@ -2,14 +2,15 @@ package main
 
 import (
 	"fmt"
-	"io"
+	"io/ioutil"
 	"net/http"
-	"os"
 	"regexp"
 	"strings"
 
 	"github.com/julienschmidt/httprouter"
 	"golang.org/x/crypto/bcrypt"
+
+	qrcode "github.com/skip2/go-qrcode"
 )
 
 var (
@@ -40,34 +41,59 @@ func samlHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	samlSP.ServeHTTP(w, r)
 }
 
+func wireguardQRConfigHandler(w *Web) {
+	profile, err := config.FindProfile(w.ps.ByName("profile"))
+	if err != nil {
+		http.NotFound(w.w, w.r)
+		return
+	}
+	if !w.Admin && profile.UserID != w.User.ID {
+		Error(w.w, fmt.Errorf("failed to view config: permission denied"))
+		return
+	}
+
+	b, err := ioutil.ReadFile(profile.WireGuardConfigPath())
+	if err != nil {
+		Error(w.w, err)
+		return
+	}
+
+	img, err := qrcode.Encode(string(b), qrcode.Medium, 256)
+	if err != nil {
+		Error(w.w, err)
+		return
+	}
+
+	w.w.Header().Set("Content-Type", "image/png")
+	w.w.Header().Set("Content-Length", fmt.Sprintf("%d", len(img)))
+	if _, err := w.w.Write(img); err != nil {
+		Error(w.w, err)
+		return
+	}
+}
+
 func wireguardConfigHandler(w *Web) {
 	profile, err := config.FindProfile(w.ps.ByName("profile"))
 	if err != nil {
 		http.NotFound(w.w, w.r)
 		return
 	}
-
-	f, err := os.Open(profile.WireGuardConfigPath())
-	if err != nil {
-		logger.Warn(err)
-		Error(w.w, fmt.Errorf("config file error"))
+	if !w.Admin && profile.UserID != w.User.ID {
+		Error(w.w, fmt.Errorf("failed to view config: permission denied"))
 		return
 	}
 
-	stat, err := f.Stat()
+	b, err := ioutil.ReadFile(profile.WireGuardConfigPath())
 	if err != nil {
-		logger.Warn(err)
-		Error(w.w, fmt.Errorf("config file size error"))
+		Error(w.w, err)
 		return
 	}
 
 	w.w.Header().Set("Content-Disposition", "attachment; filename="+profile.WireGuardConfigName())
 	w.w.Header().Set("Content-Type", "application/x-wireguard-profile")
-	w.w.Header().Set("Content-Length", fmt.Sprintf("%d", stat.Size()))
-	_, err = io.Copy(w.w, f)
-	if err != nil {
-		logger.Error(err)
-		Error(w.w, fmt.Errorf("config output error"))
+	w.w.Header().Set("Content-Length", fmt.Sprintf("%d", len(b)))
+	if _, err := w.w.Write(b); err != nil {
+		Error(w.w, err)
 		return
 	}
 }
