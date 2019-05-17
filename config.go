@@ -102,7 +102,7 @@ func NewConfig(filename string) (*Config, error) {
 			HashKey:  RandomString(32),
 			BlockKey: RandomString(32),
 		}
-		return c, c.save()
+		return c, c.generateSAMLKeyPair()
 	}
 	if err != nil {
 		return nil, err
@@ -111,12 +111,6 @@ func NewConfig(filename string) (*Config, error) {
 	// Open existing config
 	if err := json.Unmarshal(b, c); err != nil {
 		return nil, fmt.Errorf("invalid config %q: %s", filename, err)
-	}
-
-	if len(c.Info.SAML.PrivateKey) == 0 || len(c.Info.SAML.Certificate) == 0 {
-		if err := c.generateSAMLKeyPair(); err != nil {
-			return nil, err
-		}
 	}
 
 	return c, nil

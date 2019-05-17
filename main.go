@@ -265,9 +265,9 @@ func main() {
 
 	// TLS
 	tlsConfig := tls.Config{
-		GetCertificate: certmanager.GetCertificate,
-		NextProtos:     []string{"http/1.1"},
-		Rand:           rand.Reader,
+		GetCertificate:           certmanager.GetCertificate,
+		NextProtos:               []string{"http/1.1"},
+		Rand:                     rand.Reader,
 		PreferServerCipherSuites: true,
 		MinVersion:               tls.VersionTLS12,
 		CipherSuites: []uint16{
@@ -384,10 +384,12 @@ func configureSAML() error {
 		AllowIDPInitiated: true,
 	})
 	if err != nil {
+		logger.Warnf("failed to configure SAML: %s", err)
 		samlSP = nil
 		return fmt.Errorf("failed to configure SAML: %s", err)
 	}
 	samlSP = newsp
+	logger.Infof("successfully configured SAML")
 	return nil
 }
 

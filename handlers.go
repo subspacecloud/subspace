@@ -498,7 +498,6 @@ func settingsHandler(w *Web) {
 			logger.Warnf("configuring SAML failed: %s", err)
 			w.Redirect("/settings?error=saml")
 		}
-		logger.Infof("successfully configured SAML")
 	} else {
 		samlSP = nil
 	}
