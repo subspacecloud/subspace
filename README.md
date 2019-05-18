@@ -4,13 +4,13 @@
 
 ## Screenshots
 
-[Screenshot 1](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot1.png)
+![Screenshot 1](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot1.png)
 
-[Screenshot 2](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot2.png)
+![Screenshot 2](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot2.png)
 
-[Screenshot 3](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot3.png)
+![Screenshot 3](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot3.png)
 
-[Screenshot 4](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot4.png)
+![Screenshot 4](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot4.png)
 
 ## Features
 
