@@ -1,47 +1,60 @@
 {{template "header.html" .}}
 
-<div class="ui hidden divider"></div>
-
 <div class="ui container">
-    <div class="centered-block">
-        <div class="ui large center aligned dividing header">Sign In</div>
-        <div class="ui hidden divider"></div>
+    <div class="ui centered grid">
+        <div class="sixteen wide mobile sixteen wide tablet eight wide computer column">
+            <div class="ui padded segment">
 
-        {{with $error := $.Request.FormValue "error"}}
-            <div class="ui large negative message">
-                <div class="content">
-                    <div class="header">
-                        {{if eq $error "invalid"}}
-                            Sign in failed. Please try again.
-                        {{else}}
-                            {{$error}}
-                        {{end}}
+            {{with $error := $.Request.FormValue "error"}}
+                <div class="ui large negative message">
+                    <div class="content">
+                        <div class="header">
+                            {{if eq $error "invalid"}}
+                                Sign in failed. Please try again.
+                            {{else}}
+                                {{$error}}
+                            {{end}}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="ui hidden divider"></div>
-        {{end}}
-
-        <form class="ui huge form" action="/signin" method="POST">
-            <div class="field">
-                <div class="ui left icon input">
-                    <i class="mail icon"></i>
-                    <input title="email" name="email" type="email" value="{{$.Request.FormValue "email"}}" placeholder="Email address" autofocus required>
-                </div>
-            </div>
-            <div class="field">
-                <div class="ui left icon input">
-                    <i class="key icon"></i>
-                    <input name="password" type="password" placeholder="Password" autofocus>
-                </div>
-            </div>
-            <div class="center-aligned field">
-                <button type="submit" class="ui huge fluid green button">Sign In</button>
                 <div class="ui hidden divider"></div>
-                <a href="/forgot">Forgot password?</a>
-            </div>
-        </form>
+            {{end}}
 
+            {{if $.SAML}}
+                <div class="ui large center aligned dividing header">Single Sign-On (SSO)</div>
+                <div class="ui hidden divider"></div>
+
+                {{$ssoprovider := ssoprovider}}
+                <a href="/sso" class="ui huge fluid blue button">{{if eq $ssoprovider "Google"}}<i class="google icon"></i>{{end}}Sign in with {{$ssoprovider}}</a>
+
+                <div class="ui hidden divider"></div>
+                <div class="ui hidden divider"></div>
+            {{end}}
+
+            <div class="ui large center aligned dividing header">Admin Sign In</div>
+            <div class="ui hidden divider"></div>
+            <form class="ui huge form" action="/signin" method="POST">
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="mail icon"></i>
+                        <input title="email" name="email" type="email" value="{{$.Request.FormValue "email"}}" placeholder="Email address" autofocus required>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="key icon"></i>
+                        <input name="password" type="password" placeholder="Password" autofocus>
+                    </div>
+                </div>
+                <div class="center-aligned field">
+                    <button type="submit" class="ui huge fluid green button">Sign in</button>
+                    <div class="ui hidden divider"></div>
+                    <a href="/forgot">Forgot password?</a>
+                </div>
+
+            </form>
+
+        </div>
     </div>
 </div>
 

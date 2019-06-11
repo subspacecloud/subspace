@@ -1,0 +1,242 @@
+{{template "header.html" .}}
+
+<div class="ui container">
+    <a href="/" class="ui large basic button"><i class="long arrow alternate left icon"></i>Back</a>
+    <div class="ui hidden divider"></div>
+
+    {{with $success := $.Request.FormValue "success"}}
+        <div class="ui large info message">
+            <div class="content">
+                <div class="header">
+                    {{if eq $success "addprofile"}}
+                        Device added successfully
+                    {{else}}
+                        {{$success}}
+                    {{end}}
+                </div>
+                <a class="close-link" href="/profile/connect/{{$.Profile.ID}}"><i class="close icon"></i></a>
+            </div>
+        </div>
+        <div class="ui hidden divider"></div>
+    {{end}}
+
+    <div class="ui padded segment">
+        <div class="ui huge green dividing header">Connecting {{$.Profile.Name}}</div>
+        <div class="ui hidden divider"></div>
+
+        {{if eq $.Profile.Platform "windows"}}
+            <div class="ui large header"><i class="windows icon"></i> Windows &mdash; Instructions</div>
+            <div class="ui massive list">
+                <div class="item">
+                    <i class="right triangle icon"></i>
+                    <div class="content">
+                        <div class="description">
+                            Download and install the <a href="https://www.wireguard.com/install/?downloadwindowsprealpha=1">WireGuard client for Windows</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <i class="right triangle icon"></i>
+                    <div class="content">
+                        <div class="description">
+                            <a href="/profile/config/wireguard/{{$.Profile.ID}}">Download your WireGuard config</a> and import it into WireGuard
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <i class="right triangle icon"></i>
+                    <div class="content">
+                        <div class="description">
+                            Active your VPN
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{else if eq $.Profile.Platform "osx"}}
+            <div class="ui large header"><i class="apple icon"></i> macOS &mdash; Instructions</div>
+            <div class="ui massive list">
+                <div class="item">
+                    <i class="right triangle icon"></i>
+                    <div class="content">
+                        <div class="description">
+                            <a href="/profile/config/wireguard/{{$.Profile.ID}}">Download your WireGuard config</a> into your Downloads folder
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <i class="right triangle icon"></i>
+                    <div class="content">
+                        <div class="description">
+                            Install the <a target="_blank" href="https://itunes.apple.com/us/app/wireguard/id1451685025">WireGuard app</a> from the Mac App Store
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <i class="right triangle icon"></i>
+                    <div class="content">
+                        <div class="description">
+                            Launch WireGuard, and click on the WireGuard icon in the menu bar
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <i class="right triangle icon"></i>
+                    <div class="content">
+                        <div class="description">
+                            Click on the WireGuard icon and select "Import tunnel(s) from file"
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <i class="right triangle icon"></i>
+                    <div class="content">
+                        <div class="description">
+                            Import your WireGuard config file from your Downloads folder
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <i class="right triangle icon"></i>
+                    <div class="content">
+                        <div class="description">
+                            Activate your WireGuard tunnel
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{else if eq $.Profile.Platform "ios"}}
+            <div class="ui large header"><i class="apple icon"></i> iOS (iPhone/iPad) &mdash; Instructions</div>
+            <div class="ui massive list">
+                <div class="item">
+                    <i class="right triangle icon"></i>
+                    <div class="content">
+                        <div class="description">
+                            Install <a target="_blank" href="https://itunes.apple.com/us/app/wireguard/id1441195209">WireGuard</a> from the App Store
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <i class="right triangle icon"></i>
+                    <div class="content">
+                        <div class="description">
+                            <a href="/profile/config/wireguard/{{$.Profile.ID}}">Download your WireGuard config</a> and open with WireGuard or use the QR code below
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <i class="right triangle icon"></i>
+                    <div class="content">
+                        <div class="description">
+                            Go to your iOS Settings
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <i class="right triangle icon"></i>
+                    <div class="content">
+                        <div class="description">
+                            Turn your VPN on
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui hidden divider"></div>
+            <img class="ui centered medium image" src="/profile/qrconfig/wireguard/{{$.Profile.ID}}">
+
+        {{else if eq $.Profile.Platform "android"}}
+            <div class="ui large header"><i class="android icon"></i> Android &mdash; Instructions</div>
+            <div class="ui massive list">
+                <div class="item">
+                    <i class="right triangle icon"></i>
+                    <div class="content">
+                        <div class="description">
+                            Install <a target="_blank" href="https://play.google.com/store/apps/details?id=com.wireguard.android">WireGuard for Android</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <i class="right triangle icon"></i>
+                    <div class="content">
+                        <div class="description">
+                            <a href="/profile/config/wireguard/{{$.Profile.ID}}">Download your WireGuard config</a> or use the QR code below
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <i class="right triangle icon"></i>
+                    <div class="content">
+                        <div class="description">
+                            Connect to your VPN server
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui hidden divider"></div>
+            <img class="ui centered medium image" src="/profile/qrconfig/wireguard/{{$.Profile.ID}}">
+
+        {{else if eq $.Profile.Platform "linux"}}
+            <div class="ui large header"><i class="linux icon"></i> Linux &mdash; Instructions</div>
+            <div class="ui massive list">
+                <div class="item">
+                    <i class="right triangle icon"></i>
+                    <div class="content">
+                        <div class="description">
+                            Install <a target="_blank" href="https://www.wireguard.com/install/">WireGuard</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <i class="right triangle icon"></i>
+                    <div class="content">
+                        <div class="description">
+                            <a href="/profile/config/wireguard/{{$.Profile.ID}}">Download your WireGuard config</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <i class="right triangle icon"></i>
+                    <div class="content">
+                        <div class="description">
+                            Connect to your VPN server
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{else}}
+            <div class="ui large header"><i class="asterisk icon"></i> WireGuard</div>
+            <div class="ui massive list">
+                <div class="item">
+                    <i class="right triangle icon"></i>
+                    <div class="content">
+                        <div class="description">
+                            Install <a target="_blank" href="https://www.wireguard.com/install/">WireGuard</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <i class="right triangle icon"></i>
+                    <div class="content">
+                        <div class="description">
+                            <a href="/profile/config/wireguard/{{$.Profile.ID}}">Download your WireGuard config</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <i class="right triangle icon"></i>
+                    <div class="content">
+                        <div class="description">
+                            Connect to your VPN server
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {{end}}
+
+        <div class="ui hidden divider"></div>
+    </div>
+</div>
+
+{{template "footer.html" .}}

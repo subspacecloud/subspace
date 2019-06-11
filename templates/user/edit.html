@@ -1,0 +1,90 @@
+{{template "header.html" .}}
+
+<div class="ui container">
+    <a href="/" class="ui large basic button"><i class="long arrow alternate left icon"></i>Back</a>
+    <div class="ui hidden divider"></div>
+
+    <div class="ui padded segment">
+        <div class="ui huge green dividing header">
+            {{$.TargetUser.Email}}
+        </div>
+        <div class="ui hidden divider"></div>
+
+        {{if $.Profiles}}
+            <div class="ui three stackable cards">
+                {{range $n, $p := $.Profiles}}
+                    <div class="showcard card">
+                        <a href="/profile/delete/{{$p.ID}}" class="ui right corner label "><i class="trash alternate icon"></i></a>
+                        <div class="content">
+                            <div class="header">
+                                <i class="large grey
+                                {{if eq $p.Platform "windows"}}
+                                    windows
+                                {{else if eq $p.Platform "osx"}}
+                                    apple
+                                {{else if eq $p.Platform "ios"}}
+                                    apple
+                                {{else if eq $p.Platform "android"}}
+                                    android
+                                {{else if eq $p.Platform "linux"}}
+                                    linux
+                                {{else}}
+                                    asterisk
+                                {{end}}
+                                    icon"></i> {{$p.Name}}
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <div class="ui large list">
+                                <div class="item">
+                                    <i class="bordered calendar icon"></i>
+                                    <div class="content">
+                                        <div class="header">
+                                            Created
+                                        </div>
+                                        <div class="description" title="{{$p.Created}}">
+                                            {{time $p.Created}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <a href="/profile/connect/{{$p.ID}}" class="ui large basic fluid button">Connect device</a>
+                        </div>
+                    </div>
+                {{end}}
+            </div>
+        {{else}}
+            <div class="ui large center aligned grey header">There are currently no devices</div>
+        {{end}}
+
+
+        <div class="ui hidden divider"></div>
+        <div class="ui section divider"></div>
+        <div class="ui hidden divider"></div>
+
+        <div class="ui equal width grid">
+            <div class="column">
+                <form class="ui large form" method="POST" action="/user/edit">
+                    <input type="hidden" name="user" value="{{$.TargetUser.ID}}">
+                    <div class="equal width fields">
+                        <div class="field left-aligned">
+                            {{if $.TargetUser.Admin}}
+                                <button type="submit" name="admin" class="ui large green button" value="no"><i class="check circle icon"></i>Admin</button>
+                            {{else}}
+                            <button type="submit" name="admin" class="ui large basic green button" value="yes"><i class="circle outline icon"></i>Admin</button>
+                            {{end}}
+                        </div>
+                        <div class="field right-aligned">
+                            <a href="/user/delete/{{$.TargetUser.ID}}" class="ui large basic button">Delete</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{template "footer.html" .}}
+

@@ -2,19 +2,23 @@ package main
 
 import (
 	"fmt"
-	"io"
+	"io/ioutil"
 	"net/http"
-	"os"
 	"regexp"
 	"strings"
 
+	"github.com/julienschmidt/httprouter"
 	"golang.org/x/crypto/bcrypt"
+
+	qrcode "github.com/skip2/go-qrcode"
 )
 
 var (
-	validEmail    = regexp.MustCompile(`^[ -~]+@[ -~]+$`)
-	validPassword = regexp.MustCompile(`^[ -~]{6,200}$`)
-	validString   = regexp.MustCompile(`^[ -~]{1,200}$`)
+	validEmail         = regexp.MustCompile(`^[ -~]+@[ -~]+$`)
+	validPassword      = regexp.MustCompile(`^[ -~]{6,200}$`)
+	validString        = regexp.MustCompile(`^[ -~]{1,200}$`)
+	maxProfiles        = 250
+	maxProfilesPerUser = 10
 )
 
 func getEnv(key, fallback string) string {
@@ -24,34 +28,79 @@ func getEnv(key, fallback string) string {
 	return fallback
 }
 
+func ssoHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	if token := samlSP.GetAuthorizationToken(r); token != nil {
+		http.Redirect(w, r, "/", http.StatusFound)
+		return
+	}
+	logger.Debugf("SSO: require account handler")
+	samlSP.RequireAccountHandler(w, r)
+	return
+}
+
+func samlHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	if samlSP == nil {
+		logger.Warnf("SAML is not configured")
+		http.NotFound(w, r)
+		return
+	}
+	logger.Debugf("SSO: samlSP.ServeHTTP")
+	samlSP.ServeHTTP(w, r)
+}
+
+func wireguardQRConfigHandler(w *Web) {
+	profile, err := config.FindProfile(w.ps.ByName("profile"))
+	if err != nil {
+		http.NotFound(w.w, w.r)
+		return
+	}
+	if !w.Admin && profile.UserID != w.User.ID {
+		Error(w.w, fmt.Errorf("failed to view config: permission denied"))
+		return
+	}
+
+	b, err := ioutil.ReadFile(profile.WireGuardConfigPath())
+	if err != nil {
+		Error(w.w, err)
+		return
+	}
+
+	img, err := qrcode.Encode(string(b), qrcode.Medium, 256)
+	if err != nil {
+		Error(w.w, err)
+		return
+	}
+
+	w.w.Header().Set("Content-Type", "image/png")
+	w.w.Header().Set("Content-Length", fmt.Sprintf("%d", len(img)))
+	if _, err := w.w.Write(img); err != nil {
+		Error(w.w, err)
+		return
+	}
+}
+
 func wireguardConfigHandler(w *Web) {
 	profile, err := config.FindProfile(w.ps.ByName("profile"))
 	if err != nil {
 		http.NotFound(w.w, w.r)
 		return
 	}
-
-	f, err := os.Open(profile.WireGuardConfigPath())
-	if err != nil {
-		logger.Warn(err)
-		Error(w.w, fmt.Errorf("config file error"))
+	if !w.Admin && profile.UserID != w.User.ID {
+		Error(w.w, fmt.Errorf("failed to view config: permission denied"))
 		return
 	}
 
-	stat, err := f.Stat()
+	b, err := ioutil.ReadFile(profile.WireGuardConfigPath())
 	if err != nil {
-		logger.Warn(err)
-		Error(w.w, fmt.Errorf("config file size error"))
+		Error(w.w, err)
 		return
 	}
 
 	w.w.Header().Set("Content-Disposition", "attachment; filename="+profile.WireGuardConfigName())
 	w.w.Header().Set("Content-Type", "application/x-wireguard-profile")
-	w.w.Header().Set("Content-Length", fmt.Sprintf("%d", stat.Size()))
-	_, err = io.Copy(w.w, f)
-	if err != nil {
-		logger.Error(err)
-		Error(w.w, fmt.Errorf("config output error"))
+	w.w.Header().Set("Content-Length", fmt.Sprintf("%d", len(b)))
+	if _, err := w.w.Write(b); err != nil {
+		Error(w.w, err)
 		return
 	}
 }
@@ -88,12 +137,11 @@ func configureHandler(w *Web) {
 		return nil
 	})
 
-	sessionCookie, err := NewSessionCookie(w.r)
-	if err != nil {
-		panic(err)
+	if err := w.SigninSession(true, ""); err != nil {
+		Error(w.w, err)
+		return
 	}
-	http.SetCookie(w.w, sessionCookie)
-	w.Redirect("/")
+	w.Redirect("/settings?success=configured")
 	return
 }
 
@@ -163,17 +211,16 @@ func forgotHandler(w *Web) {
 		return nil
 	})
 
-	sessionCookie, err := NewSessionCookie(w.r)
-	if err != nil {
-		panic(err)
+	if err := w.SigninSession(true, ""); err != nil {
+		Error(w.w, err)
+		return
 	}
-	http.SetCookie(w.w, sessionCookie)
 	w.Redirect("/")
 	return
 }
 
 func signoutHandler(w *Web) {
-	http.SetCookie(w.w, NewDeletionCookie())
+	w.SignoutSession()
 	w.Redirect("/signin")
 }
 
@@ -195,18 +242,100 @@ func signinHandler(w *Web) {
 		w.Redirect("/signin?error=invalid")
 		return
 	}
-	sessionCookie, err := NewSessionCookie(w.r)
-	if err != nil {
-		panic(err)
+	if err := w.SigninSession(true, ""); err != nil {
+		Error(w.w, err)
+		return
 	}
-	http.SetCookie(w.w, sessionCookie)
 
 	w.Redirect("/")
 }
 
-func addProfileHandler(w *Web) {
+func userEditHandler(w *Web) {
+	userID := w.ps.ByName("user")
+	if userID == "" {
+		userID = w.r.FormValue("user")
+	}
+	user, err := config.FindUser(userID)
+	if err != nil {
+		http.NotFound(w.w, w.r)
+		return
+	}
+	if !w.Admin {
+		Error(w.w, fmt.Errorf("failed to edit user: permission denied"))
+		return
+	}
+
+	if w.r.Method == "GET" {
+		w.TargetUser = user
+		w.Profiles = config.ListProfilesByUser(user.ID)
+		w.HTML()
+		return
+	}
+
+	if w.User.ID == user.ID {
+		w.Redirect("/user/edit/%s", user.ID)
+		return
+	}
+
+	admin := w.r.FormValue("admin") == "yes"
+
+	config.UpdateUser(user.ID, func(u *User) error {
+		u.Admin = admin
+		return nil
+	})
+
+	w.Redirect("/user/edit/%s?success=edituser", user.ID)
+}
+
+func userDeleteHandler(w *Web) {
+	userID := w.ps.ByName("user")
+	if userID == "" {
+		userID = w.r.FormValue("user")
+	}
+	user, err := config.FindUser(userID)
+	if err != nil {
+		http.NotFound(w.w, w.r)
+		return
+	}
+	if !w.Admin {
+		Error(w.w, fmt.Errorf("failed to delete user: permission denied"))
+		return
+	}
+	if w.User.ID == user.ID {
+		w.Redirect("/user/edit/%s?error=deleteuser", user.ID)
+		return
+	}
+
+	if w.r.Method == "GET" {
+		w.TargetUser = user
+		w.HTML()
+		return
+	}
+
+	for _, profile := range config.ListProfilesByUser(user.ID) {
+		if err := deleteProfile(profile); err != nil {
+			logger.Errorf("delete profile failed: %s", err)
+			w.Redirect("/profile/delete?error=deleteprofile")
+			return
+		}
+	}
+
+	if err := config.DeleteUser(user.ID); err != nil {
+		Error(w.w, err)
+		return
+	}
+	w.Redirect("/?success=deleteuser")
+}
+
+func profileAddHandler(w *Web) {
+	if !w.Admin && w.User.ID == "" {
+		http.NotFound(w.w, w.r)
+		return
+	}
+
 	name := strings.TrimSpace(w.r.FormValue("name"))
 	platform := strings.TrimSpace(w.r.FormValue("platform"))
+	admin := w.r.FormValue("admin") == "yes"
 
 	if platform == "" {
 		platform = "other"
@@ -217,7 +346,26 @@ func addProfileHandler(w *Web) {
 		return
 	}
 
-	profile, err := config.AddProfile(name, platform)
+	var userID string
+	if admin {
+		userID = ""
+	} else {
+		userID = w.User.ID
+	}
+
+	if !admin {
+		if len(config.ListProfilesByUser(userID)) >= maxProfilesPerUser {
+			w.Redirect("/?error=addprofile")
+			return
+		}
+	}
+
+	if len(config.ListProfiles()) >= maxProfiles {
+		w.Redirect("/?error=addprofile")
+		return
+	}
+
+	profile, err := config.AddProfile(userID, name, platform)
 	if err != nil {
 		logger.Warn(err)
 		w.Redirect("/?error=addprofile")
@@ -251,7 +399,7 @@ func addProfileHandler(w *Web) {
 	}
 
 	script := `
-cd /data/wireguard
+cd {{$.Datadir}}/wireguard
 wg_private_key="$(wg genkey)"
 wg_public_key="$(echo $wg_private_key | wg pubkey)"
 
@@ -284,7 +432,11 @@ WGCLIENT
 		IPv6Pref string
 		IPv4Cidr string
 		IPv6Cidr string
+		Datadir string
+		Profile Profile
+		Domain  string
 	}{
+		datadir,
 		profile,
 		httpHost,
 		ipv4Gw,
@@ -303,22 +455,25 @@ WGCLIENT
 		return
 	}
 
-	w.Redirect("/profiles/connect/%s?success=addprofile", profile.ID)
+	w.Redirect("/profile/connect/%s?success=addprofile", profile.ID)
 }
 
-func connectProfileHandler(w *Web) {
+func profileConnectHandler(w *Web) {
 	profile, err := config.FindProfile(w.ps.ByName("profile"))
 	if err != nil {
 		http.NotFound(w.w, w.r)
 		return
 	}
-
+	if !w.Admin && profile.UserID != w.User.ID {
+		Error(w.w, fmt.Errorf("failed to view profile: permission denied"))
+		return
+	}
 	w.Profile = profile
 	w.HTML()
 	return
 }
 
-func deleteProfileHandler(w *Web) {
+func profileDeleteHandler(w *Web) {
 	profileID := w.ps.ByName("profile")
 	if profileID == "" {
 		profileID = w.r.FormValue("profile")
@@ -328,54 +483,73 @@ func deleteProfileHandler(w *Web) {
 		http.NotFound(w.w, w.r)
 		return
 	}
+	if !w.Admin && profile.UserID != w.User.ID {
+		Error(w.w, fmt.Errorf("failed to delete profile: permission denied"))
+		return
+	}
 
 	if w.r.Method == "GET" {
 		w.Profile = profile
 		w.HTML()
 		return
 	}
-
-	script := `
-# WireGuard
-cd /data/wireguard
-peerid=$(cat peers/{{$.Profile.ID}}.conf | perl -ne 'print $1 if /PublicKey\s*=\s*(.*)/')
-wg set wg0 peer $peerid remove
-rm peers/{{$.Profile.ID}}.conf
-rm clients/{{$.Profile.ID}}.conf
-`
-	output, err := bash(script, struct {
-		Profile Profile
-	}{
-		profile,
-	})
-	if err != nil {
-		logger.Warnf("delete profile failed %s %s", err, output)
-		w.Redirect("/profiles/delete?error=removeprofile")
+	if err := deleteProfile(profile); err != nil {
+		logger.Errorf("delete profile failed: %s", err)
+		w.Redirect("/profile/delete?error=deleteprofile")
 		return
 	}
-
-	if err := config.DeleteProfile(profile.ID); err != nil {
-		panic(err)
+	if profile.UserID != "" {
+		w.Redirect("/user/edit/%s?success=deleteprofile", profile.UserID)
+		return
 	}
-	w.Redirect("/?success=removeprofile")
+	w.Redirect("/?success=deleteprofile")
 }
 
 func indexHandler(w *Web) {
-	profiles := config.ListProfiles()
-
-	w.Profiles = profiles
+	if w.User.ID != "" {
+		w.TargetProfiles = config.ListProfilesByUser(w.User.ID)
+	}
+	if w.Admin {
+		w.Profiles = config.ListProfilesByUser("")
+		w.Users = config.ListUsers()
+	} else {
+		w.Profiles = config.ListProfilesByUser(w.User.ID)
+	}
 	w.HTML()
 }
 
 func settingsHandler(w *Web) {
+	if !w.Admin {
+		Error(w.w, fmt.Errorf("settings: permission denied"))
+		return
+	}
+
 	if w.r.Method == "GET" {
 		w.HTML()
 		return
 	}
 
 	email := strings.ToLower(strings.TrimSpace(w.r.FormValue("email")))
+	samlMetadata := strings.TrimSpace(w.r.FormValue("saml_metadata"))
+
 	currentPassword := w.r.FormValue("current_password")
 	newPassword := w.r.FormValue("new_password")
+
+	config.UpdateInfo(func(i *Info) error {
+		i.SAML.IDPMetadata = samlMetadata
+		i.Email = email
+		return nil
+	})
+
+	// Configure SAML if metadata is present.
+	if len(samlMetadata) > 0 {
+		if err := configureSAML(); err != nil {
+			logger.Warnf("configuring SAML failed: %s", err)
+			w.Redirect("/settings?error=saml")
+		}
+	} else {
+		samlSP = nil
+	}
 
 	if currentPassword != "" || newPassword != "" {
 		if !validPassword.MatchString(newPassword) {
@@ -395,20 +569,39 @@ func settingsHandler(w *Web) {
 		}
 
 		config.UpdateInfo(func(i *Info) error {
-			i.Email = email
 			i.Password = hashedPassword
 			return nil
 		})
 	}
 
-	config.UpdateInfo(func(i *Info) error {
-		i.Email = email
-		return nil
-	})
-
-	w.Redirect("/?success=settings")
+	w.Redirect("/settings?success=settings")
 }
 
 func helpHandler(w *Web) {
 	w.HTML()
+}
+
+//
+// Helpers
+//
+func deleteProfile(profile Profile) error {
+	script := `
+# WireGuard
+cd {{$.Datadir}}/wireguard
+peerid=$(cat peers/{{$.Profile.ID}}.conf | perl -ne 'print $1 if /PublicKey\s*=\s*(.*)/')
+wg set wg0 peer $peerid remove
+rm peers/{{$.Profile.ID}}.conf
+rm clients/{{$.Profile.ID}}.conf
+`
+	output, err := bash(script, struct {
+		Datadir string
+		Profile Profile
+	}{
+		datadir,
+		profile,
+	})
+	if err != nil {
+		return fmt.Errorf("delete profile failed %s %s", err, output)
+	}
+	return config.DeleteProfile(profile.ID)
 }

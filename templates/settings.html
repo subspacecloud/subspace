@@ -4,8 +4,21 @@
 
 <div class="ui container">
     <div class="ui padded segment">
-        <div class="ui huge green dividing header">Settings</div>
-        <div class="ui hidden divider"></div>
+        {{with $success := $.Request.FormValue "success"}}
+            <div class="ui large info message">
+                <div class="header">
+                    {{if eq $success "settings"}}
+                        Settings saved successfully
+                    {{else if eq $success "removeprofile"}}
+                        Device removed successfully
+                    {{else if eq $success "configured"}}
+                        Admin account is setup. Configure SAML for SSO (optional).
+                    {{end}}
+                </div>
+                <a class="close-link" href="/settings"><i class="close icon"></i></a>
+            </div>
+            <div class="ui hidden divider"></div>
+        {{end}}
 
         {{with $error := .Request.FormValue "error"}}
             <div class="ui large negative message">
@@ -23,6 +36,46 @@
         {{end}}
 
         <form class="ui huge form" action="/settings" method="POST" novalidate autocomplete="off">
+            <div class="ui green dividing header">Single Sign-On (SAML)</div>
+            <div class="ui message">
+                <i class="info circle grey icon"></i>
+                To enable Single Sign-On using SAML add a custom SAML app in your identity provider's admin panel, then copy/paste the IDP metadata XML below.
+                <div class="large ui list">
+                    <a class="item" target="_blank" href="https://support.google.com/a/answer/6087519?hl=en"><i class="right triangle icon"></i>Instructions for G Suite users</a>
+                    <a class="item" target="_blank" href="https://developer.okta.com/standards/SAML/setting_up_a_saml_application_in_okta/"><i class="right triangle icon"></i>Instructions for Okta users</a>
+                    <a class="item" target="_blank" href="https://docs.microsoft.com/en-us/azure/active-directory/manage-apps/configure-single-sign-on-non-gallery-applications"><i class="right triangle icon"></i>Instructions for Azure AD users</a>
+                    
+                </div>
+            </div>
+            <div class="ui hidden divider"></div>
+
+            <div class="field">
+                <div class="ui small header">Your ACS URL</div>
+                <input class="readonly-input" type="text" value="https://{{$.Request.Host}}/saml/acs" readonly>
+            </div>
+            <div class="field">
+                <div class="ui small header">Your Entity ID</div>
+                <input class="readonly-input" type="text" value="https://{{$.Request.Host}}/saml/metadata" readonly>
+            </div>
+            <div class="field">
+                <div class="ui small header">IDP Metadata</div>
+                <textarea rows="10" name="saml_metadata" placeholder="Enable single sign-on by entering the SAML metadata from your SSO provider.">{{$.Info.SAML.IDPMetadata}}</textarea>
+            </div>
+            <div class="ui hidden divider"></div>
+            <div class="equal width fields">
+                <div class="field mobile hidden">&nbsp;</div>
+                <div class="field">
+                    <div class="two ui buttons">
+                        <a href="/" class="ui huge button">Cancel</a>
+                        <button type="submit" class="ui huge green button">Save</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui hidden section divider"></div>
+
+            <div class="ui green dividing header">Admin Account</div>
+            <div class="ui hidden divider"></div>
             <div class="field">
                 <div class="ui small header">Email Address</div>
                 <input name="email" type="email" placeholder="Email Address" value="{{$.Info.Email}}">
@@ -35,17 +88,18 @@
                 <div class="ui small header">New Password</div>
                 <input name="new_password" type="password" placeholder="New Password" value="">
             </div>
+            <div class="ui hidden divider"></div>
             <div class="equal width fields">
                 <div class="field mobile hidden">&nbsp;</div>
-                <div class="field mobile hidden">&nbsp;</div>
                 <div class="field">
-                    <button type="submit" class="ui huge fluid green button">Save Changes</button>
+                    <div class="two ui buttons">
+                        <a href="/" class="ui huge button">Cancel</a>
+                        <button type="submit" class="ui huge green button">Save</button>
+                    </div>
                 </div>
             </div>
         </form>
     </div>
-
 </div>
 
 {{template "footer.html" .}}
-

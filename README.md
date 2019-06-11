@@ -1,17 +1,30 @@
 # Subspace - A simple WireGuard VPN server GUI
 
-![Screenshot](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot1.png)
+![Screenshot](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot1.png?cachebust=8923409243)
+
+## Screenshots
+
+[Screenshot 1](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot1.png)
+
+[Screenshot 2](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot2.png)
+
+[Screenshot 3](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot3.png)
+
+[Screenshot 4](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot4.png)
 
 ## Features
 
 * **WireGuard VPN Protocol**
   * The most modern and fastest VPN protocol.
+* **Single Sign-On (SSO) with SAML**
+  * Support for SAML providers like G Suite and Okta.
 * **Add Devices**
   * Connect from Mac OS X, Windows, Linux, Android, or iOS.
 * **Remove Devices**
   * Removes client key and disconnects client.
 * **Auto-generated Configs**
   * Each client gets a unique downloadable config file.
+  * Generates a QR code for easy importing on iOS and Android.
 
 ## Run Subspace on Portal Cloud
 
@@ -23,10 +36,11 @@ Portal Cloud is a hosting service that enables anyone to run open source cloud a
 
 Running Subspace on a VPS is designed to be as simple as possible.
 
-  * Public Docker image
-  * Single static Go binary with assets bundled
-  * Automatic TLS using Let's Encrypt
-  * Redirects http to https
+  * Public Docker image.
+  * Single static Go binary with assets bundled.
+  * Automatic TLS using Let's Encrypt.
+  * Redirects http to https.
+  * Works with a reverse proxy or standalone.
 
 ### 1. Get a server
 
@@ -61,21 +75,24 @@ $ subspace --http-host subspace.example.com
 ### Usage
 
 ```bash
-Usage:
-
   -backlink string
-    	backlink (optional)
+        backlink (optional)
   -datadir string
-    	data dir (default "/data")
+        data dir (default "/data")
   -debug
-    	debug mode
+        debug mode
   -help
-    	display help and exit
+        display help and exit
+  -http-addr string
+        HTTP listen address (default ":80")
   -http-host string
-    	HTTP host
+        HTTP host
+  -http-insecure
+        enable sessions cookies for http (no https) not recommended
+  -letsencrypt
+        enable TLS using Let's Encrypt on port 443 (default true)
   -version
-    	display version and exit
-
+        display version and exit
 ```
 ### Run as a Docker container
 
@@ -84,7 +101,7 @@ Usage:
 The container expects WireGuard to be installed on the host. The official image is `subspacecloud/subspace`.
 
 ```bash
-add-apt-repostory -y ppa:wireguard/wireguard
+add-apt-repository -y ppa:wireguard/wireguard
 apt-get update
 apt-get install -y wireguard
 

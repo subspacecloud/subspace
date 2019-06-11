@@ -21,18 +21,24 @@
 
         <div class="borderless ui big green inverted menu">
             <div class="ui container">
-                {{if $.Backlink}}
-                    <a class="item" href="{{.Backlink}}"><i class="large home icon"></i></a>
+                {{if and $.Backlink $.Admin}}
+                    {{if $.User.Admin}}
+                        <!-- don't show -->
+                    {{else}}
+                        <a class="item" href="{{.Backlink}}"><i class="home icon"></i></a>
+                    {{end}}
                 {{end}}
                 <a href="/" class="{{if eq $.Section "index"}}active{{end}} item">Subspace</a>
-                
+                {{if $.Admin}}
+                    <a href="/settings" class="{{if eq $.Section "settings"}}active{{end}} item">Settings</a>
+                {{end}}
+
                 {{if eq $.Section "signin" "forgot"}}
                     <!-- Don't show -->
                 {{else}}
                     <div class="ui right dropdown item">
-                        <i class="cog icon"></i>
+                        <i class="dropdown icon"></i>
                         <div class="menu">
-                            <a href="/settings" class="{{if eq $.Section "settings"}}active{{end}} item"><i class="cog icon"></i>Settings</a>
                             <a href="/help" class="{{if eq $.Section "help"}}active{{end}} item"><i class="help icon"></i>Help</a>
                             <a href="/signout" class="item confirm" data-prompt="Sign out?"><i class="sign out icon"></i>Sign out</a>
                         </div>

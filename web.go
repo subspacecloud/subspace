@@ -5,20 +5,29 @@ import (
 	"encoding/gob"
 	"fmt"
 	"html/template"
+	"net"
 	"net/http"
+	"net/url"
 	"strings"
 	"time"
+
+	"github.com/crewjam/saml"
+	"github.com/crewjam/saml/samlsp"
+
+	"golang.org/x/net/publicsuffix"
 
 	humanize "github.com/dustin/go-humanize"
 	httprouter "github.com/julienschmidt/httprouter"
 )
 
 var (
-	SessionCookieName = "__subspace_session"
+	SessionCookieName    = "__subspace_session"
+	SessionCookieNameSSO = "__subspace_sso_session"
 )
 
 type Session struct {
 	Admin     bool
+	UserID    string
 	NotBefore time.Time
 	NotAfter  time.Time
 }
@@ -37,10 +46,16 @@ type Web struct {
 	Section  string
 	Time     time.Time
 	Info     Info
+	Admin    bool
+	SAML     *samlsp.Middleware
 
-	// Additional
+	User     User
+	Users    []User
 	Profile  Profile
 	Profiles []Profile
+
+	TargetUser     User
+	TargetProfiles []Profile
 }
 
 func init() {
@@ -69,6 +84,26 @@ func (w *Web) HTML() {
 			return t.Format(time.UnixDate)
 		},
 		"time": humanize.Time,
+		"ssoprovider": func() string {
+			if samlSP == nil {
+				return ""
+			}
+			redirect, err := url.Parse(samlSP.ServiceProvider.GetSSOBindingLocation(saml.HTTPRedirectBinding))
+			if err != nil {
+				logger.Warnf("SSO redirect invalid URL: %s", err)
+				return "unknown"
+			}
+			domain, err := publicsuffix.EffectiveTLDPlusOne(redirect.Host)
+			if err != nil {
+				logger.Warnf("SSO redirect invalid URL domain: %s", err)
+				return "unknown"
+			}
+			suffix, icann := publicsuffix.PublicSuffix(domain)
+			if icann {
+				suffix = "." + suffix
+			}
+			return strings.Title(strings.TrimSuffix(domain, suffix))
+		},
 	})
 
 	for _, filename := range AssetNames() {
@@ -120,6 +155,7 @@ func WebHandler(h func(*Web), section string) httprouter.Handle {
 			Request:  r,
 			Section:  section,
 			Info:     config.FindInfo(),
+			SAML:     samlSP,
 		}
 
 		if section == "signin" || section == "forgot" || section == "configure" {
@@ -132,13 +168,64 @@ func WebHandler(h func(*Web), section string) httprouter.Handle {
 			return
 		}
 
-		session, _ := ValidateSession(r)
-		if session == nil || !session.Admin {
-			logger.Errorf("auth failed")
-			web.Redirect("/signin")
+		// Has an existing session.
+		if session, _ := ValidateSession(r); session != nil {
+			if session.UserID != "" {
+				user, err := config.FindUser(session.UserID)
+				if err != nil {
+					signoutHandler(web)
+					return
+				}
+				web.User = user
+				web.Admin = user.Admin
+			} else {
+				web.Admin = session.Admin
+			}
+			h(web)
 			return
 		}
-		h(web)
+
+		// Needs a new session.
+		if samlSP != nil {
+			if token := samlSP.GetAuthorizationToken(r); token != nil {
+				r = r.WithContext(samlsp.WithToken(r.Context(), token))
+
+				email := token.StandardClaims.Subject
+				if email == "" {
+					Error(w, fmt.Errorf("SAML token missing email"))
+					return
+				}
+
+				logger.Infof("SAML: finding user with email %q", email)
+				user, err := config.FindUserByEmail(email)
+				if err != nil && err != ErrUserNotFound {
+					Error(w, err)
+					return
+				}
+
+				if user.ID == "" {
+					logger.Infof("SAML: creating user with email %q", email)
+					user, err = config.AddUser(email)
+					if err != nil {
+						Error(w, err)
+						return
+					}
+				}
+
+				web.User = user
+				web.Admin = user.Admin
+				if err := web.SigninSession(false, user.ID); err != nil {
+					Error(web.w, err)
+					return
+				}
+
+				h(web)
+				return
+			}
+		}
+
+		logger.Warnf("auth: sign in required")
+		web.Redirect("/signin")
 	}
 }
 
@@ -146,13 +233,13 @@ func Log(h httprouter.Handle) httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 		start := time.Now()
 		h(w, r, ps)
+		ip, _, _ := net.SplitHostPort(r.RemoteAddr)
+		ua := r.Header.Get("User-Agent")
+		xff := r.Header.Get("X-Forwarded-For")
+		xrealip := r.Header.Get("X-Real-IP")
 		rang := r.Header.Get("Range")
-		logger.Infof("%d %q %s %q %d ms", start.Unix(), rang, r.Method, r.RequestURI, int64(time.Since(start)/time.Millisecond))
-	}
-}
 
-func Auth(h httprouter.Handle) httprouter.Handle {
-	return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+		logger.Infof("%s %q %q %q %q %q %q %s %q %d ms", start, ip, xff, xrealip, ua, rang, r.Referer(), r.Method, r.RequestURI, int64(time.Since(start)/time.Millisecond))
 	}
 }
 
@@ -194,39 +281,51 @@ func ValidateSession(r *http.Request) (*Session, error) {
 	return session, nil
 }
 
-func NewDeletionCookie() *http.Cookie {
-	return &http.Cookie{
+func (w *Web) SignoutSession() {
+	if samlSP != nil {
+		http.SetCookie(w.w, &http.Cookie{
+			Name:     SessionCookieNameSSO,
+			Value:    "",
+			Path:     "/",
+			HttpOnly: true,
+			Domain:   httpHost,
+			Secure:   !httpInsecure,
+			MaxAge:   -1,
+			Expires:  time.Unix(1, 0),
+		})
+	}
+	http.SetCookie(w.w, &http.Cookie{
 		Name:     SessionCookieName,
 		Value:    "",
 		Path:     "/",
 		HttpOnly: true,
-		Secure:   true,
+		Domain:   httpHost,
+		Secure:   !httpInsecure,
 		MaxAge:   -1,
 		Expires:  time.Unix(1, 0),
-	}
+	})
 }
 
-func NewSessionCookie(r *http.Request) (*http.Cookie, error) {
-	expires := time.Now().Add(720 * time.Hour)
+func (w *Web) SigninSession(admin bool, userID string) error {
+	expires := time.Now().Add(12 * time.Hour)
 
-	session := Session{
-		Admin:     true,
+	encoded, err := securetoken.Encode(SessionCookieName, Session{
+		Admin:     admin,
+		UserID:    userID,
 		NotBefore: time.Now(),
 		NotAfter:  expires,
-	}
-
-	encoded, err := securetoken.Encode(SessionCookieName, session)
+	})
 	if err != nil {
-		return nil, fmt.Errorf("auth: encoding error: %s", err)
+		return fmt.Errorf("auth: encoding error: %s", err)
 	}
-
-	cookie := &http.Cookie{
+	http.SetCookie(w.w, &http.Cookie{
 		Name:     SessionCookieName,
 		Value:    encoded,
 		Path:     "/",
 		HttpOnly: true,
-		Secure:   true,
+		Domain:   httpHost,
+		Secure:   !httpInsecure,
 		Expires:  expires,
-	}
-	return cookie, nil
+	})
+	return nil
 }

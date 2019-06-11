@@ -3,12 +3,14 @@
 <div class="ui container">
 
     {{with $success := $.Request.FormValue "success"}}
-        <div class="ui info message">
+        <div class="ui large info message">
             <div class="header">
                 {{if eq $success "settings"}}
                     Settings saved successfully
-                {{else if eq $success "removeprofile"}}
-                    Device removed successfully
+                {{else if eq $success "deleteprofile"}}
+                    Device deleted successfully
+                {{else if eq $success "deleteuser"}}
+                    User deleted successfully
                 {{end}}
             </div>
             <a class="close-link" href="/"><i class="close icon"></i></a>
@@ -20,7 +22,7 @@
                 <div class="header">
                     {{if eq $error "addprofile"}}
                         Adding device failed
-                    {{else if eq $error "removeprofile"}}
+                    {{else if eq $error "deleteprofile"}}
                         Adding device failed
                     {{else if eq $error "profilename"}}
                         Device name is required
@@ -45,24 +47,43 @@
                 <div class="ui hidden divider"></div>
             </div>
             <div class="column">
-                <form class="ui huge form" action="/profiles/add" method="POST">
+                <form class="ui huge form" action="/profile/add" method="POST">
                     <div class="field">
-                        <input name="name" type="text" value="{{$.Request.FormValue "name"}}" placeholder="Device Name" autofocus>
+                        <input name="name" type="text" value="{{$.Request.FormValue "name"}}" placeholder="Device name" autofocus>
                     </div>
-                    <div class="field">
-                        <div id="add-profile-platform" class="ui fluid selection dropdown">
-                            <input type="hidden" name="platform" value="yes">
-                            <i class="dropdown icon"></i>
-                            <div class="default text">Select platform</div>
-                            <div class="menu">
-                                <div class="item" data-value="windows"><i class="green windows icon"></i>Windows</div>
-                                <div class="item" data-value="osx"><i class="green apple icon"></i>Mac OS X</div>
-                                <div class="item" data-value="ios"><i class="green apple icon"></i>iOS</div>
-                                <div class="item" data-value="android"><i class="green android icon"></i>Android</div>
-                                <div class="item" data-value="other"><i class="green asterisk dot icon"></i>Other</div>
+
+                    {{if $.User.Admin}}
+                        <div class="equal width fields">
+                            <div class="field">
+                                <div id="add-profile-admin" class="ui fluid selection dropdown">
+                                    <input type="hidden" name="admin" value="no">
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text">Select account</div>
+                                    <div class="menu">
+                                        <div class="item" data-value="no"><i class="grey user icon"></i>Your device</div>
+                                        <div class="item" data-value="yes"><i class="grey laptop icon"></i>Admin device</div>
+                                    </div>
+                                </div>
+                            </div>
+                    {{end}}
+                        <div class="field">
+                            <div id="add-profile-platform" class="ui fluid selection dropdown">
+                                <input type="hidden" name="platform" value="yes">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Select platform</div>
+                                <div class="menu">
+                                    <div class="item" data-value="windows"><i class="windows icon"></i>Windows</div>
+                                    <div class="item" data-value="osx"><i class="apple icon"></i>macOS</div>
+                                    <div class="item" data-value="ios"><i class="apple icon"></i>iOS</div>
+                                    <div class="item" data-value="android"><i class="android icon"></i>Android</div>
+                                    <div class="item" data-value="linux"><i class="linux icon"></i>Linux</div>
+                                    <div class="item" data-value="other"><i class="asterisk dot icon"></i>Other</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    {{if $.User.Admin}}
+                        </div>
+                    {{end}}
                     <div class="field">
                         <button type="submit" class="ui huge green fluid button">Add device</button>
                     </div>
@@ -71,50 +92,171 @@
         </div>
     </div>
 
-    <div class="ui hidden divider"></div>
-
-    {{if $.Profiles}}
+    {{if $.User.ID}}
+        <div class="ui hidden divider"></div>
         <div class="ui padded segment">
             <div class="ui huge green dividing header">
-                Devices
+                Your devices
+            </div>
+            <div class="ui hidden divider"></div>
+
+            {{if $.TargetProfiles}}
+                <div class="ui three stackable cards">
+                    {{range $n, $p := $.TargetProfiles}}
+                        <div class="showcard card">
+                            <a href="/profile/delete/{{$p.ID}}" class="ui right corner label "><i class="trash alternate icon"></i></a>
+                            <div class="content">
+                                <div class="header">
+                                    <i class="large grey
+                                    {{if eq $p.Platform "windows"}}
+                                        windows grey
+                                    {{else if eq $p.Platform "osx"}}
+                                        apple
+                                    {{else if eq $p.Platform "ios"}}
+                                        apple
+                                    {{else if eq $p.Platform "android"}}
+                                        android
+                                    {{else if eq $p.Platform "linux"}}
+                                        linux
+                                    {{else}}
+                                        asterisk
+                                    {{end}}
+                                        icon"></i> {{$p.Name}}
+                                </div>
+                            </div>
+                            <div class="extra content">
+                                <div class="ui large list">
+                                    <div class="item">
+                                        <i class="bordered calendar icon"></i>
+                                        <div class="content">
+                                            <div class="header">
+                                                Created
+                                            </div>
+                                            <div class="description" title="{{$p.Created}}">
+                                                {{time $p.Created}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="extra content">
+                                <a href="/profile/connect/{{$p.ID}}" class="ui large basic fluid button">Connect device</a>
+                            </div>
+                        </div>
+                    {{end}}
+                </div>
+            {{else}}
+                <div class="ui large center aligned grey header">There are currently no devices</div>
+            {{end}}
+        </div>
+    {{end}}
+
+
+    {{if $.Admin}}
+        <div class="ui hidden divider"></div>
+        <div class="ui padded segment">
+            <div class="ui huge green dividing header">
+                Admin devices
+            </div>
+            <div class="ui hidden divider"></div>
+
+            {{if $.Profiles}}
+                <div class="ui three stackable cards">
+                    {{range $n, $p := $.Profiles}}
+                        <div class="showcard card">
+                            <a href="/profile/delete/{{$p.ID}}" class="ui right corner label "><i class="trash alternate icon"></i></a>
+                            <div class="content">
+                                <div class="header">
+                                    <i class="large grey
+                                    {{if eq $p.Platform "windows"}}
+                                        windows grey
+                                    {{else if eq $p.Platform "osx"}}
+                                        apple
+                                    {{else if eq $p.Platform "ios"}}
+                                        apple
+                                    {{else if eq $p.Platform "android"}}
+                                        android
+                                    {{else if eq $p.Platform "linux"}}
+                                        linux
+                                    {{else}}
+                                        asterisk
+                                    {{end}}
+                                        icon"></i> {{$p.Name}}
+                                </div>
+                            </div>
+                            <div class="extra content">
+                                <div class="ui large list">
+                                    <div class="item">
+                                        <i class="bordered calendar icon"></i>
+                                        <div class="content">
+                                            <div class="header">
+                                                Created
+                                            </div>
+                                            <div class="description" title="{{$p.Created}}">
+                                                {{time $p.Created}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="extra content">
+                                <a href="/profile/connect/{{$p.ID}}" class="ui large basic fluid button">Connect device</a>
+                            </div>
+                        </div>
+                    {{end}}
+                </div>
+            {{else}}
+                <div class="ui large center aligned grey header">There are currently no devices</div>
+            {{end}}
+        </div>
+    {{end}}
+
+    {{if $.Users}}
+        <div class="ui hidden divider"></div>
+        <div class="ui padded segment">
+            <div class="ui huge green dividing header">
+                Single sign-on users
             </div>
             <div class="ui hidden divider"></div>
 
             <div class="ui three stackable cards">
-                {{range $n, $p := $.Profiles}}
-                    <div class="show-profile green card">
-                        <a href="/profiles/delete/{{$p.ID}}" class="ui right corner label "><i class="trash alternate icon"></i></a>
+                {{range $n, $u := $.Users}}
+                    <div class="showcard card">
+                        <a href="/user/delete/{{$u.ID}}" class="ui right corner label "><i class="trash alternate icon"></i></a>
                         <div class="content">
                             <div class="header">
-                                <i class="large
-                                {{if eq $p.Platform "windows"}}
-                                    windows
-                                {{else if eq $p.Platform "osx"}}
-                                    apple
-                                {{else if eq $p.Platform "ios"}}
-                                    apple
-                                {{else if eq $p.Platform "android"}}
-                                    android
-                                {{else}}
-                                    asterisk
-                                {{end}}
-                                    icon"></i> {{$p.Name}}
+                                <i class="large grey user icon"></i>
+                                {{$u.Email}}
                             </div>
                         </div>
                         <div class="extra content">
                             <div class="ui large list">
                                 <div class="item">
-                                    <i class="calendar icon"></i>
+                                    <i class="bordered laptop icon"></i>
                                     <div class="content">
                                         <div class="header">
-                                            Added {{time $p.Created}}
+                                            Devices
+                                        </div>
+                                        <div class="description">
+                                            {{len $u.Profiles}} devices
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <i class="bordered calendar icon"></i>
+                                    <div class="content">
+                                        <div class="header">
+                                            Created
+                                        </div>
+                                        <div class="description" title="{{$u.Created}}">
+                                            {{time $u.Created}}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="extra content">
-                            <a href="/profiles/connect/{{$p.ID}}" class="ui large basic green fluid button">Connect device</a>
+                            <a href="/user/edit/{{$u.ID}}" class="ui large basic fluid button">Manage user</a>
                         </div>
                     </div>
                 {{end}}

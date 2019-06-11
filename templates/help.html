@@ -1,14 +1,16 @@
 {{template "header.html" .}}
 
 <div class="ui container">
+    <div class="ui padded segment">
 
-    <div class="ui raised segment">
-        <h1 class="ui center aligned header">
+        <div class="ui huge center aligned header">
             Subspace
             <div class="sub header">
-                Simple WireGuard VPN Server
+                Private WireGuard&reg; VPN Server
             </div>
-        </h1>
+        </div>
+
+        <div class="ui hidden section divider"></div>
 
         <div class="ui big list">
             <div class="item">
@@ -46,22 +48,9 @@
             </div>
         </div>
 
-        <!--div class="ui hidden section divider"></div>
-
-        <div class="ui one column grid">
-            <div class="center aligned one column row">
-                <div class="column">
-                    <video id="screencast" class="screencast ui bordered rounded image" controls="controls" preload="auto" loop="loop" muted="muted" autoplay="autoplay">
-                        <source src="/static/screencast1.mp4?updated=578923892">
-                    </video>
-
-                </div>
-            </div>
-        </div-->
-
         <div class="ui hidden section divider"></div>
 
-        <h2 class="ui center aligned header">License</h2>
+        <div class="ui large center aligned header">License</div>
         <p>
             MIT License
         </p>
@@ -89,24 +78,23 @@
             OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
             SOFTWARE.
         </p>
+
+        <div class="ui hidden section divider"></div>
+
+        <div class="ui large center aligned header">Source Code</div>
+
+        <p class="center-aligned">
+            <a href="https://github.com/subspacecloud/subspace">Subspace on GitHub</a>
+        </p>
+
+        <div class="ui hidden section divider"></div>
+
+        <div class="ui large center aligned header">Trademarks</div>
+        <p class="center-aligned">
+            WireGuard is a registered trademark of Jason A. Donenfeld
+        </p>
     </div>
-
-    <div class="ui hidden section divider"></div>
-
-    <h2 class="ui center aligned header">Source Code</h2>
-
-    <a href="https://github.com/subspacecloud/subspace">Subspace on GitHub</a>
-
-
 </div>
-
-<script>
-    $(document).ready(function() {
-        $('#play-video').click(function() {
-            $('#screencast')[0].play();
-        });
-    });
-</script>
 
 {{template "footer.html" .}}
 
