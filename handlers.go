@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -428,26 +429,26 @@ AllowedIPs = 0.0.0.0/0, ::/0
 WGCLIENT
 `
 	_, err = bash(script, struct {
-		Datadir string
 		Profile  Profile
 		Domain   string
+		Datadir string
 		IPv4Gw   string
 		IPv6Gw   string
 		IPv4Pref string
 		IPv6Pref string
 		IPv4Cidr string
-		IPv6Cidr string
+                IPv6Cidr string
 		Listenport string
 	}{
-		datadir,
 		profile,
 		httpHost,
+		datadir,
 		ipv4Gw,
 		ipv6Gw,
 		ipv4Pref,
 		ipv6Pref,
 		ipv4Cidr,
-		ipv6Cidr,
+                ipv6Cidr,
 		listenport,
 	})
 	if err != nil {
