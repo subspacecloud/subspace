@@ -428,6 +428,7 @@ AllowedIPs = 0.0.0.0/0, ::/0
 WGCLIENT
 `
 	_, err = bash(script, struct {
+		Datadir string
 		Profile  Profile
 		Domain   string
 		IPv4Gw   string
@@ -437,9 +438,6 @@ WGCLIENT
 		IPv4Cidr string
 		IPv6Cidr string
 		Listenport string
-		Datadir string
-		Profile Profile
-		Domain  string
 	}{
 		datadir,
 		profile,
