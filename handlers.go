@@ -436,7 +436,7 @@ WGCLIENT
 		IPv6Pref string
 		IPv4Cidr string
 		IPv6Cidr string
-		Listenport int
+		Listenport string
 		Datadir string
 		Profile Profile
 		Domain  string
