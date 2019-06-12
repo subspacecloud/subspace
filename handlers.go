@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -426,19 +427,17 @@ WGCLIENT
 	_, err = bash(script, struct {
 		Profile  Profile
 		Domain   string
+		Datadir string		
 		IPv4Gw   string
 		IPv6Gw   string
 		IPv4Pref string
 		IPv6Pref string
 		IPv4Cidr string
 		IPv6Cidr string
-		Datadir string
-		Profile Profile
-		Domain  string
 	}{
-		datadir,
 		profile,
 		httpHost,
+		datadir,
 		ipv4Gw,
 		ipv6Gw,
 		ipv4Pref,
