@@ -431,13 +431,13 @@ WGCLIENT
 	_, err = bash(script, struct {
 		Profile  Profile
 		Domain   string
-		Datadir string
+		Datadir string		
 		IPv4Gw   string
 		IPv6Gw   string
 		IPv4Pref string
 		IPv6Pref string
 		IPv4Cidr string
-                IPv6Cidr string
+    IPv6Cidr string
 		Listenport string
 	}{
 		profile,
@@ -448,7 +448,7 @@ WGCLIENT
 		ipv4Pref,
 		ipv6Pref,
 		ipv4Cidr,
-                ipv6Cidr,
+    ipv6Cidr,
 		listenport,
 	})
 	if err != nil {
