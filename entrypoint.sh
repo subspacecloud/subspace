@@ -32,6 +32,10 @@ if [ -z "${SUBSPACE_HTTP_ADDR-}" ] ; then
     export SUBSPACE_HTTP_ADDR=":80"
 fi
 
+if [ -z "${SUBSPACE_LISTENPORT-}" ] ; then
+    export SUBSPACE_LISTENPORT="51820"
+fi
+
 if [ -z "${SUBSPACE_HTTP_INSECURE-}" ] ; then
     export SUBSPACE_HTTP_INSECURE="false"
 fi
@@ -102,18 +106,6 @@ if ! /sbin/ip6tables --wait -t nat --check OUTPUT -s ${SUBSPACE_IPV6_POOL} -p tc
     /sbin/ip6tables --wait -t nat --append OUTPUT -s ${SUBSPACE_IPV6_POOL} -p tcp --dport 53 -j DNAT --to ${SUBSPACE_IPV6_GW}
 fi
 
-# # Delete
-# /sbin/iptables -t nat --delete OUTPUT -s 10.99.97.0/16 -p udp --dport 53 -j DNAT --to 10.99.97.1:53
-# /sbin/iptables -t nat --delete OUTPUT -s 10.99.97.0/16 -p tcp --dport 53 -j DNAT --to 10.99.97.1:53
-# /sbin/ip6tables --wait -t nat --delete OUTPUT -s ${SUBSPACE_IPV6_POOL} -p udp --dport 53 -j DNAT --to fd00::10:97:1
-# /sbin/ip6tables --wait -t nat --delete OUTPUT -s ${SUBSPACE_IPV6_POOL} -p tcp --dport 53 -j DNAT --to fd00::10:97:1
-# /sbin/iptables -t nat --delete POSTROUTING -s ${SUBSPACE_IPV4_POOL} -j MASQUERADE
-# /sbin/iptables --delete FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
-# /sbin/iptables --delete FORWARD -s ${SUBSPACE_IPV4_POOL} -j ACCEPT
-# /sbin/ip6tables -t nat --delete POSTROUTING -s ${SUBSPACE_IPV6_POOL} -j MASQUERADE
-# /sbin/ip6tables --delete FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
-# /sbin/ip6tables --delete FORWARD -s ${SUBSPACE_IPV6_POOL} -j ACCEPT
-
 #
 # WireGuard (${SUBSPACE_IPV4_POOL})
 #
@@ -133,7 +125,7 @@ fi
 cat <<WGSERVER >/data/wireguard/server.conf
 [Interface]
 PrivateKey = $(cat /data/wireguard/server.private)
-ListenPort = 51820
+ListenPort = ${SUBSPACE_LISTENPORT}
 
 WGSERVER
 cat /data/wireguard/peers/*.conf >>/data/wireguard/server.conf

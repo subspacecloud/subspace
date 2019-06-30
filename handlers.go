@@ -398,6 +398,10 @@ func profileAddHandler(w *Web) {
 	if cidr := getEnv("SUBSPACE_IPV6_CIDR", "nil"); cidr != "nil" {
 		ipv6Cidr = cidr
 	}
+	listenport := "51820"
+	if port := getEnv("SUBSPACE_LISTENPORT", "nil"); port != "nil" {
+		listenport = port
+	}
 
 	script := `
 cd {{$.Datadir}}/wireguard
@@ -420,7 +424,7 @@ Address = {{$.IPv4Pref}}{{$.Profile.Number}}/{{$.IPv4Cidr}},{{$.IPv6Pref}}{{$.Pr
 
 [Peer]
 PublicKey = $(cat server.public)
-Endpoint = {{$.Domain}}:51820
+Endpoint = {{$.Domain}}:{{$.Listenport}}
 AllowedIPs = 0.0.0.0/0, ::/0
 WGCLIENT
 `
@@ -433,7 +437,8 @@ WGCLIENT
 		IPv4Pref string
 		IPv6Pref string
 		IPv4Cidr string
-		IPv6Cidr string
+    IPv6Cidr string
+		Listenport string
 	}{
 		profile,
 		httpHost,
@@ -443,7 +448,8 @@ WGCLIENT
 		ipv4Pref,
 		ipv6Pref,
 		ipv4Cidr,
-		ipv6Cidr,
+    ipv6Cidr,
+		listenport,
 	})
 	if err != nil {
 		logger.Warn(err)
