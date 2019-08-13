@@ -27,11 +27,14 @@ if [ -z "${SUBSPACE_HTTP_INSECURE-}" ] ; then
     export SUBSPACE_HTTP_INSECURE="false"
 fi
 
-export NAMESERVER="1.1.1.1"
+if [ -z "${SUBSPACE_NAMESERVER-}" ] ; then
+    export SUBSPACE_NAMESERVER="1.1.1.1"
+fi
+
 export DEBIAN_FRONTEND="noninteractive"
 
 # Set DNS server
-echo "nameserver ${NAMESERVER}" >/etc/resolv.conf
+echo "nameserver ${SUBSPACE_NAMESERVER}" >/etc/resolv.conf
 
 # ipv4
 if ! /sbin/iptables -t nat --check POSTROUTING -s 10.99.97.0/24 -j MASQUERADE ; then
