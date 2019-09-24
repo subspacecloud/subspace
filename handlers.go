@@ -387,7 +387,7 @@ Address = 10.99.97.{{$.Profile.Number}}/22,fd00::10:97:{{$.Profile.Number}}/112
 
 [Peer]
 PublicKey = $(cat server.public)
-Endpoint = {{$.Domain}}:51820
+Endpoint = {{$.Domain}}:{{$.WgPort}}
 AllowedIPs = 0.0.0.0/0, ::/0
 WGCLIENT
 `
@@ -395,10 +395,12 @@ WGCLIENT
 		Datadir string
 		Profile Profile
 		Domain  string
+        WgPort int
 	}{
 		datadir,
 		profile,
 		httpHost,
+        wgPort,
 	})
 	if err != nil {
 		logger.Warn(err)
