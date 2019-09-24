@@ -91,6 +91,8 @@ $ subspace --http-host subspace.example.com
         enable sessions cookies for http (no https) not recommended
   -letsencrypt
         enable TLS using Let's Encrypt on port 443 (default true)
+  -wg-port
+        change the port the WireGuard server listens on (default 51820)
   -version
         display version and exit
 ```
