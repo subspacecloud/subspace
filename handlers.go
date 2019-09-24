@@ -395,12 +395,12 @@ WGCLIENT
 		Datadir string
 		Profile Profile
 		Domain  string
-        WgPort int
+		WgPort int
 	}{
 		datadir,
 		profile,
 		httpHost,
-        wgPort,
+		wgPort,
 	})
 	if err != nil {
 		logger.Warn(err)
