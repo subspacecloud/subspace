@@ -19,7 +19,7 @@ import (
 
 	"github.com/julienschmidt/httprouter"
 
-	log "github.com/Sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 	"github.com/crewjam/saml"
 	"github.com/crewjam/saml/samlsp"
 	"github.com/gorilla/securecookie"
