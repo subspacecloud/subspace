@@ -183,6 +183,11 @@ services:
     - SUBSPACE_HTTP_ADDR=":80"
     - SUBSPACE_NAMESERVER=1.1.1.1
     - SUBSPACE_LISTENPORT=51820
+    - SUBSPACE_IPV4_POOL=10.99.97.0/24
+    - SUBSPACE_IPV6_POOL="fd00::10:97:0/64"
+    - SUBSPACE_IPV4_GW="10.99.97.1"
+    - SUBSPACE_IPV6_GW="fd00::10:97:1"
+    - SUBSPACE_IPV6_NAT_ENABLED=1
    cap_add:
     - NET_ADMIN
    network_mode: "host"
@@ -205,11 +210,6 @@ $ sudo docker rm subspace
 # Re-create and start the container
 $ sudo docker create ... (see above)
 ```
-
-## Help / Reporting Bugs
-
-Email support@portal.cloud
-
 
 ## Contributors ✨
 
