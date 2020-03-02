@@ -1,5 +1,5 @@
 FROM phusion/baseimage:0.11
-MAINTAINER github.com/soundscapecloud/soundscape
+MAINTAINER github.com/subspacecommunity/subspace
 
 COPY subspace-linux-amd64 /usr/bin/subspace
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
