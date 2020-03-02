@@ -1,4 +1,4 @@
-module github.com/subspacecloud/subspace
+module github.com/subspacecommunity/subspace
 
 require (
 	github.com/beevik/etree v1.1.0 // indirect
