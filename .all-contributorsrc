@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "dmacvicar",
+      "name": "Duncan Mac-Vicar P.",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/15332?v=4",
+      "profile": "https://duncan.codes",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "subspace",
+  "projectOwner": "subspacecommunity",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
