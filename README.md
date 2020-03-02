@@ -1,6 +1,6 @@
 # Subspace - A simple WireGuard VPN server GUI
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 
@@ -204,6 +204,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://duncan.codes"><img src="https://avatars2.githubusercontent.com/u/15332?v=4" width="100px;" alt=""/><br /><sub><b>Duncan Mac-Vicar P.</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=dmacvicar" title="Code">💻</a></td>
     <td align="center"><a href="https://opsnotice.xyz"><img src="https://avatars1.githubusercontent.com/u/12403145?v=4" width="100px;" alt=""/><br /><sub><b>Valentin Ouvrard</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=valentin2105" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/agonbar"><img src="https://avatars3.githubusercontent.com/u/1553211?v=4" width="100px;" alt=""/><br /><sub><b>Adrián González Barbosa</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=agonbar" title="Code">💻</a></td>
   </tr>
 </table>
 
