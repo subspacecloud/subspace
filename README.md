@@ -5,13 +5,13 @@
 
 
 ## Screenshots
-![Screenshot](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot1.png?cachebust=8923409243)
+![Screenshot](https://raw.githubusercontent.com/subspacecommunity/subspace/master/screenshot1.png?cachebust=8923409243)
 
 
 ​             |  ​
 :-------------------------:|:-------------------------:
-![Screenshot 1](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot1.png)  | ![Screenshot 3](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot3.png)
-![Screenshot 2](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot2.png)  | ![Screenshot 4](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot4.png)
+![Screenshot 1](https://raw.githubusercontent.com/subspacecommunity/subspace/master/screenshot1.png)  | ![Screenshot 3](https://raw.githubusercontent.com/subspacecommunity/subspace/master/screenshot3.png)
+![Screenshot 2](https://raw.githubusercontent.com/subspacecommunity/subspace/master/screenshot2.png)  | ![Screenshot 4](https://raw.githubusercontent.com/subspacecommunity/subspace/master/screenshot4.png)
 
 ## Features
 
@@ -83,7 +83,7 @@ $ subspace --http-host subspace.example.com
 
 #### Install WireGuard on the host
 
-The container expects WireGuard to be installed on the host. The official image is `subspacecloud/subspace`.
+The container expects WireGuard to be installed on the host. The official image is `subspacecommunity/subspace`.
 
 ```bash
 add-apt-repository -y ppa:wireguard/wireguard
@@ -136,7 +136,7 @@ docker create \
     --env SUBSPACE_IPV6_GW="fd00::10:97:1" \
 	# Optional variable to enable or disable IPv6 NAT
     --env SUBSPACE_IPV6_NAT_ENABLED=1 \
-    subspacecloud/subspace:latest
+    subspacecommunity/subspace:latest
 
 $ sudo docker start subspace
 
@@ -181,7 +181,7 @@ Pull the latest image, remove the container, and re-create the container as expl
 
 ```bash
 # Pull the latest image
-$ sudo docker pull subspacecloud/subspace
+$ sudo docker pull subspacecommunity/subspace
 
 # Stop the container
 $ sudo docker stop subspace

@@ -1,5 +1,5 @@
 FROM golang:1.11.5
-MAINTAINER github.com/subspacecloud/subspace
+MAINTAINER github.com/subspacecommunity/subspace
 
 RUN apt-get update \
     && apt-get install -y git make \
