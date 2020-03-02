@@ -47,7 +47,7 @@ Running Subspace on a VPS is designed to be as simple as possible.
 **Recommended Specs**
 
 * Type: VPS or dedicated
-* Distribution: Ubuntu 16.04 (Xenial)
+* Distribution: Ubuntu 16.04 (Xenial) or Ubuntu 18.04 (Bionic)
 * Memory: 512MB or greater
 
 ### 2. Add a DNS record
@@ -63,7 +63,7 @@ Subspace runs a TLS ("SSL") https server on port 443/tcp. It also runs a standar
 **Requirements**
 
 * Your server must have a publicly resolvable DNS record.
-* Your server must be reachable over the internet on ports 80/tcp and 443/tcp and 51820/udp (WireGuard).
+* Your server must be reachable over the internet on ports 80/tcp, 443/tcp and 51820/udp (Default WireGuard port, user changeable).
 
 ### Usage
 
@@ -138,7 +138,19 @@ docker create \
     --cap-add NET_ADMIN \
     --volume /usr/bin/wg:/usr/bin/wg \
     --volume /data:/data \
-    --env SUBSPACE_HTTP_HOST=subspace.example.com \
+    --env SUBSPACE_HTTP_HOST="subspace.example.com" \
+	# Optional variable to change upstream DNS provider
+    --env SUBSPACE_NAMESERVER="1.1.1.1" \
+	# Optional variable to change WireGuard Listenport
+    --env SUBSPACE_LISTENPORT="51820" \
+    # Optional variables to change IPv4/v6 prefixes
+    --env SUBSPACE_IPV4_POOL="10.99.97.0/24" \
+    --env SUBSPACE_IPV6_POOL="fd00::10:97:0/64" \
+	# Optional variables to change IPv4/v6 Gateway
+	--env SUBSPACE_IPV4_GW="10.99.97.1" \
+    --env SUBSPACE_IPV6_GW="fd00::10:97:1" \
+	# Optional variable to enable or disable IPv6 NAT
+    --env SUBSPACE_IPV6_NAT_ENABLED=1 \
     subspacecloud/subspace:latest
 
 $ sudo docker start subspace
@@ -147,6 +159,30 @@ $ sudo docker logs subspace
 
 <log output>
 
+```
+
+#### Docker-Compose Example
+
+```
+version: "3.3"
+services:
+  subspace:
+   image: subspace/subspace:latest
+   container_name: subspace
+   volumes:
+    - /usr/bin/wg:/usr/bin/wg
+    - /opt/docker/subspace:/data
+   restart: always
+   environment:
+    - SUBSPACE_HTTP_HOST=subspace.example.org
+    - SUBSPACE_LETSENCRYPT=true
+    - SUBSPACE_HTTP_INSECURE=false
+    - SUBSPACE_HTTP_ADDR=":80"
+    - SUBSPACE_NAMESERVER=1.1.1.1
+    - SUBSPACE_LISTENPORT=51820
+   cap_add:
+    - NET_ADMIN
+   network_mode: "host"
 ```
 
 #### Updating the container image
