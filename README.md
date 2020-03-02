@@ -3,17 +3,15 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-![Screenshot](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot1.png?cachebust=8923409243)
 
 ## Screenshots
+![Screenshot](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot1.png?cachebust=8923409243)
 
-[Screenshot 1](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot1.png)
 
-[Screenshot 2](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot2.png)
-
-[Screenshot 3](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot3.png)
-
-[Screenshot 4](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot4.png)
+​             |  ​
+:-------------------------:|:-------------------------:
+![Screenshot 1](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot1.png)  | ![Screenshot 3](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot3.png)
+![Screenshot 2](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot2.png)  | ![Screenshot 4](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot4.png)
 
 ## Features
 
@@ -28,22 +26,6 @@
 * **Auto-generated Configs**
   * Each client gets a unique downloadable config file.
   * Generates a QR code for easy importing on iOS and Android.
-
-## Run Subspace on Portal Cloud
-
-Portal Cloud is a hosting service that enables anyone to run open source cloud applications.
-
-[Sign up for Portal Cloud](https://portal.cloud/) and get $15 free credit with code **Portal15**.
-
-## Run Subspace on a VPS
-
-Running Subspace on a VPS is designed to be as simple as possible.
-
-  * Public Docker image.
-  * Single static Go binary with assets bundled.
-  * Automatic TLS using Let's Encrypt.
-  * Redirects http to https.
-  * Works with a reverse proxy or standalone.
 
 ### 1. Get a server
 
