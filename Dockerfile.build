@@ -1,4 +1,4 @@
-FROM golang:1.11.5
+FROM golang:1.14
 MAINTAINER github.com/subspacecommunity/subspace
 
 RUN apt-get update \

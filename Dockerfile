@@ -1,4 +1,4 @@
-FROM golang:1.11.5 as build
+FROM golang:1.14 as build
 
 RUN apt-get update \
     && apt-get install -y git make \
