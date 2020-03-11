@@ -1,4 +1,5 @@
 # Subspace - A simple WireGuard VPN server GUI
+[![Build Status](https://travis-ci.org/gavinelder/subspace.svg?branch=master)](https://travis-ci.org/gavinelder/subspace)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
