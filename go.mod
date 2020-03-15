@@ -14,8 +14,8 @@ require (
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/russellhaering/goxmldsig v0.0.0-20180430223755-7acd5e4a6ef7 // indirect
 	github.com/sirupsen/logrus v1.4.2
-	github.com/skip2/go-qrcode v0.0.0-20191027152451-9434209cb086
-	golang.org/x/crypto v0.0.0-20191010185427-af544f31c8ac
+	github.com/skip2/go-qrcode v0.0.0-20190110000554-dc11ecdae0a9
+	golang.org/x/crypto v0.0.0-20200311171314-f7b00557c8c4
 	golang.org/x/net v0.0.0-20191009170851-d66e71096ffb
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
