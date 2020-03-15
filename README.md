@@ -1,46 +1,49 @@
 # Subspace - A simple WireGuard VPN server GUI
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![](https://images.microbadger.com/badges/image/subspacecommunity/subspace.svg)](https://microbadger.com/images/subspacecommunity/subspace "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/subspacecommunity/subspace.svg)](https://microbadger.com/images/subspacecommunity/subspace "Get your own version badge on microbadger.com")
 
 ## Screenshots
+
 ![Screenshot](https://raw.githubusercontent.com/subspacecommunity/subspace/master/screenshot1.png?cachebust=8923409243)
 
-
-​             |  ​
-:-------------------------:|:-------------------------:
-![Screenshot 1](https://raw.githubusercontent.com/subspacecommunity/subspace/master/screenshot1.png)  | ![Screenshot 3](https://raw.githubusercontent.com/subspacecommunity/subspace/master/screenshot3.png)
-![Screenshot 2](https://raw.githubusercontent.com/subspacecommunity/subspace/master/screenshot2.png)  | ![Screenshot 4](https://raw.githubusercontent.com/subspacecommunity/subspace/master/screenshot4.png)
+|                                                                                                      |                                                                                                      |     |
+| :--------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: | --- |
+| ![Screenshot 1](https://raw.githubusercontent.com/subspacecommunity/subspace/master/screenshot1.png) | ![Screenshot 3](https://raw.githubusercontent.com/subspacecommunity/subspace/master/screenshot3.png) |
+| ![Screenshot 2](https://raw.githubusercontent.com/subspacecommunity/subspace/master/screenshot2.png) | ![Screenshot 4](https://raw.githubusercontent.com/subspacecommunity/subspace/master/screenshot4.png) |
 
 ## Features
 
-* **WireGuard VPN Protocol**
-  * The most modern and fastest VPN protocol.
-* **Single Sign-On (SSO) with SAML**
-  * Support for SAML providers like G Suite and Okta.
-* **Add Devices**
-  * Connect from Mac OS X, Windows, Linux, Android, or iOS.
-* **Remove Devices**
-  * Removes client key and disconnects client.
-* **Auto-generated Configs**
-  * Each client gets a unique downloadable config file.
-  * Generates a QR code for easy importing on iOS and Android.
+- **WireGuard VPN Protocol**
+  - The most modern and fastest VPN protocol.
+- **Single Sign-On (SSO) with SAML**
+  - Support for SAML providers like G Suite and Okta.
+- **Add Devices**
+  - Connect from Mac OS X, Windows, Linux, Android, or iOS.
+- **Remove Devices**
+  - Removes client key and disconnects client.
+- **Auto-generated Configs**
+  - Each client gets a unique downloadable config file.
+  - Generates a QR code for easy importing on iOS and Android.
 
 ### 1. Get a server
 
 **Recommended Specs**
 
-* Type: VPS or dedicated
-* Distribution: Ubuntu 16.04 (Xenial) or Ubuntu 18.04 (Bionic)
-* Memory: 512MB or greater
+- Type: VPS or dedicated
+- Distribution: Ubuntu 16.04 (Xenial) or Ubuntu 18.04 (Bionic)
+- Memory: 512MB or greater
 
 ### 2. Add a DNS record
 
 Create a DNS `A` record in your domain pointing to your server's IP address.
 
-**Example:** `subspace.example.com  A  172.16.1.1`
+**Example:** `subspace.example.com A 172.16.1.1`
 
 ### 3. Enable Let's Encrypt
 
@@ -48,8 +51,8 @@ Subspace runs a TLS ("SSL") https server on port 443/tcp. It also runs a standar
 
 **Requirements**
 
-* Your server must have a publicly resolvable DNS record.
-* Your server must be reachable over the internet on ports 80/tcp, 443/tcp and 51820/udp (Default WireGuard port, user changeable).
+- Your server must have a publicly resolvable DNS record.
+- Your server must be reachable over the internet on ports 80/tcp, 443/tcp and 51820/udp (Default WireGuard port, user changeable).
 
 ### Usage
 
@@ -58,6 +61,7 @@ Subspace runs a TLS ("SSL") https server on port 443/tcp. It also runs a standar
 ```bash
 $ subspace --http-host subspace.example.com
 ```
+
 ### Usage
 
 ```bash
@@ -80,6 +84,7 @@ $ subspace --http-host subspace.example.com
   -version
         display version and exit
 ```
+
 ### Run as a Docker container
 
 #### Install WireGuard on the host
@@ -211,6 +216,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

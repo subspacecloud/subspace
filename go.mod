@@ -1,5 +1,7 @@
 module github.com/subspacecommunity/subspace
 
+go 1.14
+
 require (
 	github.com/beevik/etree v1.1.0 // indirect
 	github.com/crewjam/saml v0.0.0-20190521120225-344d075952c9
@@ -15,6 +17,7 @@ require (
 	github.com/skip2/go-qrcode v0.0.0-20190110000554-dc11ecdae0a9
 	golang.org/x/crypto v0.0.0-20200311171314-f7b00557c8c4
 	golang.org/x/net v0.0.0-20191009170851-d66e71096ffb
+	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
 )
