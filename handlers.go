@@ -402,7 +402,7 @@ func profileAddHandler(w *Web) {
 	if port := getEnv("SUBSPACE_LISTENPORT", "nil"); port != "nil" {
 		listenport = port
 	}
-	allowedips := " 0.0.0.0/0, ::/0"
+	allowedips := "0.0.0.0/0, ::/0"
 	if ips := getEnv("ALLOWED_IPS", "nil"); ips != "nil" {
 		allowedips = ips
 	}
