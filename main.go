@@ -372,6 +372,10 @@ func configureSAML() error {
 		Path:   "/",
 	}
 
+	if httpInsecure {
+		rootURL.Scheme = "http"
+	}
+
 	newsp, err := samlsp.New(samlsp.Options{
 		URL:               rootURL,
 		Key:               keyPair.PrivateKey.(*rsa.PrivateKey),
