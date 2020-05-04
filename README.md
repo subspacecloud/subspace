@@ -153,7 +153,7 @@ $ sudo docker logs subspace
 version: "3.3"
 services:
   subspace:
-   image: subspace/subspace:latest
+   image: subspacecommunity/subspace:latest
    container_name: subspace
    volumes:
     - /usr/bin/wg:/usr/bin/wg
