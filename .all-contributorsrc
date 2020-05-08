@@ -40,6 +40,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "squat",
+      "name": "Lucas Servén Marín",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/20484159?v=4",
+      "profile": "https://squat.ai",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
