@@ -31,6 +31,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "gavinelder",
+      "name": "Gavin",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/1226100?v=4",
+      "profile": "http://www.improbable.io",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
