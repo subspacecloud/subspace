@@ -437,8 +437,8 @@ AllowedIPs = {{$.allowedips}}
 WGCLIENT
 `
 	_, err = bash(script, struct {
-                Profile      Profile
-                EndpointHost string
+		Profile      Profile
+		EndpointHost string
 		Datadir      string
 		IPv4Gw       string
 		IPv6Gw       string
