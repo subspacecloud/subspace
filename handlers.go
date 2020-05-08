@@ -404,6 +404,7 @@ func profileAddHandler(w *Web) {
 	endpointHost := httpHost
 	if eh := getEnv("SUBSPACE_ENDPOINT_HOST", "nil"); eh != "nil" {
 		endpointHost = eh
+	}
 	allowedips := "0.0.0.0/0, ::/0"
 	if ips := getEnv("SUBSPACE_ALLOWED_IPS", "nil"); ips != "nil" {
 		allowedips = ips
