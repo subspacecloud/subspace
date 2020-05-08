@@ -432,12 +432,12 @@ Address = {{$.IPv4Pref}}{{$.Profile.Number}}/{{$.IPv4Cidr}},{{$.IPv6Pref}}{{$.Pr
 PublicKey = $(cat server.public)
 
 Endpoint = {{$.EndpointHost}}:{{$.Listenport}}
-AllowedIPs = {{$.allowedips}}
+AllowedIPs = {{$.AllowedIPS}}
 WGCLIENT
 `
 	_, err = bash(script, struct {
-                Profile      Profile
-                EndpointHost string
+		Profile      Profile
+		EndpointHost string
 		Datadir      string
 		IPv4Gw       string
 		IPv6Gw       string
