@@ -385,7 +385,6 @@ func profileAddHandler(w *Web) {
 	if cidr := getEnv("SUBSPACE_IPV4_CIDR", "nil"); cidr != "nil" {
 		ipv4Cidr = cidr
 	}
-
 	ipv6Pref := "fd00::10:97:"
 	if pref := getEnv("SUBSPACE_IPV6_PREF", "nil"); pref != "nil" {
 		ipv6Pref = pref
@@ -402,6 +401,9 @@ func profileAddHandler(w *Web) {
 	if port := getEnv("SUBSPACE_LISTENPORT", "nil"); port != "nil" {
 		listenport = port
 	}
+	endpointHost := httpHost
+	if eh := getEnv("SUBSPACE_ENDPOINT_HOST", "nil"); eh != "nil" {
+		endpointHost = eh
 	allowedips := "0.0.0.0/0, ::/0"
 	if ips := getEnv("SUBSPACE_ALLOWED_IPS", "nil"); ips != "nil" {
 		allowedips = ips
@@ -428,25 +430,26 @@ Address = {{$.IPv4Pref}}{{$.Profile.Number}}/{{$.IPv4Cidr}},{{$.IPv6Pref}}{{$.Pr
 
 [Peer]
 PublicKey = $(cat server.public)
-Endpoint = {{$.Domain}}:{{$.Listenport}}
+
+Endpoint = {{$.EndpointHost}}:{{$.Listenport}}
 AllowedIPs = {{$.allowedips}}
 WGCLIENT
 `
 	_, err = bash(script, struct {
-		Profile    Profile
-		Domain     string
-		Datadir    string
-		IPv4Gw     string
-		IPv6Gw     string
-		IPv4Pref   string
-		IPv6Pref   string
-		IPv4Cidr   string
-		IPv6Cidr   string
-		Listenport string
-		AllowedIPS string
+                Profile      Profile
+                EndpointHost string
+		Datadir      string
+		IPv4Gw       string
+		IPv6Gw       string
+		IPv4Pref     string
+		IPv6Pref     string
+		IPv4Cidr     string
+		IPv6Cidr     string
+		Listenport   string
+		AllowedIPS   string
 	}{
 		profile,
-		httpHost,
+		endpointHost,
 		datadir,
 		ipv4Gw,
 		ipv6Gw,
