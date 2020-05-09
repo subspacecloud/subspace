@@ -37,6 +37,11 @@
                     <!-- Don't show -->
                 {{else}}
                     <div class="ui right dropdown item">
+                        {{if $.User.Email}}
+                            <div>{{$.User.Email}}</div>
+                        {{else}}
+                            <div>{{$.Info.Email}}</div>
+                        {{end}}
                         <i class="dropdown icon"></i>
                         <div class="menu">
                             <a href="/help" class="{{if eq $.Section "help"}}active{{end}} item"><i class="help icon"></i>Help</a>
