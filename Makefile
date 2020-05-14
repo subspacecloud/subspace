@@ -3,7 +3,10 @@ all: subspace-linux-amd64
 BUILD_VERSION?=unknown
 
 subspace-linux-amd64:
-	go generate \
+	go get -u github.com/jteeuwen/go-bindata/... \
+	&& go mod download \
+	&& go run github.com/jteeuwen/go-bindata/go-bindata --pkg main static/... templates/... email/.. \
+	&& go generate \
 	&& go fmt \
 	&& go vet --all
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
