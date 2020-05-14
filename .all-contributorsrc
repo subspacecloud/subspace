@@ -49,6 +49,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "jack1902",
+      "name": "Jack",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/39212456?v=4",
+      "profile": "https://github.com/jack1902",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
