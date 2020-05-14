@@ -433,7 +433,7 @@ Address = {{$.IPv4Pref}}{{$.Profile.Number}}/{{$.IPv4Cidr}},{{$.IPv6Pref}}{{$.Pr
 PublicKey = $(cat server.public)
 
 Endpoint = {{$.EndpointHost}}:{{$.Listenport}}
-AllowedIPs = {{$.allowedips}}
+AllowedIPs = {{$.AllowedIPS}}
 WGCLIENT
 `
 	_, err = bash(script, struct {
