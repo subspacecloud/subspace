@@ -404,6 +404,7 @@ func profileAddHandler(w *Web) {
 	endpointHost := httpHost
 	if eh := getEnv("SUBSPACE_ENDPOINT_HOST", "nil"); eh != "nil" {
 		endpointHost = eh
+	}
 	allowedips := "0.0.0.0/0, ::/0"
 	if ips := getEnv("SUBSPACE_ALLOWED_IPS", "nil"); ips != "nil" {
 		allowedips = ips
@@ -432,12 +433,12 @@ Address = {{$.IPv4Pref}}{{$.Profile.Number}}/{{$.IPv4Cidr}},{{$.IPv6Pref}}{{$.Pr
 PublicKey = $(cat server.public)
 
 Endpoint = {{$.EndpointHost}}:{{$.Listenport}}
-AllowedIPs = {{$.allowedips}}
+AllowedIPs = {{$.AllowedIPS}}
 WGCLIENT
 `
 	_, err = bash(script, struct {
-                Profile      Profile
-                EndpointHost string
+		Profile      Profile
+		EndpointHost string
 		Datadir      string
 		IPv4Gw       string
 		IPv6Gw       string
