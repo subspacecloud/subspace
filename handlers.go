@@ -36,7 +36,6 @@ func ssoHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	}
 	logger.Debugf("SSO: require account handler")
 	samlSP.RequireAccountHandler(w, r)
-	return
 }
 
 func samlHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
@@ -143,7 +142,6 @@ func configureHandler(w *Web) {
 		return
 	}
 	w.Redirect("/settings?success=configured")
-	return
 }
 
 func forgotHandler(w *Web) {
@@ -217,7 +215,6 @@ func forgotHandler(w *Web) {
 		return
 	}
 	w.Redirect("/")
-	return
 }
 
 func signoutHandler(w *Web) {
@@ -485,7 +482,6 @@ func profileConnectHandler(w *Web) {
 	}
 	w.Profile = profile
 	w.HTML()
-	return
 }
 
 func profileDeleteHandler(w *Web) {
