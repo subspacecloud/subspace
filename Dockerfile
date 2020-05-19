@@ -36,6 +36,6 @@ RUN apk add --no-cache \
     dnsmasq \
     socat 
 
-ENTRYPOINT [ "sh", "/usr/local/bin/entrypoint.sh" ]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh" ]
 
 CMD [ "/sbin/my_init" ]
