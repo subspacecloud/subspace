@@ -97,6 +97,10 @@ apt-get install -y wireguard
 # Remove dnsmasq because it will run inside the container.
 apt-get remove -y dnsmasq
 
+# Disable systemd-reloved if it blocks port 53
+systemctl disable systemd-resolved
+systemctl stop systemd-resolved
+
 # Set DNS server.
 echo nameserver 1.1.1.1 >/etc/resolv.conf
 
