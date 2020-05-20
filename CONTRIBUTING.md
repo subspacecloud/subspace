@@ -4,7 +4,7 @@ Welcome! If you're looking to help, this document is a great place to start!
 
 ## Building the project
 
-To build MicroMDM from source, you will need [Go 1.13](https://golang.org/dl/) or later installed.
+To build Subspace from source, you will need [Go 1.13](https://golang.org/dl/) or later installed.
 
 ```
 git clone git@github.com:subspacecommunity/subspace && cd subspace
