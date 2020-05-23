@@ -73,6 +73,8 @@ if [ -n "${SUBSPACE_DISABLE_MASQUERADE-}" ] ; then
         if ! /sbin/iptables --check FORWARD -s ${SUBSPACE_IPV4_POOL} -j ACCEPT ; then
             /sbin/iptables --append FORWARD -s ${SUBSPACE_IPV4_POOL} -j ACCEPT
         fi
+    else 
+        echo "Unable to find /sbin/iptables not configuring IPv4 Rules"
     fi
 
     if [[ ${SUBSPACE_IPV6_NAT_ENABLED-} -gt 0 ]]; then
@@ -89,6 +91,8 @@ if [ -n "${SUBSPACE_DISABLE_MASQUERADE-}" ] ; then
             if ! /sbin/ip6tables --check FORWARD -s ${SUBSPACE_IPV6_POOL} -j ACCEPT ; then
                 /sbin/ip6tables --append FORWARD -s ${SUBSPACE_IPV6_POOL} -j ACCEPT
             fi
+        else 
+            echo "Unable to find /sbin/ip6tables not configuring IPv6 Rules"
         fi
     fi
 fi
@@ -102,7 +106,10 @@ if  [ -x /sbin/iptables ]; then
     if ! /sbin/iptables -t nat --check OUTPUT -s ${SUBSPACE_IPV4_POOL} -p tcp --dport 53 -j DNAT --to ${SUBSPACE_IPV4_GW}:53 ; then
         /sbin/iptables -t nat --append OUTPUT -s ${SUBSPACE_IPV4_POOL} -p tcp --dport 53 -j DNAT --to ${SUBSPACE_IPV4_GW}:53
     fi
+else 
+    echo "Unable to find /sbin/iptables not configuring IPv4 dns leak Protection"
 fi
+
 # ipv6 - DNS Leak Protection
 if  [ -x /sbin/ip6tables ]; then
     if ! /sbin/ip6tables --wait -t nat --check OUTPUT -s ${SUBSPACE_IPV6_POOL} -p udp --dport 53 -j DNAT --to ${SUBSPACE_IPV6_GW} ; then
@@ -112,6 +119,8 @@ if  [ -x /sbin/ip6tables ]; then
     if ! /sbin/ip6tables --wait -t nat --check OUTPUT -s ${SUBSPACE_IPV6_POOL} -p tcp --dport 53 -j DNAT --to ${SUBSPACE_IPV6_GW} ; then
         /sbin/ip6tables --wait -t nat --append OUTPUT -s ${SUBSPACE_IPV6_POOL} -p tcp --dport 53 -j DNAT --to ${SUBSPACE_IPV6_GW}
     fi
+else 
+    echo "Unable to find /sbin/ip6tables not configuring IPv6 dns leak Protection"
 fi
 #
 # WireGuard (${SUBSPACE_IPV4_POOL})
