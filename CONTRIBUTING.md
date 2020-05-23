@@ -6,7 +6,7 @@ Welcome! If you're looking to help, this document is a great place to start!
 
 To build Subspace from source, you will need [Go 1.13](https://golang.org/dl/) or later installed.
 
-```
+```sh
 git clone git@github.com:subspacecommunity/subspace && cd subspace
 make
 
@@ -16,7 +16,7 @@ make
 
 ## Git workflow
 
-```
+```sh
 username=$your username
 # add your remote/upstream
 git remote add $username git@github.com:$username/subspace.git
