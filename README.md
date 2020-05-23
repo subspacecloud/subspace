@@ -33,7 +33,7 @@
 
 ## Contributing
 
-See the [CONTRIBUTING](CONTRIBUTING.md) page for additional info.
+See the [CONTRIBUTING](.github/CONTRIBUTING.md) page for additional info.
 
 ## Setup
 
