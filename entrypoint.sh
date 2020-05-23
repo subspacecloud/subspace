@@ -107,7 +107,7 @@ if  [ -x /sbin/iptables ]; then
         /sbin/iptables -t nat --append OUTPUT -s ${SUBSPACE_IPV4_POOL} -p tcp --dport 53 -j DNAT --to ${SUBSPACE_IPV4_GW}:53
     fi
 else 
-    echo "Unable to find /sbin/iptables not configuring IPv4 dns leak Protection"
+    echo "Unable to find /sbin/iptables not configuring IPv4 DNS leak Protection"
 fi
 
 # ipv6 - DNS Leak Protection
@@ -120,7 +120,7 @@ if  [ -x /sbin/ip6tables ]; then
         /sbin/ip6tables --wait -t nat --append OUTPUT -s ${SUBSPACE_IPV6_POOL} -p tcp --dport 53 -j DNAT --to ${SUBSPACE_IPV6_GW}
     fi
 else 
-    echo "Unable to find /sbin/ip6tables not configuring IPv6 dns leak Protection"
+    echo "Unable to find /sbin/ip6tables not configuring IPv6 DNS leak Protection"
 fi
 #
 # WireGuard (${SUBSPACE_IPV4_POOL})
