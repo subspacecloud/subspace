@@ -3,9 +3,9 @@ all: subspace-linux-amd64
 BUILD_VERSION?=unknown
 
 subspace-linux-amd64:
-	go get -u github.com/jteeuwen/go-bindata/... \
+	go get -u github.com/kevinburke/go-bindata/...\
 	&& go mod download \
-	&& go run github.com/jteeuwen/go-bindata/go-bindata --pkg main static/... templates/... email/.. \
+	&& go run github.com/kevinburke/go-bindata/go-bindata --pkg main static/... templates/... email/.. \
 	&& go generate \
 	&& go fmt \
 	&& go vet --all
