@@ -389,12 +389,3 @@ func configureSAML() error {
 	logger.Infof("successfully configured SAML")
 	return nil
 }
-
-// The following is unused not removing just commenting out
-//func BestDomain() string {
-//	domain := config.FindInfo().Domain
-//	if domain != "" {
-//		return domain
-//	}
-//	return httpHost
-//}
