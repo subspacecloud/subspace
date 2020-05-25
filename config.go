@@ -277,9 +277,7 @@ func (c *Config) ListProfiles() (profiles []Profile) {
 }
 
 func (c *Config) listProfiles() (profiles []*Profile) {
-	for _, p := range c.Profiles {
-		profiles = append(profiles, p)
-	}
+	profiles = append(profiles, c.Profiles...)
 	sort.Slice(profiles, func(i, j int) bool { return profiles[i].Created.After(profiles[j].Created) })
 	return
 }
@@ -412,9 +410,7 @@ func (c *Config) ListUsers() (users []User) {
 }
 
 func (c *Config) listUsers() (users []*User) {
-	for _, u := range c.Users {
-		users = append(users, u)
-	}
+	users = append(users, c.Users...)
 	sort.Slice(users, func(i, j int) bool { return users[i].Created.After(users[j].Created) })
 	return
 }
