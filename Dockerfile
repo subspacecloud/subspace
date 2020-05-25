@@ -34,7 +34,8 @@ RUN apk add --no-cache \
     iproute2 \
     iptables \ 
     dnsmasq \
-    socat 
+    socat  \
+    wireguard-tools
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh" ]
 
