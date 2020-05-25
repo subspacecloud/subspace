@@ -36,7 +36,8 @@ RUN apk add --no-cache \
     ip6tables \
     dnsmasq \
     socat  \
-    wireguard-tools
+    wireguard-tools \
+    runit
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh" ]
 
