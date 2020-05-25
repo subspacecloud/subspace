@@ -33,6 +33,7 @@ RUN chmod +x /usr/bin/subspace /usr/local/bin/entrypoint.sh
 RUN apk add --no-cache \
     iproute2 \
     iptables \ 
+    ip6tables \
     dnsmasq \
     socat  \
     wireguard-tools
