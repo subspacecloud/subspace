@@ -150,7 +150,7 @@ wg setconf wg0 /data/wireguard/server.conf
 ip link set wg0 up
 
 # dnsmasq service
-if ! test -d /etc/sv/dnsmasq; then
+if ! test -d /etc/service/dnsmasq; then
   cat <<DNSMASQ >/etc/dnsmasq.conf
     # Only listen on necessary addresses.
     listen-address=127.0.0.1,${SUBSPACE_IPV4_GW},${SUBSPACE_IPV6_GW}
@@ -162,28 +162,28 @@ if ! test -d /etc/sv/dnsmasq; then
     bogus-priv
 DNSMASQ
 
-  mkdir -p /etc/sv/dnsmasq
-  cat <<RUNIT >/etc/sv/dnsmasq/run
+  mkdir -p /etc/service/dnsmasq
+  cat <<RUNIT >/etc/service/dnsmasq/run
 #!/bin/sh
 exec /usr/sbin/dnsmasq --no-daemon
 RUNIT
-  chmod +x /etc/sv/dnsmasq/run
+  chmod +x /etc/service/dnsmasq/run
 
   # dnsmasq service log
-  mkdir -p /etc/sv/dnsmasq/log
-  mkdir -p /etc/sv/dnsmasq/log/main
-  cat <<RUNIT >/etc/sv/dnsmasq/log/run
+  mkdir -p /etc/service/dnsmasq/log
+  mkdir -p /etc/service/dnsmasq/log/main
+  cat <<RUNIT >/etc/service/dnsmasq/log/run
 #!/bin/sh
 exec svlogd -tt ./main
 RUNIT
-  chmod +x /etc/sv/dnsmasq/log/run
-  ln -s /etc/sv/dnsmasq /etc/service/dnsmasq
+  chmod +x /etc/service/dnsmasq/log/run
+  ln -s /etc/service/dnsmasq /etc/service/dnsmasq
 fi
 
 # subspace service
-if ! test -d /etc/sv/subspace; then
-  mkdir /etc/sv/subspace
-  cat <<RUNIT >/etc/sv/subspace/run
+if ! test -d /etc/service/subspace; then
+  mkdir /etc/service/subspace
+  cat <<RUNIT >/etc/service/subspace/run
 #!/bin/sh
 exec /usr/bin/subspace \
     "--http-host=${SUBSPACE_HTTP_HOST}" \
@@ -192,17 +192,17 @@ exec /usr/bin/subspace \
     "--backlink=${SUBSPACE_BACKLINK}" \
     "--letsencrypt=${SUBSPACE_LETSENCRYPT}"
 RUNIT
-  chmod +x /etc/sv/subspace/run
+  chmod +x /etc/service/subspace/run
 
   # subspace service log
-  mkdir /etc/sv/subspace/log
-  mkdir /etc/sv/subspace/log/main
-  cat <<RUNIT >/etc/sv/subspace/log/run
+  mkdir /etc/service/subspace/log
+  mkdir /etc/service/subspace/log/main
+  cat <<RUNIT >/etc/service/subspace/log/run
 #!/bin/sh
 exec svlogd -tt ./main
 RUNIT
-  chmod +x /etc/sv/subspace/log/run
-  ln -s /etc/sv/subspace /etc/service/subspace
+  chmod +x /etc/service/subspace/log/run
+  ln -s /etc/service/subspace /etc/service/subspace
 fi
 
 exec $@
