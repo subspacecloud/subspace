@@ -303,14 +303,14 @@ def wait_for_runit_or_interrupt(pid):
 def shutdown_runit_services(quiet=False):
     if not quiet:
         debug("Begin shutting down runit services...")
-    os.system("/usr/bin/sv -w %d force-stop /etc/service/* > /dev/null" % KILL_PROCESS_TIMEOUT)
+    os.system("/etc/service -w %d force-stop /etc/service/* > /dev/null" % KILL_PROCESS_TIMEOUT)
 
 
 def wait_for_runit_services():
     debug("Waiting for runit services to exit...")
     done = False
     while not done:
-        done = os.system("/usr/bin/sv status /etc/service/* | grep -q '^run:'") != 0
+        done = os.system("/etc/service status /etc/service/* | grep -q '^run:'") != 0
         if not done:
             time.sleep(0.1)
             # According to https://github.com/phusion/baseimage-docker/issues/315
