@@ -38,8 +38,7 @@ RUN apk add --no-cache \
     dnsmasq \
     socat  \
     wireguard-tools \
-    runit \ 
-    python3
+    runit
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh" ]
 
