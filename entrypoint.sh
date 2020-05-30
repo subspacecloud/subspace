@@ -168,7 +168,6 @@ RUNIT
 exec svlogd -tt ./main
 RUNIT
   chmod +x /etc/service/dnsmasq/log/run
-  ln -s /etc/service/dnsmasq /etc/service/dnsmasq
 fi
 
 # subspace service
@@ -193,7 +192,6 @@ RUNIT
 exec svlogd -tt ./main
 RUNIT
   chmod +x /etc/service/subspace/log/run
-  ln -s /etc/service/subspace /etc/service/subspace
 fi
 
 exec $@
