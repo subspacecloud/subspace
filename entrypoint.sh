@@ -61,38 +61,30 @@ echo "nameserver ${SUBSPACE_NAMESERVER}" >/etc/resolv.conf
 
 if [ -n "${SUBSPACE_DISABLE_MASQUERADE-}" ]; then
   # IPv4
-  if [ -x /sbin/iptables ]; then
-    if ! /sbin/iptables -t nat --check POSTROUTING -s ${SUBSPACE_IPV4_POOL} -j MASQUERADE; then
-      /sbin/iptables -t nat --append POSTROUTING -s ${SUBSPACE_IPV4_POOL} -j MASQUERADE
-    fi
+  if ! /sbin/iptables -t nat --check POSTROUTING -s ${SUBSPACE_IPV4_POOL} -j MASQUERADE; then
+    /sbin/iptables -t nat --append POSTROUTING -s ${SUBSPACE_IPV4_POOL} -j MASQUERADE
+  fi
 
-    if ! /sbin/iptables --check FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT; then
-      /sbin/iptables --append FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
-    fi
+  if ! /sbin/iptables --check FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT; then
+    /sbin/iptables --append FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+  fi
 
-    if ! /sbin/iptables --check FORWARD -s ${SUBSPACE_IPV4_POOL} -j ACCEPT; then
-      /sbin/iptables --append FORWARD -s ${SUBSPACE_IPV4_POOL} -j ACCEPT
-    fi
-  else
-    echo "Unable to find /sbin/iptables not configuring IPv4 Rules"
+  if ! /sbin/iptables --check FORWARD -s ${SUBSPACE_IPV4_POOL} -j ACCEPT; then
+    /sbin/iptables --append FORWARD -s ${SUBSPACE_IPV4_POOL} -j ACCEPT
   fi
 
   if [[ ${SUBSPACE_IPV6_NAT_ENABLED-} -gt 0 ]]; then
     # IPv6
-    if [ -x /sbin/ip6tables ]; then
-      if ! /sbin/ip6tables -t nat --check POSTROUTING -s ${SUBSPACE_IPV6_POOL} -j MASQUERADE; then
-        /sbin/ip6tables -t nat --append POSTROUTING -s ${SUBSPACE_IPV6_POOL} -j MASQUERADE
-      fi
+    if ! /sbin/ip6tables -t nat --check POSTROUTING -s ${SUBSPACE_IPV6_POOL} -j MASQUERADE; then
+      /sbin/ip6tables -t nat --append POSTROUTING -s ${SUBSPACE_IPV6_POOL} -j MASQUERADE
+    fi
 
-      if ! /sbin/ip6tables --check FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT; then
-        /sbin/ip6tables --append FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
-      fi
+    if ! /sbin/ip6tables --check FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT; then
+      /sbin/ip6tables --append FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+    fi
 
-      if ! /sbin/ip6tables --check FORWARD -s ${SUBSPACE_IPV6_POOL} -j ACCEPT; then
-        /sbin/ip6tables --append FORWARD -s ${SUBSPACE_IPV6_POOL} -j ACCEPT
-      fi
-    else
-      echo "Unable to find /sbin/ip6tables not configuring IPv6 Rules"
+    if ! /sbin/ip6tables --check FORWARD -s ${SUBSPACE_IPV6_POOL} -j ACCEPT; then
+      /sbin/ip6tables --append FORWARD -s ${SUBSPACE_IPV6_POOL} -j ACCEPT
     fi
   fi
 fi
@@ -170,7 +162,6 @@ RUNIT
   chmod +x /etc/service/dnsmasq/run
 
   # dnsmasq service log
-  mkdir -p /etc/service/dnsmasq/log
   mkdir -p /etc/service/dnsmasq/log/main
   cat <<RUNIT >/etc/service/dnsmasq/log/run
 #!/bin/sh
