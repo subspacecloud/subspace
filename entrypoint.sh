@@ -119,7 +119,7 @@ if ! test -d /data/wireguard; then
   touch peers/null.conf # So you can cat *.conf safely
 
   # Generate public/private server keys.
-  wg genkey | tee server.private | wg pubkey >server.public
+  wg genkey | tee server.private | wg pubkey > server.public
 fi
 
 cat <<WGSERVER >/data/wireguard/server.conf
