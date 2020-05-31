@@ -33,12 +33,13 @@ RUN chmod +x /usr/bin/subspace /usr/local/bin/entrypoint.sh /sbin/my_init
 
 RUN apk add --no-cache \
     iproute2 \
-    iptables \ 
+    iptables \
     ip6tables \
     dnsmasq \
     socat  \
     wireguard-tools \
-    runit
+    runit \
+    perl
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh" ]
 
