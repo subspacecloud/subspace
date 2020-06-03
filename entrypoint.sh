@@ -59,7 +59,7 @@ fi
 # Set DNS server
 echo "nameserver ${SUBSPACE_NAMESERVER}" >/etc/resolv.conf
 
-if [ -n "${SUBSPACE_DISABLE_MASQUERADE-}" ]; then
+if [ -z "${SUBSPACE_DISABLE_MASQUERADE-}" ]; then
   # IPv4
   if ! /sbin/iptables -t nat --check POSTROUTING -s ${SUBSPACE_IPV4_POOL} -j MASQUERADE; then
     /sbin/iptables -t nat --append POSTROUTING -s ${SUBSPACE_IPV4_POOL} -j MASQUERADE
