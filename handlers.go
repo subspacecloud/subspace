@@ -599,7 +599,7 @@ func deleteProfile(profile Profile) error {
 	script := `
 # WireGuard
 cd {{$.Datadir}}/wireguard
-peerid=$(cat peers/{{$.Profile.ID}}.conf | perl -ne 'print $1 if /PublicKey\s*=\s*(.*)/')
+peerid=$(cat peers/{{$.Profile.ID}}.conf | awk '/PublicKey/ { printf("%s", $3) }' )
 wg set wg0 peer $peerid remove
 rm peers/{{$.Profile.ID}}.conf
 rm clients/{{$.Profile.ID}}.conf
