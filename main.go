@@ -19,10 +19,10 @@ import (
 
 	"github.com/julienschmidt/httprouter"
 
-	log "github.com/Sirupsen/logrus"
 	"github.com/crewjam/saml"
 	"github.com/crewjam/saml/samlsp"
 	"github.com/gorilla/securecookie"
+	log "github.com/sirupsen/logrus"
 	"golang.org/x/crypto/acme/autocert"
 )
 
