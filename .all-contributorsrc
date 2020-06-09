@@ -58,6 +58,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "ssiuhk",
+      "name": "Sam SIU",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/23556929?v=4",
+      "profile": "https://github.com/ssiuhk",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
