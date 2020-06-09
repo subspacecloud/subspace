@@ -143,7 +143,6 @@ docker create \
     --restart always \
     --network host \
     --cap-add NET_ADMIN \
-    --volume /usr/bin/wg:/usr/bin/wg \
     --volume /data:/data \
     --env SUBSPACE_HTTP_HOST="subspace.example.com" \
 	# Optional variable to change upstream DNS provider
@@ -177,7 +176,6 @@ services:
    image: subspacecommunity/subspace:latest
    container_name: subspace
    volumes:
-    - /usr/bin/wg:/usr/bin/wg
     - /opt/docker/subspace:/data
    restart: always
    environment:
