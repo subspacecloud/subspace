@@ -6,6 +6,10 @@
 
 [![](https://images.microbadger.com/badges/image/subspacecommunity/subspace.svg)](https://microbadger.com/images/subspacecommunity/subspace "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/subspacecommunity/subspace.svg)](https://microbadger.com/images/subspacecommunity/subspace "Get your own version badge on microbadger.com")
 
+## Slack
+
+Join the slack community over at the [gophers](https://invite.slack.golangbridge.org/) workspace. Our Channel is `#subspace` which can be used to ask general questions in regards to subspace where the community can assist where possible.
+
 ## Screenshots
 
 ![Screenshot](https://raw.githubusercontent.com/subspacecommunity/subspace/master/screenshot1.png?cachebust=8923409243)
