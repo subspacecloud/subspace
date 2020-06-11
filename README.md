@@ -6,6 +6,27 @@
 
 [![](https://images.microbadger.com/badges/image/subspacecommunity/subspace.svg)](https://microbadger.com/images/subspacecommunity/subspace "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/subspacecommunity/subspace.svg)](https://microbadger.com/images/subspacecommunity/subspace "Get your own version badge on microbadger.com")
 
+- [Subspace - A simple WireGuard VPN server GUI](#subspace---a-simple-wireguard-vpn-server-gui)
+  - [Slack](#slack)
+  - [Screenshots](#screenshots)
+  - [Features](#features)
+  - [Contributing](#contributing)
+  - [Setup](#setup)
+    - [1. Get a server](#1-get-a-server)
+    - [2. Add a DNS record](#2-add-a-dns-record)
+    - [3. Enable Let's Encrypt](#3-enable-lets-encrypt)
+    - [Usage](#usage)
+    - [Usage](#usage-1)
+    - [Run as a Docker container](#run-as-a-docker-container)
+      - [Install WireGuard on the host](#install-wireguard-on-the-host)
+      - [Docker-Compose Example](#docker-compose-example)
+      - [Updating the container image](#updating-the-container-image)
+  - [Contributors ✨](#contributors-)
+
+## Slack
+
+Join the slack community over at the [gophers](https://invite.slack.golangbridge.org/) workspace. Our Channel is `#subspace` which can be used to ask general questions in regards to subspace where the community can assist where possible.
+
 ## Screenshots
 
 ![Screenshot](https://raw.githubusercontent.com/subspacecommunity/subspace/master/screenshot1.png?cachebust=8923409243)
