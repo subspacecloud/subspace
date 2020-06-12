@@ -27,6 +27,10 @@ if [ -z "${SUBSPACE_HTTP_INSECURE-}" ] ; then
     export SUBSPACE_HTTP_INSECURE="false"
 fi
 
+if [ -z "${SUBSPACE_WIREGUARD_PORT-}" ] ; then
+    export SUBSPACE_WIREGUARD_PORT="51820"
+fi
+
 export NAMESERVER="1.1.1.1"
 export DEBIAN_FRONTEND="noninteractive"
 
@@ -109,7 +113,7 @@ fi
 cat <<WGSERVER >/data/wireguard/server.conf
 [Interface]
 PrivateKey = $(cat /data/wireguard/server.private)
-ListenPort = 51820
+ListenPort = $SUBSPACE_WIREGUARD_PORT
 
 WGSERVER
 cat /data/wireguard/peers/*.conf >>/data/wireguard/server.conf
@@ -164,7 +168,8 @@ exec /usr/bin/subspace \
     "--http-addr=${SUBSPACE_HTTP_ADDR}" \
     "--http-insecure=${SUBSPACE_HTTP_INSECURE}" \
     "--backlink=${SUBSPACE_BACKLINK}" \
-    "--letsencrypt=${SUBSPACE_LETSENCRYPT}"
+    "--letsencrypt=${SUBSPACE_LETSENCRYPT}" \
+	"--wg-port=${SUBSPACE_WIREGUARD_PORT}
 RUNIT
     chmod +x /etc/sv/subspace/run
 
