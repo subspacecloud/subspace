@@ -385,9 +385,9 @@ func configureSAML() error {
 		samlSP = nil
 		return fmt.Errorf("failed to configure SAML: %s", err)
 	}
-	
+
 	newsp.ServiceProvider.AuthnNameIDFormat = saml.EmailAddressNameIDFormat
-	
+
 	samlSP = newsp
 	logger.Infof("successfully configured SAML")
 	return nil
