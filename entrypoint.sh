@@ -27,6 +27,18 @@ if [ -z "${SUBSPACE_HTTP_INSECURE-}" ] ; then
     export SUBSPACE_HTTP_INSECURE="false"
 fi
 
+if [ -z "${SUBSPACE_ALLOWED_IPS-}" ] ; then
+    export SUBSPACE_ALLOWED_IPS="0.0.0.0/0, ::/0"
+fi
+
+if [ -z "${SUBSPACE_ENDPOINT_HOST-}" ] ; then
+    export SUBSPACE_ENDPOINT_HOST="${SUBSPACE_HTTP_ADDR}"
+fi
+
+if [ -z "${SUBSPACE_LISTENPORT-}" ] ; then
+    export SUBSPACE_LISTENPORT="51820"
+fi
+
 export NAMESERVER="1.1.1.1"
 export DEBIAN_FRONTEND="noninteractive"
 
@@ -159,6 +171,9 @@ if ! test -d /etc/sv/subspace ; then
     mkdir /etc/sv/subspace
     cat <<RUNIT >/etc/sv/subspace/run
 #!/bin/sh
+export SUBSPACE_ALLOWED_IPS="${SUBSPACE_ALLOWED_IPS}"
+export SUBSPACE_ENDPOINT_HOST="${SUBSPACE_ENDPOINT_HOST}"
+export SUBSPACE_LISTENPORT="${SUBSPACE_LISTENPORT}"
 exec /usr/bin/subspace \
     "--http-host=${SUBSPACE_HTTP_HOST}" \
     "--http-addr=${SUBSPACE_HTTP_ADDR}" \
