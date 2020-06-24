@@ -51,7 +51,8 @@
                             </div>
                         </div>
                         <div class="field">
-                            <button type="submit" class="ui huge fluid green button">Set password</button>
+                            <button type="submit" class="ui huge fluid {{$.SemanticTheme}} button">Set password</button>
+                            {{$.TargetUser.ID}}
                         </div>
                     {{else}}
                         <div class="field">
@@ -61,7 +62,7 @@
                             </div>
                         </div>
                         <div class="field">
-                            <button type="submit" class="ui huge fluid green button">Reset password</button>
+                            <button type="submit" class="ui huge fluid {{$.SemanticTheme}} button">Reset password</button>
                         </div>
                     {{end}}
 

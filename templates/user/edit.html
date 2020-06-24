@@ -5,7 +5,7 @@
     <div class="ui hidden divider"></div>
 
     <div class="ui padded segment">
-        <div class="ui huge green dividing header">
+        <div class="ui huge {{$.SemanticTheme}} dividing header">
             {{$.TargetUser.Email}}
         </div>
         <div class="ui hidden divider"></div>
@@ -71,9 +71,9 @@
                     <div class="equal width fields">
                         <div class="field left-aligned">
                             {{if $.TargetUser.Admin}}
-                                <button type="submit" name="admin" class="ui large green button" value="no"><i class="check circle icon"></i>Admin</button>
+                                <button type="submit" name="admin" class="ui large {{$.SemanticTheme}} button" value="no"><i class="check circle icon"></i>Admin</button>
                             {{else}}
-                            <button type="submit" name="admin" class="ui large basic green button" value="yes"><i class="circle outline icon"></i>Admin</button>
+                            <button type="submit" name="admin" class="ui large basic {{$.SemanticTheme}} button" value="yes"><i class="circle outline icon"></i>Admin</button>
                             {{end}}
                         </div>
                         <div class="field right-aligned">
