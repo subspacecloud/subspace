@@ -76,6 +76,9 @@ var (
 
 	// Error page HTML
 	errorPageHTML = `<html><head><title>Error</title></head><body text="orangered" bgcolor="black"><h1>An error has occurred</h1></body></html>`
+
+	// theme
+	semanticTheme string
 )
 
 func init() {
@@ -88,6 +91,7 @@ func init() {
 	cli.BoolVar(&showVersion, "version", false, "display version and exit")
 	cli.BoolVar(&showHelp, "help", false, "display help and exit")
 	cli.BoolVar(&debug, "debug", false, "debug mode")
+	cli.StringVar(&semanticTheme, "theme", "green", "Semantic-ui theme to use")
 }
 
 func main() {
