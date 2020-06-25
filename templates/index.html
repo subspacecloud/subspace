@@ -13,7 +13,7 @@
                     User deleted successfully
                 {{end}}
             </div>
-            <a class="close-link" href="/"><i class="close icon"></i></a>
+            <a class="close-link" href="/"><em class="close icon"></em></a>
         </div>
     {{end}}
     {{with $error := $.Request.FormValue "error"}}
@@ -30,7 +30,7 @@
                         {{$error}}
                     {{end}}
                 </div>
-                <a class="close-link" href="/"><i class="close icon"></i></a>
+                <a class="close-link" href="/"><em class="close icon"></em></a>
             </div>
         </div>
         <div class="ui hidden divider"></div>
@@ -41,7 +41,7 @@
             <div class="column">
                 <div class="ui hidden divider"></div>
                 <div class="ui huge center aligned icon header">
-                    <i class="{{$.SemanticTheme}} clockwise rotated strikethrough icon"></i>
+                    <em class="{{$.SemanticTheme}} clockwise rotated strikethrough icon"></em>
                     <div class="content">Subspace is online</div>
                 </div>
                 <div class="ui hidden divider"></div>
@@ -57,11 +57,11 @@
                             <div class="field">
                                 <div id="add-profile-admin" class="ui fluid selection dropdown">
                                     <input type="hidden" name="admin" value="no">
-                                    <i class="dropdown icon"></i>
+                                    <em class="dropdown icon"></em>
                                     <div class="default text">Select account</div>
                                     <div class="menu">
-                                        <div class="item" data-value="no"><i class="grey user icon"></i>Your device</div>
-                                        <div class="item" data-value="yes"><i class="grey laptop icon"></i>Admin device</div>
+                                        <div class="item" data-value="no"><em class="grey user icon"></em>Your device</div>
+                                        <div class="item" data-value="yes"><em class="grey laptop icon"></em>Admin device</div>
                                     </div>
                                 </div>
                             </div>
@@ -69,15 +69,15 @@
                         <div class="field">
                             <div id="add-profile-platform" class="ui fluid selection dropdown">
                                 <input type="hidden" name="platform" value="yes">
-                                <i class="dropdown icon"></i>
+                                <em class="dropdown icon"></em>
                                 <div class="default text">Select platform</div>
                                 <div class="menu">
-                                    <div class="item" data-value="windows"><i class="windows icon"></i>Windows</div>
-                                    <div class="item" data-value="osx"><i class="apple icon"></i>macOS</div>
-                                    <div class="item" data-value="ios"><i class="apple icon"></i>iOS</div>
-                                    <div class="item" data-value="android"><i class="android icon"></i>Android</div>
-                                    <div class="item" data-value="linux"><i class="linux icon"></i>Linux</div>
-                                    <div class="item" data-value="other"><i class="asterisk dot icon"></i>Other</div>
+                                    <div class="item" data-value="windows"><em class="windows icon"></em>Windows</div>
+                                    <div class="item" data-value="osx"><em class="apple icon"></em>macOS</div>
+                                    <div class="item" data-value="ios"><em class="apple icon"></em>iOS</div>
+                                    <div class="item" data-value="android"><em class="android icon"></em>Android</div>
+                                    <div class="item" data-value="linux"><em class="linux icon"></em>Linux</div>
+                                    <div class="item" data-value="other"><em class="asterisk dot icon"></em>Other</div>
                                 </div>
                             </div>
                         </div>
@@ -104,10 +104,10 @@
                 <div class="ui three stackable cards">
                     {{range $n, $p := $.TargetProfiles}}
                         <div class="showcard card">
-                            <a href="/profile/delete/{{$p.ID}}" class="ui right corner label "><i class="trash alternate icon"></i></a>
+                            <a href="/profile/delete/{{$p.ID}}" class="ui right corner label "><em class="trash alternate icon"></em></a>
                             <div class="content">
                                 <div class="header">
-                                    <i class="large grey
+                                    <em class="large grey
                                     {{if eq $p.Platform "windows"}}
                                         windows grey
                                     {{else if eq $p.Platform "osx"}}
@@ -121,13 +121,13 @@
                                     {{else}}
                                         asterisk
                                     {{end}}
-                                        icon"></i> {{$p.Name}}
+                                        icon"></em> {{$p.Name}}
                                 </div>
                             </div>
                             <div class="extra content">
                                 <div class="ui large list">
                                     <div class="item">
-                                        <i class="bordered calendar icon"></i>
+                                        <em class="bordered calendar icon"></em>
                                         <div class="content">
                                             <div class="header">
                                                 Created
@@ -164,10 +164,10 @@
                 <div class="ui three stackable cards">
                     {{range $n, $p := $.Profiles}}
                         <div class="showcard card">
-                            <a href="/profile/delete/{{$p.ID}}" class="ui right corner label "><i class="trash alternate icon"></i></a>
+                            <a href="/profile/delete/{{$p.ID}}" class="ui right corner label "><em class="trash alternate icon"></em></a>
                             <div class="content">
                                 <div class="header">
-                                    <i class="large grey
+                                    <em class="large grey
                                     {{if eq $p.Platform "windows"}}
                                         windows grey
                                     {{else if eq $p.Platform "osx"}}
@@ -181,13 +181,13 @@
                                     {{else}}
                                         asterisk
                                     {{end}}
-                                        icon"></i> {{$p.Name}}
+                                        icon"></em> {{$p.Name}}
                                 </div>
                             </div>
                             <div class="extra content">
                                 <div class="ui large list">
                                     <div class="item">
-                                        <i class="bordered calendar icon"></i>
+                                        <em class="bordered calendar icon"></em>
                                         <div class="content">
                                             <div class="header">
                                                 Created
@@ -222,17 +222,17 @@
             <div class="ui three stackable cards">
                 {{range $n, $u := $.Users}}
                     <div class="showcard card">
-                        <a href="/user/delete/{{$u.ID}}" class="ui right corner label "><i class="trash alternate icon"></i></a>
+                        <a href="/user/delete/{{$u.ID}}" class="ui right corner label "><em class="trash alternate icon"></em></a>
                         <div class="content">
                             <div class="header">
-                                <i class="large grey user icon"></i>
+                                <em class="large grey user icon"></em>
                                 {{$u.Email}}
                             </div>
                         </div>
                         <div class="extra content">
                             <div class="ui large list">
                                 <div class="item">
-                                    <i class="bordered laptop icon"></i>
+                                    <em class="bordered laptop icon"></em>
                                     <div class="content">
                                         <div class="header">
                                             Devices
@@ -243,7 +243,7 @@
                                     </div>
                                 </div>
                                 <div class="item">
-                                    <i class="bordered calendar icon"></i>
+                                    <em class="bordered calendar icon"></em>
                                     <div class="content">
                                         <div class="header">
                                             Created

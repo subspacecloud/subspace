@@ -25,7 +25,7 @@
                 <div class="ui hidden divider"></div>
 
                 {{$ssoprovider := ssoprovider}}
-                <a href="/sso" class="ui huge fluid blue button">{{if eq $ssoprovider "Google"}}<i class="google icon"></i>{{end}}Sign in with {{$ssoprovider}}</a>
+                <a href="/sso" class="ui huge fluid blue button">{{if eq $ssoprovider "Google"}}<em class="google icon"></em>{{end}}Sign in with {{$ssoprovider}}</a>
 
                 <div class="ui hidden divider"></div>
                 <div class="ui hidden divider"></div>
@@ -36,13 +36,13 @@
             <form class="ui huge form" action="/signin" method="POST">
                 <div class="field">
                     <div class="ui left icon input">
-                        <i class="mail icon"></i>
+                        <em class="mail icon"></em>
                         <input title="email" name="email" type="email" value="{{$.Request.FormValue "email"}}" placeholder="Email address" autofocus required>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui left icon input">
-                        <i class="key icon"></i>
+                        <em class="key icon"></em>
                         <input name="password" type="password" placeholder="Password" autofocus>
                     </div>
                 </div>

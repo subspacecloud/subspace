@@ -1,7 +1,7 @@
 {{template "header.html" .}}
 
 <div class="ui container">
-    <a href="/" class="ui large basic button"><i class="long arrow alternate left icon"></i>Back</a>
+    <a href="/" class="ui large basic button"><em class="long arrow alternate left icon"></em>Back</a>
     <div class="ui hidden divider"></div>
 
     <div class="ui padded segment">
@@ -14,10 +14,10 @@
             <div class="ui three stackable cards">
                 {{range $n, $p := $.Profiles}}
                     <div class="showcard card">
-                        <a href="/profile/delete/{{$p.ID}}" class="ui right corner label "><i class="trash alternate icon"></i></a>
+                        <a href="/profile/delete/{{$p.ID}}" class="ui right corner label "><em class="trash alternate icon"></em></a>
                         <div class="content">
                             <div class="header">
-                                <i class="large grey
+                                <em class="large grey
                                 {{if eq $p.Platform "windows"}}
                                     windows
                                 {{else if eq $p.Platform "osx"}}
@@ -31,13 +31,13 @@
                                 {{else}}
                                     asterisk
                                 {{end}}
-                                    icon"></i> {{$p.Name}}
+                                    icon"></em> {{$p.Name}}
                             </div>
                         </div>
                         <div class="extra content">
                             <div class="ui large list">
                                 <div class="item">
-                                    <i class="bordered calendar icon"></i>
+                                    <em class="bordered calendar icon"></em>
                                     <div class="content">
                                         <div class="header">
                                             Created
@@ -71,9 +71,9 @@
                     <div class="equal width fields">
                         <div class="field left-aligned">
                             {{if $.TargetUser.Admin}}
-                                <button type="submit" name="admin" class="ui large {{$.SemanticTheme}} button" value="no"><i class="check circle icon"></i>Admin</button>
+                                <button type="submit" name="admin" class="ui large {{$.SemanticTheme}} button" value="no"><em class="check circle icon"></em>Admin</button>
                             {{else}}
-                            <button type="submit" name="admin" class="ui large basic {{$.SemanticTheme}} button" value="yes"><i class="circle outline icon"></i>Admin</button>
+                            <button type="submit" name="admin" class="ui large basic {{$.SemanticTheme}} button" value="yes"><em class="circle outline icon"></em>Admin</button>
                             {{end}}
                         </div>
                         <div class="field right-aligned">
