@@ -11,7 +11,7 @@ if [ -z "${SUBSPACE_HTTP_HOST-}" ]; then
 fi
 # Optional environment variables.
 if [ -z "${SUBSPACE_BACKLINK-}" ]; then
-  export SUBSPACE_BACKLINK=""
+  export SUBSPACE_BACKLINK="/"
 fi
 
 if [ -z "${SUBSPACE_IPV4_POOL-}" ]; then
