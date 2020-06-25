@@ -16,7 +16,7 @@
     - [2. Add a DNS record](#2-add-a-dns-record)
     - [3. Enable Let's Encrypt](#3-enable-lets-encrypt)
     - [Usage](#usage)
-    - [Usage](#usage-1)
+      - [Command Line Options](#command-line-options)
     - [Run as a Docker container](#run-as-a-docker-container)
       - [Install WireGuard on the host](#install-wireguard-on-the-host)
       - [Docker-Compose Example](#docker-compose-example)
@@ -87,28 +87,21 @@ Subspace runs a TLS ("SSL") https server on port 443/tcp. It also runs a standar
 $ subspace --http-host subspace.example.com
 ```
 
-### Usage
+#### Command Line Options
 
-```bash
-  -backlink string
-        backlink (optional)
-  -datadir string
-        data dir (default "/data")
-  -debug
-        debug mode
-  -help
-        display help and exit
-  -http-addr string
-        HTTP listen address (default ":80")
-  -http-host string
-        HTTP host
-  -http-insecure
-        enable sessions cookies for http (no https) not recommended
-  -letsencrypt
-        enable TLS using Let's Encrypt on port 443 (default true)
-  -version
-        display version and exit
-```
+|      flag       | default | description                                                                                                               |
+| :-------------: | :-----: | :------------------------------------------------------------------------------------------------------------------------ |
+|   `http-host`   |         | REQUIRED: The host to listen on and set cookies for                                                                       |
+|   `backlink`    |         | OPTIONAL: The page to set the home button too                                                                             |
+|    `datadir`    | `/data` | OPTIONAL: The directory to store data such as the wireguard configuration files                                           |
+|     `debug`     |         | OPTIONAL: Place subspace into debug mode for verbose log output                                                           |
+|   `http-addr`   |  `:80`  | OPTIONAL: HTTP listen address                                                                                             |
+| `http-insecure` |         | OPTIONAL: enable session cookies for http and remove redirect to https                                                    |
+|  `letsencrypt`  | `true`  | OPTIONAL: Whether or not to use a letsencrypt certificate                                                                 |
+|     `theme`     | `green` | OPTIONAL: The theme to use, please refer to [semantic-ui](https://semantic-ui.com/usage/theming.html) for accepted colors |
+|    `version`    |         | Display version of `subspace` and exit                                                                                    |
+|     `help`      |         | Display help and exit                                                                                                     |
+
 
 ### Run as a Docker container
 
