@@ -175,6 +175,7 @@ if ! test -d /etc/service/subspace; then
   mkdir /etc/service/subspace
   cat <<RUNIT >/etc/service/subspace/run
 #!/bin/sh
+source /etc/envvars
 exec /usr/bin/subspace \
     "--http-host=${SUBSPACE_HTTP_HOST}" \
     "--http-addr=${SUBSPACE_HTTP_ADDR}" \
