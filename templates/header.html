@@ -22,7 +22,7 @@
         <div class="borderless ui big {{$.SemanticTheme}} inverted menu">
             <div class="ui container">
                 {{if $.Backlink}}
-                    <a class="item" href="{{.Backlink}}"><em class="home icon"></em></a>
+                    <a class="item" href="{{.Backlink}}"><i class="home icon"></i></a>
                 {{end}}
                 <a href="/" class="{{if eq $.Section "index"}}active{{end}} item">Subspace</a>
                 {{if $.Admin}}
@@ -38,10 +38,10 @@
                         {{else}}
                             <div>{{$.Info.Email}}</div>
                         {{end}}
-                        <em class="dropdown icon"></em>
+                        <i class="dropdown icon"></i>
                         <div class="menu">
-                            <a href="/help" class="{{if eq $.Section "help"}}active{{end}} item"><em class="help icon"></em>Help</a>
-                            <a href="/signout" class="item confirm" data-prompt="Sign out?"><em class="sign out icon"></em>Sign out</a>
+                            <a href="/help" class="{{if eq $.Section "help"}}active{{end}} item"><i class="help icon"></i>Help</a>
+                            <a href="/signout" class="item confirm" data-prompt="Sign out?"><i class="sign out icon"></i>Sign out</a>
                         </div>
                     </div>
                 {{end}}
