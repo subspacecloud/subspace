@@ -11,7 +11,7 @@ if [ -z "${SUBSPACE_HTTP_HOST-}" ]; then
 fi
 # Optional environment variables.
 if [ -z "${SUBSPACE_BACKLINK-}" ]; then
-  export SUBSPACE_BACKLINK=""
+  export SUBSPACE_BACKLINK="/"
 fi
 
 if [ -z "${SUBSPACE_IPV4_POOL-}" ]; then
@@ -38,6 +38,10 @@ fi
 
 if [ -z "${SUBSPACE_HTTP_INSECURE-}" ]; then
   export SUBSPACE_HTTP_INSECURE="false"
+fi
+
+if [ -z "${SUBSPACE_THEME-}" ]; then
+  export SUBSPACE_THEME="green"
 fi
 
 export DEBIAN_FRONTEND="noninteractive"
@@ -181,7 +185,8 @@ exec /usr/bin/subspace \
     "--http-addr=${SUBSPACE_HTTP_ADDR}" \
     "--http-insecure=${SUBSPACE_HTTP_INSECURE}" \
     "--backlink=${SUBSPACE_BACKLINK}" \
-    "--letsencrypt=${SUBSPACE_LETSENCRYPT}"
+    "--letsencrypt=${SUBSPACE_LETSENCRYPT}" \
+    "--theme=${SUBSPACE_THEME}"
 RUNIT
   chmod +x /etc/service/subspace/run
 

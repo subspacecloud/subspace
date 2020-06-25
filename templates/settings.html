@@ -36,7 +36,7 @@
         {{end}}
 
         <form class="ui huge form" action="/settings" method="POST" novalidate autocomplete="off">
-            <div class="ui green dividing header">Single Sign-On (SAML)</div>
+            <div class="ui {{$.SemanticTheme}} dividing header">Single Sign-On (SAML)</div>
             <div class="ui message">
                 <i class="info circle grey icon"></i>
                 To enable Single Sign-On using SAML add a custom SAML app in your identity provider's admin panel, then copy/paste the IDP metadata XML below.
@@ -67,14 +67,14 @@
                 <div class="field">
                     <div class="two ui buttons">
                         <a href="/" class="ui huge button">Cancel</a>
-                        <button type="submit" class="ui huge green button">Save</button>
+                        <button type="submit" class="ui huge {{$.SemanticTheme}} button">Save</button>
                     </div>
                 </div>
             </div>
 
             <div class="ui hidden section divider"></div>
 
-            <div class="ui green dividing header">Admin Account</div>
+            <div class="ui {{$.SemanticTheme}} dividing header">Admin Account</div>
             <div class="ui hidden divider"></div>
             <div class="field">
                 <div class="ui small header">Email Address</div>
@@ -94,7 +94,7 @@
                 <div class="field">
                     <div class="two ui buttons">
                         <a href="/" class="ui huge button">Cancel</a>
-                        <button type="submit" class="ui huge green button">Save</button>
+                        <button type="submit" class="ui huge {{$.SemanticTheme}} button">Save</button>
                     </div>
                 </div>
             </div>

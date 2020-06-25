@@ -41,7 +41,7 @@
             <div class="column">
                 <div class="ui hidden divider"></div>
                 <div class="ui huge center aligned icon header">
-                    <i class="green clockwise rotated strikethrough icon"></i>
+                    <i class="{{$.SemanticTheme}} clockwise rotated strikethrough icon"></i>
                     <div class="content">Subspace is online</div>
                 </div>
                 <div class="ui hidden divider"></div>
@@ -85,7 +85,7 @@
                         </div>
                     {{end}}
                     <div class="field">
-                        <button type="submit" class="ui huge green fluid button">Add device</button>
+                        <button type="submit" class="ui huge {{$.SemanticTheme}} fluid button">Add device</button>
                     </div>
                 </form>
             </div>
@@ -95,7 +95,7 @@
     {{if $.User.ID}}
         <div class="ui hidden divider"></div>
         <div class="ui padded segment">
-            <div class="ui huge green dividing header">
+            <div class="ui huge {{$.SemanticTheme}} dividing header">
                 Your devices
             </div>
             <div class="ui hidden divider"></div>
@@ -155,7 +155,7 @@
     {{if $.Admin}}
         <div class="ui hidden divider"></div>
         <div class="ui padded segment">
-            <div class="ui huge green dividing header">
+            <div class="ui huge {{$.SemanticTheme}} dividing header">
                 Admin devices
             </div>
             <div class="ui hidden divider"></div>
@@ -214,7 +214,7 @@
     {{if $.Users}}
         <div class="ui hidden divider"></div>
         <div class="ui padded segment">
-            <div class="ui huge green dividing header">
+            <div class="ui huge {{$.SemanticTheme}} dividing header">
                 Single sign-on users
             </div>
             <div class="ui hidden divider"></div>

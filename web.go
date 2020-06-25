@@ -56,6 +56,8 @@ type Web struct {
 
 	TargetUser     User
 	TargetProfiles []Profile
+
+	SemanticTheme string
 }
 
 func init() {
@@ -149,13 +151,14 @@ func WebHandler(h func(*Web), section string) httprouter.Handle {
 			ps:       ps,
 			template: section + ".html",
 
-			Backlink: backlink,
-			Time:     time.Now(),
-			Version:  version,
-			Request:  r,
-			Section:  section,
-			Info:     config.FindInfo(),
-			SAML:     samlSP,
+			Backlink:      backlink,
+			Time:          time.Now(),
+			Version:       version,
+			Request:       r,
+			Section:       section,
+			Info:          config.FindInfo(),
+			SAML:          samlSP,
+			SemanticTheme: semanticTheme,
 		}
 
 		if section == "signin" || section == "forgot" || section == "configure" {

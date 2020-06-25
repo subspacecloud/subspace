@@ -19,14 +19,10 @@
     </head>
     <body>
 
-        <div class="borderless ui big green inverted menu">
+        <div class="borderless ui big {{$.SemanticTheme}} inverted menu">
             <div class="ui container">
-                {{if and $.Backlink $.Admin}}
-                    {{if $.User.Admin}}
-                        <!-- don't show -->
-                    {{else}}
-                        <a class="item" href="{{.Backlink}}"><i class="home icon"></i></a>
-                    {{end}}
+                {{if $.Backlink}}
+                    <a class="item" href="{{.Backlink}}"><i class="home icon"></i></a>
                 {{end}}
                 <a href="/" class="{{if eq $.Section "index"}}active{{end}} item">Subspace</a>
                 {{if $.Admin}}

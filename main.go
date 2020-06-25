@@ -76,11 +76,14 @@ var (
 
 	// Error page HTML
 	errorPageHTML = `<html><head><title>Error</title></head><body text="orangered" bgcolor="black"><h1>An error has occurred</h1></body></html>`
+
+	// theme
+	semanticTheme string
 )
 
 func init() {
 	cli.StringVar(&datadir, "datadir", "/data", "data dir")
-	cli.StringVar(&backlink, "backlink", "", "backlink (optional)")
+	cli.StringVar(&backlink, "backlink", "/", "backlink (optional)")
 	cli.StringVar(&httpHost, "http-host", "", "HTTP host")
 	cli.StringVar(&httpAddr, "http-addr", ":80", "HTTP listen address")
 	cli.BoolVar(&httpInsecure, "http-insecure", false, "enable sessions cookies for http (no https) not recommended")
@@ -88,6 +91,7 @@ func init() {
 	cli.BoolVar(&showVersion, "version", false, "display version and exit")
 	cli.BoolVar(&showHelp, "help", false, "display help and exit")
 	cli.BoolVar(&debug, "debug", false, "debug mode")
+	cli.StringVar(&semanticTheme, "theme", "green", "Semantic-ui theme to use")
 }
 
 func main() {
