@@ -8,11 +8,6 @@ manifests:
     platform:
       architecture: 386
       os: linux
-  - image: subspacecommunity/subspace:arm32v5
-    platform:
-      architecture: arm
-      os: linux
-      variant: v5
   - image: subspacecommunity/subspace:arm32v6
     platform:
       architecture: arm
