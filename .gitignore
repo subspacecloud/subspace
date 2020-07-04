@@ -15,7 +15,7 @@
 vendor/
 
 # Subspace
-subspace-linux-amd64
+subspace
 bindata.go
 
 # User Specific
