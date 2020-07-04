@@ -6,10 +6,13 @@
 
 [![](https://images.microbadger.com/badges/image/subspacecommunity/subspace.svg)](https://microbadger.com/images/subspacecommunity/subspace "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/subspacecommunity/subspace.svg)](https://microbadger.com/images/subspacecommunity/subspace "Get your own version badge on microbadger.com")
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/subspacecommunity/subspace)](https://goreportcard.com/report/github.com/subspacecommunity/subspace)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=subspacecommunity_subspace&metric=alert_status)](https://sonarcloud.io/dashboard?id=subspacecommunity_subspace)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=subspacecommunity_subspace&metric=ncloc)](https://sonarcloud.io/dashboard?id=subspacecommunity_subspace)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=subspacecommunity_subspace&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=subspacecommunity_subspace)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=subspacecommunity_subspace&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=subspacecommunity_subspace)
+
+
 - [Subspace - A simple WireGuard VPN server GUI](#subspace---a-simple-wireguard-vpn-server-gui)
   - [Slack](#slack)
   - [Screenshots](#screenshots)
@@ -37,8 +40,8 @@ Join the slack community over at the [gophers](https://invite.slack.golangbridge
 
 |                                                                                                      |                                                                                                      |     |
 | :--------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: | --- |
-| ![Screenshot 1](https://raw.githubusercontent.com/subspacecommunity/subspace/master/screenshot1.png) | ![Screenshot 3](https://raw.githubusercontent.com/subspacecommunity/subspace/master/screenshot3.png) |
-| ![Screenshot 2](https://raw.githubusercontent.com/subspacecommunity/subspace/master/screenshot2.png) | ![Screenshot 4](https://raw.githubusercontent.com/subspacecommunity/subspace/master/screenshot4.png) |
+| ![Screenshot 1](https://raw.githubusercontent.com/subspacecommunity/subspace/master/.github/screenshot1.png) | ![Screenshot 3](https://raw.githubusercontent.com/subspacecommunity/subspace/master/.github/screenshot3.png) |
+| ![Screenshot 2](https://raw.githubusercontent.com/subspacecommunity/subspace/master/.github/screenshot2.png) | ![Screenshot 4](https://raw.githubusercontent.com/subspacecommunity/subspace/master/.github/screenshot4.png) |
 
 ## Features
 
@@ -56,7 +59,7 @@ Join the slack community over at the [gophers](https://invite.slack.golangbridge
 
 ## Contributing
 
-See the [CONTRIBUTING](.github/CONTRIBUTING.md) page for additional info.
+See the [CONTRIBUTING](https://raw.githubusercontent.com/subspacecommunity/subspace/master/.github/CONTRIBUTING.md) page for additional info.
 
 ## Setup
 
