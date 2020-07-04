@@ -9,10 +9,8 @@ WORKDIR /src
 COPY Makefile ./
 # go.mod and go.sum if exists
 COPY go.* ./
-COPY *.go ./
-COPY static ./static
-COPY templates ./templates
-COPY email ./email
+COPY cmd/ ./cmd
+COPY web ./web
 
 ARG BUILD_VERSION=unknown
 
@@ -23,7 +21,7 @@ RUN make BUILD_VERSION=${BUILD_VERSION}
 FROM alpine:3.11.6
 LABEL maintainer="github.com/subspacecommunity/subspace"
 
-COPY --from=build  /src/subspace-linux-amd64 /usr/bin/subspace
+COPY --from=build  /src/subspace /usr/bin/subspace
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY bin/my_init /sbin/my_init
 
