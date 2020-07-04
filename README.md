@@ -40,8 +40,8 @@ Join the slack community over at the [gophers](https://invite.slack.golangbridge
 
 |                                                                                                      |                                                                                                      |     |
 | :--------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: | --- |
-| ![Screenshot 1](https://raw.githubusercontent.com/subspacecommunity/subspace/master/screenshot1.png) | ![Screenshot 3](https://raw.githubusercontent.com/subspacecommunity/subspace/master/screenshot3.png) |
-| ![Screenshot 2](https://raw.githubusercontent.com/subspacecommunity/subspace/master/screenshot2.png) | ![Screenshot 4](https://raw.githubusercontent.com/subspacecommunity/subspace/master/screenshot4.png) |
+| ![Screenshot 1](https://raw.githubusercontent.com/subspacecommunity/subspace/master/.github/screenshot1.png) | ![Screenshot 3](https://raw.githubusercontent.com/subspacecommunity/subspace/master/.github/screenshot3.png) |
+| ![Screenshot 2](https://raw.githubusercontent.com/subspacecommunity/subspace/master/.github/screenshot2.png) | ![Screenshot 4](https://raw.githubusercontent.com/subspacecommunity/subspace/master/.github/screenshot4.png) |
 
 ## Features
 
@@ -59,7 +59,7 @@ Join the slack community over at the [gophers](https://invite.slack.golangbridge
 
 ## Contributing
 
-See the [CONTRIBUTING](.github/CONTRIBUTING.md) page for additional info.
+See the [CONTRIBUTING](https://raw.githubusercontent.com/subspacecommunity/subspace/master/.github/CONTRIBUTING.md) page for additional info.
 
 ## Setup
 
