@@ -19,10 +19,8 @@ WORKDIR /src
 COPY Makefile ./
 # go.mod and go.sum if exists
 COPY go.* ./
-COPY *.go ./
-COPY static ./static
-COPY templates ./templates
-COPY email ./email
+COPY cmd/ ./cmd
+COPY web ./web
 
 ARG BUILD_VERSION=unknown
 ARG GOARCH=arm
@@ -30,22 +28,14 @@ ENV GOARM=5
 
 ENV GODEBUG="netdns=go http2server=0"
 
-RUN make BUILD_VERSION=${BUILD_VERSION} GOARCH=${GOARCH}
+RUN make build BUILD_VERSION=${BUILD_VERSION}
 
 
 FROM arm32v5/debian:buster-backports
-# Add QEMU
-COPY --from=builder qemu-arm-static /usr/bin
-
 LABEL maintainer="github.com/subspacecommunity/subspace"
 
-COPY --from=build  /src/subspace-linux-amd64 /usr/bin/subspace
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-COPY bin/my_init /sbin/my_init
-
-ENV DEBIAN_FRONTEND noninteractive
-
-RUN chmod +x /usr/bin/subspace /usr/local/bin/entrypoint.sh /sbin/my_init
+# Add QEMU
+COPY --from=builder qemu-arm-static /usr/bin
 
 RUN apt-get update \
     && apt-get install -y \
@@ -54,7 +44,16 @@ RUN apt-get update \
     dnsmasq \
     socat  \
     wireguard-tools \
-    runit
+    runit \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY --from=build  /src/subspace /usr/bin/subspace
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY bin/my_init /sbin/my_init
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN chmod +x /usr/bin/subspace /usr/local/bin/entrypoint.sh /sbin/my_init
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh" ]
 

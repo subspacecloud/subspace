@@ -12,7 +12,6 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=subspacecommunity_subspace&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=subspacecommunity_subspace)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=subspacecommunity_subspace&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=subspacecommunity_subspace)
 
-
 - [Subspace - A simple WireGuard VPN server GUI](#subspace---a-simple-wireguard-vpn-server-gui)
   - [Slack](#slack)
   - [Screenshots](#screenshots)

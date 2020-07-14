@@ -1,4 +1,5 @@
 image: subspacecommunity/subspace
+tags: ['1.1.1', '1.1', '1']
 manifests:
   - image: subspacecommunity/subspace:amd64
     platform:

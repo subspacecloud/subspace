@@ -16,7 +16,7 @@ ARG BUILD_VERSION=unknown
 
 ENV GODEBUG="netdns=go http2server=0"
 
-RUN make BUILD_VERSION=${BUILD_VERSION}
+RUN make build BUILD_VERSION=${BUILD_VERSION}
 
 FROM alpine:3.11.6
 LABEL maintainer="github.com/subspacecommunity/subspace"

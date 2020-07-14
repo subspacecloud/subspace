@@ -5,46 +5,38 @@ ENV QEMU_URL https://github.com/balena-io/qemu/releases/download/v3.0.0%2Bresin/
 RUN apk add curl && curl -L ${QEMU_URL} | tar zxvf - -C . --strip-components 1
 
 
-FROM arm32v6/golang:1.14.4-alpine as build
+FROM arm32v7/golang:1.14.4-buster as build
 
 # Add QEMU
 COPY --from=builder qemu-arm-static /usr/bin
 
-RUN apk add --no-cache git make gcc musl-dev
+RUN apt-get update \
+    && apt-get install -y git make \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /src
 
 COPY Makefile ./
 # go.mod and go.sum if exists
 COPY go.* ./
-COPY *.go ./
-COPY static ./static
-COPY templates ./templates
-COPY email ./email
+COPY cmd/ ./cmd
+COPY web ./web
 
 ARG BUILD_VERSION=unknown
 ARG GOARCH=arm
-ENV GOARM=6
+ENV GOARM=7
 
 ENV GODEBUG="netdns=go http2server=0"
 
-RUN make BUILD_VERSION=${BUILD_VERSION} GOARCH=${GOARCH}
+RUN make build BUILD_VERSION=${BUILD_VERSION}
 
+FROM arm32v7/alpine:3.11.6
+LABEL maintainer="github.com/subspacecommunity/subspace"
 
-FROM arm32v6/alpine:3.11.6
 # Add QEMU
 COPY --from=builder qemu-arm-static /usr/bin
 
-LABEL maintainer="github.com/subspacecommunity/subspace"
-
-COPY --from=build  /src/subspace-linux-amd64 /usr/bin/subspace
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-COPY bin/my_init /sbin/my_init
-
 ENV DEBIAN_FRONTEND noninteractive
-
-RUN chmod +x /usr/bin/subspace /usr/local/bin/entrypoint.sh /sbin/my_init
-
 RUN apk add --no-cache \
     iproute2 \
     iptables \
@@ -53,6 +45,12 @@ RUN apk add --no-cache \
     socat  \
     wireguard-tools \
     runit
+
+COPY --from=build  /src/subspace /usr/bin/subspace
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY bin/my_init /sbin/my_init
+
+RUN chmod +x /usr/bin/subspace /usr/local/bin/entrypoint.sh /sbin/my_init
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh" ]
 

@@ -19,33 +19,23 @@ WORKDIR /src
 COPY Makefile ./
 # go.mod and go.sum if exists
 COPY go.* ./
-COPY *.go ./
-COPY static ./static
-COPY templates ./templates
-COPY email ./email
+COPY cmd/ ./cmd
+COPY web ./web
 
 ARG BUILD_VERSION=unknown
 ARG GOARCH=arm64
 
 ENV GODEBUG="netdns=go http2server=0"
 
-RUN make BUILD_VERSION=${BUILD_VERSION} GOARCH=${GOARCH}
+RUN make build BUILD_VERSION=${BUILD_VERSION}
 
 FROM arm64v8/alpine:3.11.6
+LABEL maintainer="github.com/subspacecommunity/subspace"
 
 # Add QEMU
 COPY --from=builder qemu-aarch64-static /usr/bin
 
-LABEL maintainer="github.com/subspacecommunity/subspace"
-
-COPY --from=build  /src/subspace-linux-amd64 /usr/bin/subspace
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-COPY bin/my_init /sbin/my_init
-
 ENV DEBIAN_FRONTEND noninteractive
-
-RUN chmod +x /usr/bin/subspace /usr/local/bin/entrypoint.sh /sbin/my_init
-
 RUN apk add --no-cache \
     iproute2 \
     iptables \
@@ -54,6 +44,12 @@ RUN apk add --no-cache \
     socat  \
     wireguard-tools \
     runit
+
+COPY --from=build  /src/subspace /usr/bin/subspace
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY bin/my_init /sbin/my_init
+
+RUN chmod +x /usr/bin/subspace /usr/local/bin/entrypoint.sh /sbin/my_init
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh" ]
 
