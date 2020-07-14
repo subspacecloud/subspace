@@ -19,7 +19,6 @@ var (
 	validPassword      = regexp.MustCompile(`^[ -~]{6,200}$`)
 	validString        = regexp.MustCompile(`^[ -~]{1,200}$`)
 	maxProfiles        = 250
-	maxProfilesPerUser = 10
 )
 
 func getEnv(key, fallback string) string {
@@ -349,13 +348,6 @@ func profileAddHandler(w *Web) {
 		userID = ""
 	} else {
 		userID = w.User.ID
-	}
-
-	if !admin {
-		if len(config.ListProfilesByUser(userID)) >= maxProfilesPerUser {
-			w.Redirect("/?error=addprofile")
-			return
-		}
 	}
 
 	if len(config.ListProfiles()) >= maxProfiles {
