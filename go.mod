@@ -9,6 +9,7 @@ require (
 	github.com/jteeuwen/go-bindata v3.0.8-0.20180305030458-6025e8de665b+incompatible
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
+	github.com/pquerna/otp v1.2.0 // indirect
 	github.com/sirupsen/logrus v1.6.0
 	github.com/skip2/go-qrcode v0.0.0-20200519171959-a3b48390827e
 	golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37

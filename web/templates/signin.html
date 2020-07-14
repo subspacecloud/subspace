@@ -43,9 +43,19 @@
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="key icon"></i>
-                        <input name="password" type="password" placeholder="Password" autofocus>
+                        <input name="password" type="password" placeholder="Password" autofocus required>
                     </div>
                 </div>
+
+                {{ if $.Info.TotpKey}}
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="clock icon"></i>
+                            <input name="totp" type="text" placeholder="One Time Password" autofocus required>
+                        </div>
+                    </div>
+                {{end}}
+
                 <div class="center-aligned field">
                     <button type="submit" class="ui huge fluid {{$.SemanticTheme}} button">Sign in</button>
                     <div class="ui hidden divider"></div>

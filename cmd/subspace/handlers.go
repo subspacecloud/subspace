@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
+	"image/png"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -9,6 +11,7 @@ import (
 	"strings"
 
 	"github.com/julienschmidt/httprouter"
+	"github.com/pquerna/otp/totp"
 	"golang.org/x/crypto/bcrypt"
 
 	qrcode "github.com/skip2/go-qrcode"
@@ -229,6 +232,7 @@ func signinHandler(w *Web) {
 
 	email := strings.ToLower(strings.TrimSpace(w.r.FormValue("email")))
 	password := w.r.FormValue("password")
+	passcode := w.r.FormValue("totp")
 
 	if email != config.FindInfo().Email {
 		w.Redirect("/signin?error=invalid")
@@ -239,12 +243,49 @@ func signinHandler(w *Web) {
 		w.Redirect("/signin?error=invalid")
 		return
 	}
+
+	if config.FindInfo().TotpKey != "" && !totp.Validate(passcode, config.FindInfo().TotpKey) {
+		// Totp has been configured and the provided code doesn't match
+		w.Redirect("/signin?error=invalid")
+		return
+	}
+
 	if err := w.SigninSession(true, ""); err != nil {
 		Error(w.w, err)
 		return
 	}
 
 	w.Redirect("/")
+}
+
+func totpQRHandler(w *Web) {
+	if !w.Admin {
+		Error(w.w, fmt.Errorf("failed to view config: permission denied"))
+		return
+	}
+
+	if config.Info.TotpKey != "" {
+		// TOTP is already configured, don't allow the current one to be leaked
+		w.Redirect("/")
+		return
+	}
+
+	var buf bytes.Buffer
+	img, err := tempTotpKey.Image(200, 200)
+	if err != nil {
+		Error(w.w, err)
+		return
+	}
+
+	png.Encode(&buf, img)
+
+	w.w.Header().Set("Content-Type", "image/png")
+	w.w.Header().Set("Content-Length", fmt.Sprintf("%d", len(buf.Bytes())))
+	if _, err := w.w.Write(buf.Bytes()); err != nil {
+		Error(w.w, err)
+		return
+	}
+
 }
 
 func userEditHandler(w *Web) {
@@ -538,6 +579,9 @@ func settingsHandler(w *Web) {
 	currentPassword := w.r.FormValue("current_password")
 	newPassword := w.r.FormValue("new_password")
 
+	resetTotp := w.r.FormValue("reset_totp")
+	totpCode := w.r.FormValue("totp_code")
+
 	config.UpdateInfo(func(i *Info) error {
 		i.SAML.IDPMetadata = samlMetadata
 		i.Email = email
@@ -575,6 +619,26 @@ func settingsHandler(w *Web) {
 			i.Password = hashedPassword
 			return nil
 		})
+	}
+
+	if resetTotp == "true" {
+		err := config.ResetTotp()
+		if err != nil {
+			w.Redirect("/settings?error=totp")
+			return
+		}
+
+		w.Redirect("/settings?success=totp")
+		return
+	}
+
+	if config.Info.TotpKey == "" && totpCode != "" {
+		if !totp.Validate(totpCode, tempTotpKey.Secret()) {
+			w.Redirect("/settings?error=totp")
+			return
+		}
+		config.Info.TotpKey = tempTotpKey.Secret()
+		config.save()
 	}
 
 	w.Redirect("/settings?success=settings")
