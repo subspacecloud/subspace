@@ -18,7 +18,6 @@ import (
 	"time"
 
 	"github.com/julienschmidt/httprouter"
-	"github.com/pquerna/otp"
 
 	"github.com/crewjam/saml"
 	"github.com/crewjam/saml/samlsp"
@@ -80,9 +79,6 @@ var (
 
 	// theme
 	semanticTheme string
-
-	// Totp
-	tempTotpKey *otp.Key
 )
 
 func init() {
@@ -148,12 +144,6 @@ func main() {
 		logger.Fatal(err)
 	}
 
-	// TOTP
-	err = config.GenerateTOTP()
-	if err != nil {
-		logger.Fatal(err)
-	}
-
 	// Secure token
 	securetoken = securecookie.New([]byte(config.FindInfo().HashKey), []byte(config.FindInfo().BlockKey))
 
@@ -180,7 +170,6 @@ func main() {
 	r.GET("/saml/acs", Log(samlHandler))
 	r.POST("/saml/acs", Log(samlHandler))
 
-	r.GET("/totp/image", Log(WebHandler(totpQRHandler, "totp/image")))
 	r.GET("/signin", Log(WebHandler(signinHandler, "signin")))
 	r.GET("/signout", Log(WebHandler(signoutHandler, "signout")))
 	r.POST("/signin", Log(WebHandler(signinHandler, "signin")))

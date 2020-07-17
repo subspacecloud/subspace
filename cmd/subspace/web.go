@@ -13,7 +13,6 @@ import (
 
 	"github.com/crewjam/saml"
 	"github.com/crewjam/saml/samlsp"
-	"github.com/pquerna/otp"
 
 	"golang.org/x/net/publicsuffix"
 
@@ -59,7 +58,6 @@ type Web struct {
 	TargetProfiles []Profile
 
 	SemanticTheme string
-	TempTotpKey   *otp.Key
 }
 
 func init() {
@@ -161,7 +159,6 @@ func WebHandler(h func(*Web), section string) httprouter.Handle {
 			Info:          config.FindInfo(),
 			SAML:          samlSP,
 			SemanticTheme: semanticTheme,
-			TempTotpKey:   tempTotpKey,
 		}
 
 		if section == "signin" || section == "forgot" || section == "configure" {
