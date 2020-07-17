@@ -6,4 +6,38 @@
 curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v0.9.0/manifest-tool-linux-amd64
 chmod +x manifest-tool
 
+git_tag=$(git describe --abbrev=0 --tags)
+IFS=. read major minor bugfix <<EOF
+${git_tag##*v}
+EOF
+
+cat <<EOF > multi-arch-manifest.yaml
+image: subspacecommunity/subspace
+tags: ['${major}.${minor}.${bugfix}', '${major}.${minor}', '${major}']
+manifests:
+  - image: subspacecommunity/subspace:amd64
+    platform:
+      architecture: amd64
+      os: linux
+  - image: subspacecommunity/subspace:386
+    platform:
+      architecture: 386
+      os: linux
+  - image: subspacecommunity/subspace:arm32v6
+    platform:
+      architecture: arm
+      os: linux
+      variant: v6
+  - image: subspacecommunity/subspace:arm32v7
+    platform:
+      architecture: arm
+      os: linux
+      variant: v7
+  - image: subspacecommunity/subspace:arm64v8
+    platform:
+      architecture: arm64
+      os: linux
+      variant: v8
+EOF
+
 ./manifest-tool push from-spec multi-arch-manifest.yaml
