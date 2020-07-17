@@ -13,7 +13,7 @@ EOF
 
 cat <<EOF > multi-arch-manifest.yaml
 image: subspacecommunity/subspace
-tags: ['${major}.${minor}.${bugfix}', '${major}.${minor}', '${major}']
+tags: ['latest', '${major}.${minor}.${bugfix}', '${major}.${minor}', '${major}']
 manifests:
   - image: subspacecommunity/subspace:amd64
     platform:
