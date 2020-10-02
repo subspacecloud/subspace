@@ -35,7 +35,6 @@ Join the slack community over at the [gophers](https://invite.slack.golangbridge
 
 ## Screenshots
 
-![Screenshot](https://raw.githubusercontent.com/subspacecommunity/subspace/master/screenshot1.png?cachebust=8923409243)
 
 |                                                                                                      |                                                                                                      |     |
 | :--------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: | --- |
