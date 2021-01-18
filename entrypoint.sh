@@ -20,8 +20,8 @@ fi
 if [ -z "${SUBSPACE_IPV6_POOL-}" ]; then
   export SUBSPACE_IPV6_POOL="fd00::10:97:0/112"
 fi
-if [ -z "${SUBSPACE_NAMESERVER-}" ]; then
-  export SUBSPACE_NAMESERVER="1.1.1.1"
+if [ -z "${SUBSPACE_NAMESERVERS-}" ]; then
+  export SUBSPACE_NAMESERVERS="1.1.1.1,1.0.0.1"
 fi
 
 if [ -z "${SUBSPACE_LETSENCRYPT-}" ]; then
@@ -60,8 +60,10 @@ if [ -z "${SUBSPACE_IPV6_NAT_ENABLED-}" ]; then
   export SUBSPACE_IPV6_NAT_ENABLED=1
 fi
 
-# Set DNS server
-echo "nameserver ${SUBSPACE_NAMESERVER}" >/etc/resolv.conf
+# Empty out inherited nameservers
+echo "" > /etc/resolv.conf
+# Set DNS servers
+echo ${SUBSPACE_NAMESERVERS} | tr "," "\n" | while read -r ns; do echo "nameserver ${ns}" >>/etc/resolv.conf; done
 
 if [ -z "${SUBSPACE_DISABLE_MASQUERADE-}" ]; then
   # IPv4

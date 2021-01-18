@@ -166,7 +166,7 @@ docker create \
     --volume /data:/data \
     --env SUBSPACE_HTTP_HOST="subspace.example.com" \
 	# Optional variable to change upstream DNS provider
-    --env SUBSPACE_NAMESERVER="1.1.1.1" \
+    --env SUBSPACE_NAMESERVERS="1.1.1.1,8.8.8.8" \
 	# Optional variable to change WireGuard Listenport
     --env SUBSPACE_LISTENPORT="51820" \
     # Optional variables to change IPv4/v6 prefixes
@@ -203,7 +203,7 @@ services:
     - SUBSPACE_LETSENCRYPT=true
     - SUBSPACE_HTTP_INSECURE=false
     - SUBSPACE_HTTP_ADDR=":80"
-    - SUBSPACE_NAMESERVER=1.1.1.1
+    - SUBSPACE_NAMESERVERS=1.1.1.1,8.8.8.8
     - SUBSPACE_LISTENPORT=51820
     - SUBSPACE_IPV4_POOL=10.99.97.0/24
     - SUBSPACE_IPV6_POOL=fd00::10:97:0/64
