@@ -66,7 +66,7 @@ See the [CONTRIBUTING](https://raw.githubusercontent.com/subspacecommunity/subsp
 **Recommended Specs**
 
 - Type: VPS or dedicated
-- Distribution: Ubuntu 16.04 (Xenial) or Ubuntu 18.04 (Bionic)
+- Distribution: Ubuntu 16.04 (Xenial), 18.04 (Bionic) or 20.04 (Focal)
 - Memory: 512MB or greater
 
 ### 2. Add a DNS record
