@@ -122,12 +122,13 @@ apt-get install -y wireguard
 # Remove dnsmasq because it will run inside the container.
 apt-get remove -y dnsmasq
 
-# Disable systemd-resolved if it blocks port 53.
-systemctl disable systemd-resolved
-systemctl stop systemd-resolved
+# Disable systemd-resolved listener if it blocks port 53.
+echo "DNSStubListener=no" >> /etc/systemd/resolvd.conf
+systemctl restart systemd-resolved
 
-# Set DNS server.
-echo nameserver 1.1.1.1 >/etc/resolv.conf
+# Set Cloudfare DNS server.
+echo nameserver 1.1.1.1 > /etc/resolv.conf
+echo nameserver 1.0.0.1 >> /etc/resolv.conf
 
 # Load modules.
 modprobe wireguard
