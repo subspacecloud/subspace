@@ -94,6 +94,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "syphernl",
+      "name": "Frank",
+      "avatar_url": "https://avatars.githubusercontent.com/u/639906?v=4",
+      "profile": "https://github.com/syphernl",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
