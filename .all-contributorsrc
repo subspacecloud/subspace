@@ -103,6 +103,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "gianlazz",
+      "name": "Gian Lazzarini",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1166579?v=4",
+      "profile": "https://github.com/gianlazz",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
