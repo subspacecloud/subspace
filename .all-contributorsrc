@@ -85,6 +85,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "selvakn",
+      "name": "Selva",
+      "avatar_url": "https://avatars.githubusercontent.com/u/30524?v=4",
+      "profile": "http://blog.selvakn.in",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
