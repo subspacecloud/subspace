@@ -1,7 +1,7 @@
 # Subspace - A simple WireGuard VPN server GUI
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![](https://images.microbadger.com/badges/image/subspacecommunity/subspace.svg)](https://microbadger.com/images/subspacecommunity/subspace "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/subspacecommunity/subspace.svg)](https://microbadger.com/images/subspacecommunity/subspace "Get your own version badge on microbadger.com")
@@ -242,21 +242,23 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://duncan.codes"><img src="https://avatars2.githubusercontent.com/u/15332?v=4" width="100px;" alt=""/><br /><sub><b>Duncan Mac-Vicar P.</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=dmacvicar" title="Code">💻</a></td>
-    <td align="center"><a href="https://opsnotice.xyz"><img src="https://avatars1.githubusercontent.com/u/12403145?v=4" width="100px;" alt=""/><br /><sub><b>Valentin Ouvrard</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=valentin2105" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/agonbar"><img src="https://avatars3.githubusercontent.com/u/1553211?v=4" width="100px;" alt=""/><br /><sub><b>Adrián González Barbosa</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=agonbar" title="Code">💻</a></td>
-    <td align="center"><a href="http://www.improbable.io"><img src="https://avatars3.githubusercontent.com/u/1226100?v=4" width="100px;" alt=""/><br /><sub><b>Gavin</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=gavinelder" title="Code">💻</a></td>
-    <td align="center"><a href="https://squat.ai"><img src="https://avatars1.githubusercontent.com/u/20484159?v=4" width="100px;" alt=""/><br /><sub><b>Lucas Servén Marín</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=squat" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/jack1902"><img src="https://avatars2.githubusercontent.com/u/39212456?v=4" width="100px;" alt=""/><br /><sub><b>Jack</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=jack1902" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/ssiuhk"><img src="https://avatars3.githubusercontent.com/u/23556929?v=4" width="100px;" alt=""/><br /><sub><b>Sam SIU</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=ssiuhk" title="Code">💻</a></td>
+    <td align="center"><a href="https://duncan.codes"><img src="https://avatars2.githubusercontent.com/u/15332?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Duncan Mac-Vicar P.</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=dmacvicar" title="Code">💻</a></td>
+    <td align="center"><a href="https://opsnotice.xyz"><img src="https://avatars1.githubusercontent.com/u/12403145?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Valentin Ouvrard</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=valentin2105" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/agonbar"><img src="https://avatars3.githubusercontent.com/u/1553211?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Adrián González Barbosa</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=agonbar" title="Code">💻</a></td>
+    <td align="center"><a href="http://www.improbable.io"><img src="https://avatars3.githubusercontent.com/u/1226100?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Gavin</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=gavinelder" title="Code">💻</a></td>
+    <td align="center"><a href="https://squat.ai"><img src="https://avatars1.githubusercontent.com/u/20484159?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Lucas Servén Marín</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=squat" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/jack1902"><img src="https://avatars2.githubusercontent.com/u/39212456?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jack</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=jack1902" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/ssiuhk"><img src="https://avatars3.githubusercontent.com/u/23556929?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sam SIU</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=ssiuhk" title="Code">💻</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/wizardels"><img src="https://avatars0.githubusercontent.com/u/17042376?v=4" width="100px;" alt=""/><br /><sub><b>Elliot Westlake</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=wizardels" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/wizardels"><img src="https://avatars0.githubusercontent.com/u/17042376?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Elliot Westlake</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=wizardels" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/clementperon"><img src="https://avatars.githubusercontent.com/u/1859302?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Clément Péron</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=clementperon" title="Documentation">📖</a></td>
   </tr>
 </table>
 
-<!-- markdownlint-enable -->
+<!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
