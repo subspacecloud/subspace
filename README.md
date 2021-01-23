@@ -123,7 +123,7 @@ apt-get install -y wireguard
 apt-get remove -y dnsmasq
 
 # Disable systemd-resolved listener if it blocks port 53.
-echo "DNSStubListener=no" >> /etc/systemd/resolvd.conf
+echo "DNSStubListener=no" >> /etc/systemd/resolved.conf
 systemctl restart systemd-resolved
 
 # Set Cloudfare DNS server.
