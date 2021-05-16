@@ -97,7 +97,7 @@ $ subspace --http-host subspace.example.com
 |      flag       | default | description                                                                                                               |
 | :-------------: | :-----: | :------------------------------------------------------------------------------------------------------------------------ |
 |   `http-host`   |         | REQUIRED: The host to listen on and set cookies for                                                                       |
-|   `backlink`    |   `/`   | OPTIONAL: The page to set the home button too                                                                             |
+|   `backlink`    |   `/`   | OPTIONAL: The page to set the home button to                                                                              |
 |    `datadir`    | `/data` | OPTIONAL: The directory to store data such as the wireguard configuration files                                           |
 |     `debug`     |         | OPTIONAL: Place subspace into debug mode for verbose log output                                                           |
 |   `http-addr`   |  `:80`  | OPTIONAL: HTTP listen address                                                                                             |
