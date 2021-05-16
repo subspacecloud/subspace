@@ -15,7 +15,7 @@
 vendor/
 
 # Subspace
-subspace
+/subspace
 bindata.go
 
 # User Specific
