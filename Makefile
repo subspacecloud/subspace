@@ -9,6 +9,7 @@ help:  ## Display this help message and exit
 
 build: clean ## Build the binary
 	@echo "Creating bindata.go..."
+	@go get -u github.com/kevinburke/go-bindata/go-bindata
 	@go run github.com/kevinburke/go-bindata/go-bindata -o cmd/subspace/bindata.go --prefix "web/" --pkg main web/...
 	@echo "+++ bindata.go created"
 

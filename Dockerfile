@@ -1,8 +1,8 @@
-FROM golang:1.14 as build
+FROM golang:1.16-alpine as build
 
-RUN apt-get update \
-    && apt-get install -y git make \
-    && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache \
+    git \
+    make
 
 WORKDIR /src
 
@@ -18,7 +18,7 @@ ENV GODEBUG="netdns=go http2server=0"
 
 RUN make build BUILD_VERSION=${BUILD_VERSION}
 
-FROM alpine:3.11.6
+FROM alpine:3.13.4
 LABEL maintainer="github.com/subspacecommunity/subspace"
 
 COPY --from=build  /src/subspace /usr/bin/subspace
