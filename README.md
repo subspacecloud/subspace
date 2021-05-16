@@ -152,6 +152,8 @@ Follow the official Docker install instructions: [Get Docker CE for Ubuntu](http
 
 Make sure to change the `--env SUBSPACE_HTTP_HOST` to your publicly accessible domain name.
 
+If you want to run the vpn on a different domain as the http host you can set `--env SUBSPACE_ENDPOINT_HOST`
+
 ```bash
 
 # Your data directory should be bind-mounted as `/data` inside the container using the `--volume` flag.
