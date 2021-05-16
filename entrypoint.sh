@@ -136,6 +136,8 @@ fi
 #
 # WireGuard (${SUBSPACE_IPV4_POOL})
 #
+umask_val=$(umask)
+umask 0077
 if ! test -d /data/wireguard; then
   mkdir /data/wireguard
   cd /data/wireguard
@@ -156,6 +158,8 @@ ListenPort = ${SUBSPACE_LISTENPORT}
 
 WGSERVER
 cat /data/wireguard/peers/*.conf >>/data/wireguard/server.conf
+umask ${umask_val}
+[ -f /data/config.json ] && chmod 600 /data/config.json # Special handling of file not created by start-up script
 
 if ip link show wg0 2>/dev/null; then
   ip link del wg0
