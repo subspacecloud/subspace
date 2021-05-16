@@ -115,7 +115,6 @@ $ subspace --http-host subspace.example.com
 The container expects WireGuard to be installed on the host. The official image is `subspacecommunity/subspace`.
 
 ```bash
-add-apt-repository -y ppa:wireguard/wireguard
 apt-get update
 apt-get install -y wireguard
 
