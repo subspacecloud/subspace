@@ -112,6 +112,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "nhamlh",
+      "name": "Nham Le",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11173217?v=4",
+      "profile": "https://nhamlh.space",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
