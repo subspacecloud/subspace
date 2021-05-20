@@ -148,6 +148,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "d3473r",
+      "name": "Fabian",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10356892?v=4",
+      "profile": "https://github.com/d3473r",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
