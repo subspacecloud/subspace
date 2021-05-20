@@ -1,0 +1,51 @@
+# Config for https://github.com/apps/release-drafter
+name-template: 'v$NEXT_MINOR_VERSION (🌈 Insert Release Name)'
+tag-template: 'v$NEXT_MINOR_VERSION'
+categories:
+  - title: 'Dependency Updates'
+    label: 'dependencies'
+  - title: '🚀 Features'
+    labels:
+      - 'feature'
+      - 'enhancement'
+  - title: '🐛 Bug Fixes'
+    labels:
+      - 'fix'
+      - 'bugfix'
+      - 'bug'
+exclude-labels:
+  - 'skip-changelog'
+autolabeler:
+  - label: 'documentation'
+    files:
+      - '*.md'
+    branch:
+      - '/docs{0,1}\/.+/'
+    title:
+      - '/docs/i'
+  - label: 'bug'
+    branch:
+      - '/fix\/.+/'
+    title:
+      - '/fix/i'
+  - label: 'enhancement'
+    branch:
+      - '/feature\/.+/'
+    body:
+      - '/feature{0,1}\/.+/'
+    title:
+      - '/feature/i'
+  - label: 'refactor'
+    branch:
+      - '/refactor\/.+/'
+    title:
+      - '/refactor/i'
+template: |
+  ## Changes
+  $CHANGES
+  ## Upgrading
+  To upgrade, swap your docker-tags
+  ```diff
+  - subspacecommunity/subspace:$PREVIOUS_TAG
+  + subspacecommunity/subspace:$NEXT_MINOR_VERSION
+  ```
