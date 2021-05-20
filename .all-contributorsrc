@@ -175,6 +175,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "Freekers",
+      "name": "Freekers",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1370857?v=4",
+      "profile": "https://freek.ws/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
