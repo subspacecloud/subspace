@@ -1,7 +1,7 @@
 # Subspace - A simple WireGuard VPN server GUI
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-17-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-18-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![](https://images.microbadger.com/badges/image/subspacecommunity/subspace.svg)](https://microbadger.com/images/subspacecommunity/subspace "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/subspacecommunity/subspace.svg)](https://microbadger.com/images/subspacecommunity/subspace "Get your own version badge on microbadger.com")
@@ -264,6 +264,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://www.sigginet.info"><img src="https://avatars.githubusercontent.com/u/1608474?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sigurður Guðbrandsson</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=SGudbrandsson" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/vojta7"><img src="https://avatars.githubusercontent.com/u/10436347?v=4?s=100" width="100px;" alt=""/><br /><sub><b>vojta7</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=vojta7" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/d3473r"><img src="https://avatars.githubusercontent.com/u/10356892?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Fabian</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=d3473r" title="Documentation">📖</a></td>
+    <td align="center"><a href="http://miki725.com"><img src="https://avatars.githubusercontent.com/u/932940?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Miroslav Shubernetskiy</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=miki725" title="Documentation">📖</a></td>
   </tr>
 </table>
 
