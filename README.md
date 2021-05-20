@@ -1,7 +1,7 @@
 # Subspace - A simple WireGuard VPN server GUI
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![](https://images.microbadger.com/badges/image/subspacecommunity/subspace.svg)](https://microbadger.com/images/subspacecommunity/subspace "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/subspacecommunity/subspace.svg)](https://microbadger.com/images/subspacecommunity/subspace "Get your own version badge on microbadger.com")
@@ -258,6 +258,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/syphernl"><img src="https://avatars.githubusercontent.com/u/639906?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Frank</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=syphernl" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/gianlazz"><img src="https://avatars.githubusercontent.com/u/1166579?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Gian Lazzarini</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=gianlazz" title="Documentation">📖</a></td>
     <td align="center"><a href="https://nhamlh.space"><img src="https://avatars.githubusercontent.com/u/11173217?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nham Le</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=nhamlh" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/sinanmohd"><img src="https://avatars.githubusercontent.com/u/69694713?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sinan Mohd</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=sinanmohd" title="Documentation">📖</a></td>
   </tr>
 </table>
 

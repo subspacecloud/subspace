@@ -121,6 +121,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "sinanmohd",
+      "name": "Sinan Mohd",
+      "avatar_url": "https://avatars.githubusercontent.com/u/69694713?v=4",
+      "profile": "https://github.com/sinanmohd",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
