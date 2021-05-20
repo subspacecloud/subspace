@@ -139,6 +139,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "vojta7",
+      "name": "vojta7",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10436347?v=4",
+      "profile": "https://github.com/vojta7",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
