@@ -166,6 +166,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "dovreshef",
+      "name": "dovreshef",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5120549?v=4",
+      "profile": "https://github.com/dovreshef",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
