@@ -154,6 +154,8 @@ Make sure to change the `--env SUBSPACE_HTTP_HOST` to your publicly accessible d
 
 If you want to run the vpn on a different domain as the http host you can set `--env SUBSPACE_ENDPOINT_HOST`
 
+Use `--env SUBSPACE_DISABLE_DNS=1` to make subspace generate wireguard configs without the `DNS` option, preserving the user's DNS servers.
+
 ```bash
 
 # Your data directory should be bind-mounted as `/data` inside the container using the `--volume` flag.
@@ -170,7 +172,7 @@ docker create \
     --env SUBSPACE_NAMESERVERS="1.1.1.1,8.8.8.8" \
 	# Optional variable to change WireGuard Listenport
     --env SUBSPACE_LISTENPORT="51820" \
-    # Optional variables to change IPv4/v6 prefixes
+  # Optional variables to change IPv4/v6 prefixes
     --env SUBSPACE_IPV4_POOL="10.99.97.0/24" \
     --env SUBSPACE_IPV6_POOL="fd00::10:97:0/64" \
 	# Optional variables to change IPv4/v6 Gateway
@@ -178,6 +180,9 @@ docker create \
     --env SUBSPACE_IPV6_GW="fd00::10:97:1" \
 	# Optional variable to enable or disable IPv6 NAT
     --env SUBSPACE_IPV6_NAT_ENABLED=1 \
+  # Optional variable to disable DNS server. Enabled by default.
+  # consider disabling DNS server, if supporting international VPN clients
+    --env SUBSPACE_DISABLE_DNS=0 \
     subspacecommunity/subspace:latest
 
 $ sudo docker start subspace
@@ -211,6 +216,7 @@ services:
     - SUBSPACE_IPV4_GW=10.99.97.1
     - SUBSPACE_IPV6_GW=fd00::10:97:1
     - SUBSPACE_IPV6_NAT_ENABLED=1
+    - SUBSPACE_DISABLE_DNS=0
    cap_add:
     - NET_ADMIN
    network_mode: "host"
