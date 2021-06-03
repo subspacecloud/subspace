@@ -1,7 +1,7 @@
 # Subspace - A simple WireGuard VPN server GUI
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-21-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-22-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![](https://images.microbadger.com/badges/image/subspacecommunity/subspace.svg)](https://microbadger.com/images/subspacecommunity/subspace "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/subspacecommunity/subspace.svg)](https://microbadger.com/images/subspacecommunity/subspace "Get your own version badge on microbadger.com")
@@ -274,6 +274,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/dovreshef"><img src="https://avatars.githubusercontent.com/u/5120549?v=4?s=100" width="100px;" alt=""/><br /><sub><b>dovreshef</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=dovreshef" title="Code">💻</a></td>
     <td align="center"><a href="https://freek.ws/"><img src="https://avatars.githubusercontent.com/u/1370857?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Freekers</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=Freekers" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/Coffeeri"><img src="https://avatars.githubusercontent.com/u/8344540?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Leander</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=Coffeeri" title="Documentation">📖</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/gchamon"><img src="https://avatars.githubusercontent.com/u/9471861?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Gabriel Chamon Araujo</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=gchamon" title="Code">💻</a></td>
   </tr>
 </table>
 
