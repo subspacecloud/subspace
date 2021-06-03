@@ -8,6 +8,7 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/crewjam/saml/samlsp"
 	"github.com/julienschmidt/httprouter"
 	"golang.org/x/crypto/bcrypt"
 
@@ -28,15 +29,25 @@ func getEnv(key, fallback string) string {
 	return fallback
 }
 
+// Handles the sign in part separately from the SAML
 func ssoHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	if token := samlSP.GetAuthorizationToken(r); token != nil {
+	session, err := samlSP.Session.GetSession(r)
+	if session != nil {
 		http.Redirect(w, r, "/", http.StatusFound)
 		return
 	}
-	logger.Debugf("SSO: require account handler")
-	samlSP.RequireAccountHandler(w, r)
+	if err == samlsp.ErrNoSession {
+		logger.Debugf("SSO: HandleStartAuthFlow")
+		samlSP.HandleStartAuthFlow(w, r)
+		return
+	}
+
+	logger.Debugf("SSO: unable to get session")
+	samlSP.OnError(w, r, err)
+	return
 }
 
+// Handles the SAML part separately from sign in
 func samlHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	if samlSP == nil {
 		logger.Warnf("SAML is not configured")
