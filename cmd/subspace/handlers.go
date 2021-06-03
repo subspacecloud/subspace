@@ -532,7 +532,7 @@ func profileDeleteHandler(w *Web) {
 		w.Redirect("/profile/delete?error=deleteprofile")
 		return
 	}
-	if profile.UserID != "" {
+	if w.Admin {
 		w.Redirect("/user/edit/%s?success=deleteprofile", profile.UserID)
 		return
 	}
