@@ -1,7 +1,7 @@
 # Subspace - A simple WireGuard VPN server GUI
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-22-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-23-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![](https://images.microbadger.com/badges/image/subspacecommunity/subspace.svg)](https://microbadger.com/images/subspacecommunity/subspace "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/subspacecommunity/subspace.svg)](https://microbadger.com/images/subspacecommunity/subspace "Get your own version badge on microbadger.com")
@@ -277,6 +277,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/gchamon"><img src="https://avatars.githubusercontent.com/u/9471861?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Gabriel Chamon Araujo</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=gchamon" title="Code">💻</a></td>
+    <td align="center"><a href="http://alexflor.es"><img src="https://avatars.githubusercontent.com/u/4605783?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Alex Flores</b></sub></a><br /><a href="https://github.com/subspacecommunity/subspace/commits?author=audibleblink" title="Code">💻</a></td>
   </tr>
 </table>
 

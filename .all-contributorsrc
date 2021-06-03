@@ -202,6 +202,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "audibleblink",
+      "name": "Alex Flores",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4605783?v=4",
+      "profile": "http://alexflor.es",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
