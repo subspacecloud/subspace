@@ -17,6 +17,8 @@ import (
 	"sort"
 	"sync"
 	"time"
+
+	"github.com/pquerna/otp/totp"
 )
 
 var (
@@ -61,6 +63,7 @@ type Info struct {
 	Email      string `json:"email"`
 	Password   []byte `json:"password"`
 	Secret     string `json:"secret"`
+	TotpKey    string `json:"totp_key"`
 	Configured bool   `json:"configure"`
 	Domain     string `json:"domain"`
 	HashKey    string `json:"hash_key"`
@@ -99,6 +102,7 @@ func NewConfig(filename string) (*Config, error) {
 	// Create new config with defaults
 	if os.IsNotExist(err) {
 		c.Info = &Info{
+			Email: "null",
 			HashKey:  RandomString(32),
 			BlockKey: RandomString(32),
 		}
@@ -421,4 +425,33 @@ func (c *Config) save() error {
 		return err
 	}
 	return Overwrite(c.filename, b, 0644)
+}
+
+func (c *Config) ResetTotp() error {
+	c.Lock()
+	defer c.Unlock()
+
+	c.Info.TotpKey = ""
+
+	if err := c.save(); err != nil {
+		return err
+	}
+
+	return c.GenerateTOTP()
+}
+
+func (c *Config) GenerateTOTP() error {
+	key, err := totp.Generate(
+		totp.GenerateOpts{
+			Issuer:      httpHost,
+			AccountName: c.Info.Email,
+		},
+	)
+	if err != nil {
+		return err
+	}
+
+	tempTotpKey = key
+
+	return nil
 }

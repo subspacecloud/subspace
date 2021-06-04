@@ -13,6 +13,8 @@
                         Device removed successfully
                     {{else if eq $success "configured"}}
                         Admin account is setup. Configure SAML for SSO (optional).
+                    {{else if eq $success "totp"}}
+                        TOTP reset for default user, please reconfigure for improved security.
                     {{end}}
                 </div>
                 <a class="close-link" href="/settings"><i class="close icon"></i></a>
@@ -26,6 +28,8 @@
                     <div class="header">
                         {{if eq $error "invalid"}}
                             Invalid. Please try again.
+                        {{else if eq $error "totp"}}
+                            Error Resetting totp settings.
                         {{else}}
                             Error. Please try again.
                         {{end}}
@@ -74,7 +78,7 @@
 
             <div class="ui hidden section divider"></div>
 
-            <div class="ui {{$.SemanticTheme}} dividing header">Admin Account</div>
+            <div class="ui {{$.SemanticTheme}} dividing header">Admin Account: Reset Password</div>
             <div class="ui hidden divider"></div>
             <div class="field">
                 <div class="ui small header">Email Address</div>
@@ -98,6 +102,47 @@
                     </div>
                 </div>
             </div>
+
+            <div class="ui hidden section divider"></div>
+            {{if and $.Admin $.Info.TotpKey}}
+
+                <div class="ui {{$.SemanticTheme}} dividing header">Admin Account: Reset TOTP</div>
+                <div class="ui hidden divider"></div>
+                <input type="hidden" name="reset_totp" value="true"/>
+                <div class="equal width fields">
+                    <div class="field mobile hidden">&nbsp;</div>
+                    <div class="field">
+                        <div class="two ui buttons">
+                            <a href="/" class="ui huge button">Cancel</a>
+                            <button type="submit" class="ui huge red button">Remove Totp</button>
+                        </div>
+                    </div>
+                </div>
+            {{else}}
+                <div class="ui {{$.SemanticTheme}} dividing header">Admin Account: Setup MFA</div>
+                <div class="ui hidden divider"></div>
+                <div class="ui text container">Scan the below with your Authenticator App of choice (Google Authenticator, Authy etc...) and then put the code into the input box below</div>
+                <div class="ui hidden divider"></div>
+                <div class="ui centered segment">
+                    <div class="ui bottom attached label">Secret: {{$.TempTotpKey.Secret}}</div>
+                    <img class="ui centered image" src="/totp/image" alt="TOTP qr-code could not be displayed">
+                </div>
+                <div class="ui hidden divider"></div>
+                <div class="field">
+                    <div class="ui small header">TOTP Code</div>
+                    <input name="totp_code" type="text" placeholder="totp key" value="">
+                </div>
+                <div class="ui hidden divider"></div>
+                <div class="equal width fields">
+                    <div class="field mobile hidden">&nbsp;</div>
+                    <div class="field">
+                        <div class="two ui buttons">
+                            <a href="/" class="ui huge button">Cancel</a>
+                            <button type="submit" class="ui huge {{$.SemanticTheme}} button">Save</button>
+                        </div>
+                    </div>
+                </div>
+            {{end}}
         </form>
     </div>
 </div>
