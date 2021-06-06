@@ -203,6 +203,9 @@ if [[ ${SUBSPACE_DISABLE_DNS} == "0" ]]; then
 
     # Never forward addresses in the non-routed address spaces.
     bogus-priv
+    
+    # Allow extending dnsmasq by providing custom configurations.
+    conf-dir=/etc/dnsmasq.d
 DNSMASQ
 
     mkdir -p /etc/service/dnsmasq
