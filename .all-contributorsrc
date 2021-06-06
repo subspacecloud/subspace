@@ -220,6 +220,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "ThisIsQasim",
+      "name": "Qasim Mehmood",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18313886?v=4",
+      "profile": "https://github.com/ThisIsQasim",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
