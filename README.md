@@ -23,6 +23,7 @@
     - [3. Enable Let's Encrypt](#3-enable-lets-encrypt)
     - [Usage](#usage)
       - [Command Line Options](#command-line-options)
+      - [Environment Variable Options](#environment-variable-options)
     - [Run as a Docker container](#run-as-a-docker-container)
       - [Install WireGuard on the host](#install-wireguard-on-the-host)
       - [Docker-Compose Example](#docker-compose-example)
@@ -77,7 +78,8 @@ Create a DNS `A` record in your domain pointing to your server's IP address.
 
 ### 3. Enable Let's Encrypt
 
-Subspace runs a TLS ("SSL") https server on port 443/tcp. It also runs a standard web server on port 80/tcp to redirect clients to the secure server. Port 80/tcp is required for Let's Encrypt verification.
+Subspace runs a TLS ("SSL") https server on port 443/tcp. It also runs a standard web server on port 80/tcp to redirect clients to the secure server.
+Port 80/tcp is required for LetsEncrypt verification.
 
 **Requirements**
 
@@ -98,15 +100,33 @@ $ subspace --http-host subspace.example.com
 | :-------------: | :-----: | :------------------------------------------------------------------------------------------------------------------------ |
 |   `http-host`   |         | REQUIRED: The host to listen on and set cookies for                                                                       |
 |   `backlink`    |   `/`   | OPTIONAL: The page to set the home button to                                                                              |
-|    `datadir`    | `/data` | OPTIONAL: The directory to store data such as the wireguard configuration files                                           |
+|    `datadir`    | `/data` | OPTIONAL: The directory to store data such as the WireGuard configuration files                                           |
 |     `debug`     |         | OPTIONAL: Place subspace into debug mode for verbose log output                                                           |
 |   `http-addr`   |  `:80`  | OPTIONAL: HTTP listen address                                                                                             |
 | `http-insecure` |         | OPTIONAL: enable session cookies for http and remove redirect to https                                                    |
-|  `letsencrypt`  | `true`  | OPTIONAL: Whether or not to use a letsencrypt certificate                                                                 |
+|  `letsencrypt`  | `true`  | OPTIONAL: Whether or not to use a LetsEncrypt certificate                                                                 |
 |     `theme`     | `green` | OPTIONAL: The theme to use, please refer to [semantic-ui](https://semantic-ui.com/usage/theming.html) for accepted colors |
 |    `version`    |         | Display version of `subspace` and exit                                                                                    |
 |     `help`      |         | Display help and exit                                                                                                     |
 
+#### Environment Variable Options
+
+| variable                    | default             | description                                                                                                                                          |
+|-----------------------------|---------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `SUBSPACE_IPV4_POOL`        | `10.99.97.0/24`     | IPv4 Subnet to use as WireGuard subnet                                                                                                               |
+| `SUBSPACE_IPV6_POOL`        | `fd00::10:97:0/112` | IPv6 Subnet to use as WireGuard subnet                                                                                                               |
+| `SUBSPACE_NAMESERVERS`      | `1.1.1.1,1.0.0.1`   | Nameservers to use, by-default those of Cloudflare.                                                                                                  |
+| `SUBSPACE_LETSENCRYPT`      | `1`                 | Whether or not to use a LetsEncrypt certificate                                                                                                      |
+| `SUBSPACE_HTTP_ADDR`        | `:80`               | HTTP listen address                                                                                                                                  |
+| `SUBSPACE_HTTP_INSECURE`    | `false`             | Enable session cookies for http and remove redirect to https                                                                                         |
+| `SUBSPACE_LISTENPORT`       | `51820`             | Port for WireGuard to listen on                                                                                                                      |
+| `SUBSPACE_ENDPOINT_HOST`    | `httpHost`          | The host to listen on for the webserver, if it differs from the VPN GW.                                                                              |
+| `SUBSPACE_ALLOWED_IPS`      | `0.0.0.0/0, ::/0`   | Comma-separated list of IP's / subnets that are routed via WireGuard. By default everything is routed.                                               |
+| `SUBSPACE_IPV4_NAT_ENABLED` | `true`              | Whether to enable NAT routing for IPv4                                                                                                               |
+| `SUBSPACE_IPV6_NAT_ENABLED` | `true`              | Whether to enable NAT routing for IPv6                                                                                                               |
+| `SUBSPACE_THEME`            | `green`             | The theme to use, please refer to [semantic-ui](https://semantic-ui.com/usage/theming.html) for accepted colors                                      |
+| `SUBSPACE_BACKLINK`         | `/`                 | The page to set the home button to                                                                                                                   |
+| `SUBSPACE_DISABLE_DNS`      | `false`             | Whether to disable DNS so the client uses their own configured DNS server(s). Consider disabling DNS server, if supporting international VPN clients |
 
 ### Run as a Docker container
 
@@ -154,7 +174,7 @@ Make sure to change the `--env SUBSPACE_HTTP_HOST` to your publicly accessible d
 
 If you want to run the vpn on a different domain as the http host you can set `--env SUBSPACE_ENDPOINT_HOST`
 
-Use `--env SUBSPACE_DISABLE_DNS=1` to make subspace generate wireguard configs without the `DNS` option, preserving the user's DNS servers.
+Use `--env SUBSPACE_DISABLE_DNS=1` to make subspace generate WireGuard configs without the `DNS` option, preserving the user's DNS servers.
 
 ```bash
 
