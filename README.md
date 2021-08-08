@@ -12,6 +12,12 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=subspacecommunity_subspace&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=subspacecommunity_subspace)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=subspacecommunity_subspace&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=subspacecommunity_subspace)
 
+---
+
+**IMPORTANT NOTICE**: shorthand dockerhub tags are **OUTDATED**. Please use long tags with the correct Arch for your CPU architecture, i.e. avoid `latest` or `1.5.0` tags and use instead `amd64-v1.5.0` for 64bit processors, `arm32v7-v1.5.0` for ARM v7, and so on. See [issue](https://github.com/subspacecommunity/subspace/issues/193).
+
+---
+
 - [Subspace - A simple WireGuard VPN server GUI](#subspace---a-simple-wireguard-vpn-server-gui)
   - [Slack](#slack)
   - [Screenshots](#screenshots)
