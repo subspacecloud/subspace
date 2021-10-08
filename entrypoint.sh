@@ -211,7 +211,7 @@ DNSMASQ
     mkdir -p /etc/service/dnsmasq
     cat <<RUNIT >/etc/service/dnsmasq/run
 #!/bin/sh
-exec /usr/sbin/dnsmasq --no-daemon
+exec /usr/sbin/dnsmasq --keep-in-foreground
 RUNIT
     chmod +x /etc/service/dnsmasq/run
 
