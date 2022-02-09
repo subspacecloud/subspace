@@ -1,3 +1,17 @@
+# NOTE: New versions of Subspace
+
+## Subspace Commmunity
+
+The most actively maintained fork of Subspace with a number of improvements.
+
+### [Subspace Community Fork](https://github.com/subspacecommunity/subspace)
+
+## WarpSpeed VPN
+
+WarpSpeed VPN is an enhanced commercial rewrite of Subspace with a number of major improvements. It is free for personal use and for small open source projects. Designed to support the Subspace creator's new projects.
+
+### [WarpSpeed VPN on 1-Click Digital Ocean Marketplace](https://marketplace.digitalocean.com/apps/warpspeed-vpn-by-bunker)
+
 # Subspace - A simple WireGuard VPN server GUI
 
 ![Screenshot](https://raw.githubusercontent.com/subspacecloud/subspace/master/screenshot1.png?cachebust=8923409243)
