@@ -1,0 +1,31 @@
+version: '3'
+
+############
+#
+# Subspace - A simple WireGuard VPN server GUI
+#
+# https://github.com/subspacecloud/subspace
+#
+ ############
+
+services:
+
+  subspace:
+    image: subspacecloud/subspace:latest
+    container_name: subspace
+    restart: always
+    cap_add:
+     - NET_ADMIN
+    network_mode: host
+    ports:
+      - "2143:2143/udp"
+    environment:
+      - SUBSPACE_HTTP_HOST=subspace.example.com
+    volumes:
+     # Mount your data volume somewhere else by changing "./data" to a different path
+     - "./data:/data"
+     # Mounts the wireguard binary, read only
+     - "/usr/bin/wg:/usr/bin/wg:ro"
+
+
+
