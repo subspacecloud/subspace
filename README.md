@@ -133,6 +133,7 @@ $ subspace --http-host subspace.example.com
 | `SUBSPACE_THEME`            | `green`             | The theme to use, please refer to [semantic-ui](https://semantic-ui.com/usage/theming.html) for accepted colors                                      |
 | `SUBSPACE_BACKLINK`         | `/`                 | The page to set the home button to                                                                                                                   |
 | `SUBSPACE_DISABLE_DNS`      | `false`             | Whether to disable DNS so the client uses their own configured DNS server(s). Consider disabling DNS server, if supporting international VPN clients |
+| `SUBSPACE_PERSISTENT_KEEPALIVE`      | `0`             | Whether PersistentKeepalive should be enabled for clients (seconds) |
 
 ### Run as a Docker container
 
@@ -211,6 +212,8 @@ docker create \
   # Optional variable to disable DNS server. Enabled by default.
   # consider disabling DNS server, if supporting international VPN clients
     --env SUBSPACE_DISABLE_DNS=0 \
+    # Optional variable to change PersistentKeepalive
+    --env SUBSPACE_PERSISTENT_KEEPALIVE=20 \
     subspacecommunity/subspace:latest
 
 $ sudo docker start subspace
@@ -246,6 +249,7 @@ services:
     - SUBSPACE_IPV6_GW=fd00::10:97:1
     - SUBSPACE_IPV6_NAT_ENABLED=1
     - SUBSPACE_DISABLE_DNS=0
+    - SUBSPACE_PERSISTENT_KEEPALIVE=20
    cap_add:
     - NET_ADMIN
    network_mode: "host"

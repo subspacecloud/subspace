@@ -462,6 +462,10 @@ func profileAddHandler(w *Web) {
 	if shouldDisableDNS := getEnv("SUBSPACE_DISABLE_DNS", "0"); shouldDisableDNS == "1" {
 		disableDNS = true
 	}
+	persistentKeepalive := "0"
+	if keepalive := getEnv("SUBSPACE_PERSISTENT_KEEPALIVE", "nil"); keepalive != "nil" {
+		persistentKeepalive = keepalive
+	}
 
 	script := `
 cd {{$.Datadir}}/wireguard
@@ -489,23 +493,25 @@ PublicKey = $(cat server.public)
 
 Endpoint = {{$.EndpointHost}}:{{$.Listenport}}
 AllowedIPs = {{$.AllowedIPS}}
+PersistentKeepalive = {{$.PersistentKeepalive}}
 WGCLIENT
 `
 	_, err = bash(script, struct {
-		Profile      Profile
-		EndpointHost string
-		Datadir      string
-		IPv4Gw       string
-		IPv6Gw       string
-		IPv4Pref     string
-		IPv6Pref     string
-		IPv4Cidr     string
-		IPv6Cidr     string
-		Listenport   string
-		AllowedIPS   string
-		Ipv4Enabled  bool
-		Ipv6Enabled  bool
-		DisableDNS   bool
+		Profile      		Profile
+		EndpointHost 		string
+		Datadir      		string
+		IPv4Gw       		string
+		IPv6Gw       		string
+		IPv4Pref     		string
+		IPv6Pref     		string
+		IPv4Cidr     		string
+		IPv6Cidr     		string
+		Listenport   		string
+		AllowedIPS   		string
+		Ipv4Enabled  		bool
+		Ipv6Enabled  		bool
+		DisableDNS   		bool
+		PersistentKeepalive string
 	}{
 		profile,
 		endpointHost,
@@ -521,6 +527,7 @@ WGCLIENT
 		ipv4Enabled,
 		ipv6Enabled,
 		disableDNS,
+		persistentKeepalive,
 	})
 	if err != nil {
 		logger.Warn(err)
