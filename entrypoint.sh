@@ -109,7 +109,7 @@ fi
 cat <<WGSERVER >/data/wireguard/server.conf
 [Interface]
 PrivateKey = $(cat /data/wireguard/server.private)
-ListenPort = 51820
+ListenPort = ${SUBSPACE_WG_PORT:-51820}
 
 WGSERVER
 cat /data/wireguard/peers/*.conf >>/data/wireguard/server.conf

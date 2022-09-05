@@ -132,6 +132,8 @@ sysctl -w net.ipv6.conf.all.forwarding=1
 
 Follow the official Docker install instructions: [Get Docker CE for Ubuntu](https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/)
 
+#### Run directly with Docker
+
 Make sure to change the `--env SUBSPACE_HTTP_HOST` to your publicly accessible domain name.
 
 ```bash
@@ -155,6 +157,32 @@ $ sudo docker logs subspace
 
 <log output>
 
+```
+#### Run with docker Compose
+
+```yaml
+# docker-compose.yml
+version: "3.5"
+services:
+  subspace:
+    image: subspacecloud/subspace:latest
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./data:/data
+      - /usr/bin/wg:/usr/bin/wg
+    environment:
+      - NAMESERVER=1.1.1.1   
+      - SUBSPACE_HTTP_HOST=subspace.example.com
+      - SUBSPACE_HTTP_INSECURE=true
+      - SUBSPACE_LETSENCRYPT=false
+      - SUBSPACE_WG_PORT=51820
+
+```
+```bash
+# Bring services UP
+docker compose up 
 ```
 
 #### Updating the container image
